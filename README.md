@@ -7,7 +7,11 @@ AD 與 Entra ID 混合環境的 AI 資安防護平台。本版本為 **MVP（Pha
 - Agent 層（Claude Agent SDK + 唯讀 MCP）只負責自然語言問答與解讀，經 LiteLLM 接**地端模型**，資料不出公司。
 - 修補建議只產出，不執行；變更須走人工審核閘門（Phase 3）。
 
-架構與設計決策見 [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)。
+| 文件 | 內容 |
+| --- | --- |
+| [docs/OPERATIONS.md](docs/OPERATIONS.md) | 操作說明：安裝、設定、新增法人、日常流程、Agent 問答、疑難排解 |
+| [docs/VERIFICATION.md](docs/VERIFICATION.md) | 驗證步驟：開發、部署、LAB 實機三段，含預期結果與通過標準 |
+| [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | 架構與設計決策 |
 
 ## 快速開始（模擬資料）
 
@@ -17,6 +21,7 @@ idsec mock-gen          # 產生三個模擬法人（固定種子，可重現）
 idsec run               # 盤點 → 能力矩陣 → 評估 → 路徑 → 報告
 idsec audit-verify      # 驗證稽核鏈
 pytest                  # 23 項測試，含以樁模型跑通 Agent 全流程
+python scripts/verify_mvp.py --e2e   # 驗收腳本：逐項比對預期值，輸出 PASS / FAIL
 ```
 
 報告在 `output/<法人>/report.md`，另有 `fingerprint.json`、`capability.json`、`paths.json`、`findings.json`。
