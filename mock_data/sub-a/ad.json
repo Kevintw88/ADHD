@@ -1,0 +1,1147 @@
+{
+ "forest": "suba.corp.example",
+ "domains": [
+  {
+   "name": "suba.corp.example",
+   "functional_level": "2012 R2",
+   "dcs": [
+    {
+     "name": "SUBA-DC01",
+     "os": "Windows Server 2016 Standard"
+    }
+   ]
+  }
+ ],
+ "trusts": [
+  {
+   "source": "suba.corp.example",
+   "target": "hq.corp.example",
+   "direction": "bidirectional",
+   "sid_filtering": true
+  }
+ ],
+ "users": [
+  {
+   "sam": "u0001",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0002",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 588,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0003",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 404,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0004",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0005",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0006",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0007",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0008",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0009",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0010",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0011",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0012",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0013",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0014",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0015",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0016",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0017",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 169,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0018",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 440,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0019",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0020",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0021",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0022",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0023",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0024",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0025",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0026",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 195,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0027",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0028",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 378,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0029",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0030",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0031",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0032",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0033",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0034",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0035",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0036",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0037",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0038",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0039",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0040",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0041",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0042",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 475,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0043",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0044",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0045",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0046",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0047",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 129,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0048",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0049",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0050",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0051",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0052",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 552,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0053",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0054",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0055",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0056",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0057",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 23,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0058",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0059",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 305,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0060",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0061",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0062",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 22,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0063",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 22,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0064",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0065",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0066",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0067",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 22,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0068",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0069",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0070",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0071",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 310,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0072",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0073",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0074",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0075",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0076",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 531,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0077",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "u0078",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0079",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Ops"
+   ]
+  },
+  {
+   "sam": "u0080",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "adm.huang",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [],
+   "pwd_never_expires": true,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Domain Admins"
+   ]
+  },
+  {
+   "sam": "it.chou",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "IT"
+   ]
+  },
+  {
+   "sam": "svc_erp",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [
+    "HTTP/erp.suba.corp.example"
+   ],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Ops"
+   ]
+  }
+ ],
+ "group_parents": {},
+ "computers": [
+  {
+   "name": "SUBA-DC01",
+   "os": "Windows Server 2016 Standard",
+   "unconstrained_delegation": false,
+   "role": "dc"
+  },
+  {
+   "name": "SRV-ADFS01",
+   "os": "Windows Server 2016 Standard",
+   "unconstrained_delegation": false,
+   "role": "adfs"
+  },
+  {
+   "name": "SRV-AADC-A",
+   "os": "Windows Server 2019 Standard",
+   "unconstrained_delegation": false,
+   "role": "entra-connect"
+  },
+  {
+   "name": "SUBA-WS001",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS002",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS003",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS004",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS005",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS006",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS007",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS008",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS009",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS010",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS011",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS012",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS013",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS014",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBA-WS015",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  }
+ ],
+ "gmsa_count": 0,
+ "adcs": {
+  "present": false,
+  "cas": [],
+  "templates": []
+ },
+ "audit_policy": {
+  "Credential Validation": "Success,Failure",
+  "Kerberos Authentication Service": "Success,Failure",
+  "User Account Management": "Success,Failure",
+  "Computer Account Management": "Success,Failure",
+  "Logon": "Success,Failure"
+ }
+}

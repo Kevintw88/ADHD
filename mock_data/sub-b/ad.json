@@ -1,0 +1,612 @@
+{
+ "forest": "subb.local",
+ "domains": [
+  {
+   "name": "subb.local",
+   "functional_level": "2008 R2",
+   "dcs": [
+    {
+     "name": "SUBB-DC01",
+     "os": "Windows Server 2012 R2 Standard"
+    }
+   ]
+  }
+ ],
+ "trusts": [],
+ "users": [
+  {
+   "sam": "u0001",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 23,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0002",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0003",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 243,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0004",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0005",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 482,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0006",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 412,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0007",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0008",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0009",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0010",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0011",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0012",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 245,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0013",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0014",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0015",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0016",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 357,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0017",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0018",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0019",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0020",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0021",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0022",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 448,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0023",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 24,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0024",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0025",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0026",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0027",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": true,
+   "last_logon_days": 3,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0028",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 367,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0029",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0030",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0031",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0032",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0033",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0034",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0035",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0036",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0037",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 546,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0038",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 128,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "u0039",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Plant"
+   ]
+  },
+  {
+   "sam": "u0040",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "Admin"
+   ]
+  },
+  {
+   "sam": "administrator",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [],
+   "pwd_never_expires": true,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Domain Admins"
+   ]
+  },
+  {
+   "sam": "svc_mes",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [
+    "MES/srv-mes01.subb.local"
+   ],
+   "pwd_never_expires": true,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Domain Admins"
+   ]
+  }
+ ],
+ "group_parents": {},
+ "computers": [
+  {
+   "name": "SUBB-DC01",
+   "os": "Windows Server 2012 R2 Standard",
+   "unconstrained_delegation": false,
+   "role": "dc"
+  },
+  {
+   "name": "SRV-FILE01",
+   "os": "Windows Server 2012 R2 Standard",
+   "unconstrained_delegation": true,
+   "role": "server"
+  },
+  {
+   "name": "SRV-MES01",
+   "os": "Windows Server 2016 Standard",
+   "unconstrained_delegation": false,
+   "role": "server"
+  },
+  {
+   "name": "SUBB-WS001",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS002",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS003",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS004",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS005",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS006",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS007",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS008",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS009",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "SUBB-WS010",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  }
+ ],
+ "gmsa_count": 0,
+ "adcs": {
+  "present": false,
+  "cas": [],
+  "templates": []
+ },
+ "audit_policy": null
+}

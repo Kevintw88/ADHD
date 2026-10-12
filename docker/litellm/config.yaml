@@ -1,0 +1,22 @@
+# LiteLLM 閘道：對 Agent 提供 Anthropic Messages 相容介面（/v1/messages），後端接地端 vLLM。
+# 模型名稱需與 config/settings.yaml 的 models.fast / models.reason 一致。
+# 上線前請以評測集驗證兩個模型的 tool use 格式相容性與串流行為。
+
+model_list:
+  - model_name: qwen3.8-flash-next
+    litellm_params:
+      model: hosted_vllm/qwen3.8-flash-next
+      api_base: os.environ/VLLM_QWEN_BASE
+      api_key: os.environ/VLLM_API_KEY
+  - model_name: glm-5.3-flash
+    litellm_params:
+      model: hosted_vllm/glm-5.3-flash
+      api_base: os.environ/VLLM_GLM_BASE
+      api_key: os.environ/VLLM_API_KEY
+
+litellm_settings:
+  drop_params: true          # 地端模型不支援的 Anthropic 參數直接略過
+  request_timeout: 300
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY

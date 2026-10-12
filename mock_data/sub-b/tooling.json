@@ -1,0 +1,11 @@
+{
+ "mdi": false,
+ "edr": null,
+ "siem": null,
+ "siem_ingest": {
+  "dc_security": false,
+  "entra_signin": false,
+  "entra_audit": false
+ },
+ "sysmon_coverage": null
+}

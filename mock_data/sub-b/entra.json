@@ -1,0 +1,14 @@
+{
+ "tenant_present": false,
+ "tenant_id": "",
+ "sync": {
+  "tool": "None",
+  "auth": "None",
+  "seamless_sso": false
+ },
+ "licenses": [],
+ "conditional_access": [],
+ "privileged_roles": [],
+ "service_principals": [],
+ "guests_count": 0
+}

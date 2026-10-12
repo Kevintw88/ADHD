@@ -1,0 +1,3379 @@
+{
+ "forest": "hq.corp.example",
+ "domains": [
+  {
+   "name": "hq.corp.example",
+   "functional_level": "2016",
+   "dcs": [
+    {
+     "name": "DC01",
+     "os": "Windows Server 2022 Standard"
+    },
+    {
+     "name": "DC02",
+     "os": "Windows Server 2022 Standard"
+    }
+   ]
+  }
+ ],
+ "trusts": [
+  {
+   "source": "hq.corp.example",
+   "target": "suba.corp.example",
+   "direction": "bidirectional",
+   "sid_filtering": true
+  },
+  {
+   "source": "hq.corp.example",
+   "target": "legacy.local",
+   "direction": "bidirectional",
+   "sid_filtering": false
+  }
+ ],
+ "users": [
+  {
+   "sam": "u0001",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0002",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0003",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0004",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0005",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0006",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0007",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 595,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0008",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0009",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 22,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0010",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0011",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0012",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0013",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0014",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0015",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 241,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0016",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 258,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0017",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0018",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0019",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0020",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0021",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0022",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0023",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0024",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0025",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0026",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0027",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0028",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0029",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0030",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0031",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0032",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0033",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0034",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0035",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0036",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0037",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0038",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0039",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0040",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 292,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0041",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0042",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 558,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0043",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 367,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0044",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0045",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 248,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0046",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0047",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0048",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0049",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0050",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0051",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 326,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0052",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0053",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 530,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0054",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0055",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0056",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0057",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0058",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0059",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0060",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0061",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0062",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0063",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 465,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0064",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 297,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0065",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 483,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0066",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 24,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0067",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0068",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0069",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0070",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0071",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0072",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0073",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0074",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0075",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0076",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0077",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0078",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0079",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0080",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0081",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 22,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0082",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0083",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0084",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 472,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0085",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0086",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 24,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0087",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0088",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 571,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0089",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0090",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0091",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0092",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0093",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0094",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0095",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0096",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0097",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0098",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0099",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0100",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0101",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0102",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 23,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0103",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": true,
+   "last_logon_days": 25,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0104",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0105",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0106",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 574,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0107",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0108",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 538,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0109",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0110",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0111",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0112",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 23,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0113",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 3,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0114",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0115",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0116",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0117",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 3,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0118",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0119",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0120",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0121",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0122",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 3,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0123",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0124",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0125",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0126",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 308,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0127",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0128",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0129",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 3,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0130",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0131",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0132",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0133",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0134",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 298,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0135",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 141,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0136",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0137",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 502,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0138",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0139",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0140",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0141",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 215,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0142",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0143",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0144",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0145",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0146",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0147",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0148",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0149",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0150",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0151",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 23,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0152",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0153",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0154",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0155",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0156",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0157",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0158",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0159",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0160",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0161",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0162",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0163",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0164",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0165",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0166",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 29,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0167",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 16,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0168",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0169",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0170",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0171",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0172",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0173",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0174",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0175",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0176",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0177",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 28,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0178",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 435,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0179",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 12,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0180",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0181",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 10,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0182",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 365,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0183",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0184",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0185",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 134,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0186",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 546,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0187",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0188",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0189",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 22,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0190",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 30,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0191",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0192",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 490,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0193",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0194",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0195",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0196",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0197",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0198",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0199",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0200",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 268,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0201",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0202",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 26,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0203",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 5,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0204",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 14,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0205",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0206",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0207",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0208",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0209",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0210",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0211",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 17,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0212",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0213",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": true,
+   "last_logon_days": 9,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0214",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0215",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0216",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0217",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0218",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 27,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0219",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0220",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0221",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 13,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0222",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0223",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0224",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0225",
+   "enabled": false,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 23,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0226",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 20,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0227",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 11,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0228",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0229",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 18,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0230",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 301,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0231",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "u0232",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 19,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0233",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 6,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0234",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "u0235",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 25,
+   "groups": [
+    "HR"
+   ]
+  },
+  {
+   "sam": "u0236",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 15,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0237",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 9,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0238",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 8,
+   "groups": [
+    "Finance"
+   ]
+  },
+  {
+   "sam": "u0239",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 7,
+   "groups": [
+    "Sales"
+   ]
+  },
+  {
+   "sam": "u0240",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 21,
+   "groups": [
+    "Manufacturing"
+   ]
+  },
+  {
+   "sam": "adm.chen",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "Domain Admins"
+   ]
+  },
+  {
+   "sam": "adm.wang",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [],
+   "pwd_never_expires": true,
+   "dont_require_preauth": false,
+   "last_logon_days": 3,
+   "groups": [
+    "Domain Admins"
+   ]
+  },
+  {
+   "sam": "svc_sql",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [
+    "MSSQLSvc/srv-sql01.hq.corp.example:1433"
+   ],
+   "pwd_never_expires": true,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Domain Admins"
+   ]
+  },
+  {
+   "sam": "svc_backup",
+   "enabled": true,
+   "admin_count": true,
+   "spns": [
+    "backup/srv-bak01.hq.corp.example"
+   ],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Backup Operators"
+   ]
+  },
+  {
+   "sam": "svc_web",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [
+    "HTTP/intranet.hq.corp.example"
+   ],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "Server-Admins"
+   ]
+  },
+  {
+   "sam": "helpdesk.lee",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "IT-Helpdesk"
+   ]
+  },
+  {
+   "sam": "helpdesk.wu",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 2,
+   "groups": [
+    "IT-Helpdesk"
+   ]
+  },
+  {
+   "sam": "ops.kao",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 1,
+   "groups": [
+    "IT-Ops"
+   ]
+  },
+  {
+   "sam": "dev.lin",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 0,
+   "groups": [
+    "RD"
+   ]
+  },
+  {
+   "sam": "it-cloudadmin",
+   "enabled": true,
+   "admin_count": false,
+   "spns": [],
+   "pwd_never_expires": false,
+   "dont_require_preauth": false,
+   "last_logon_days": 4,
+   "groups": [
+    "IT-Ops"
+   ]
+  }
+ ],
+ "group_parents": {
+  "Server-Admins": [
+   "IT-Ops"
+  ]
+ },
+ "computers": [
+  {
+   "name": "DC01",
+   "os": "Windows Server 2022 Standard",
+   "unconstrained_delegation": false,
+   "role": "dc"
+  },
+  {
+   "name": "DC02",
+   "os": "Windows Server 2022 Standard",
+   "unconstrained_delegation": false,
+   "role": "dc"
+  },
+  {
+   "name": "SRV-AADC01",
+   "os": "Windows Server 2022 Standard",
+   "unconstrained_delegation": false,
+   "role": "entra-connect"
+  },
+  {
+   "name": "SRV-CA01",
+   "os": "Windows Server 2019 Standard",
+   "unconstrained_delegation": false,
+   "role": "ca"
+  },
+  {
+   "name": "AZUREADSSOACC",
+   "os": "",
+   "unconstrained_delegation": false,
+   "role": "seamless-sso"
+  },
+  {
+   "name": "SRV-APP01",
+   "os": "Windows Server 2016 Standard",
+   "unconstrained_delegation": true,
+   "role": "server"
+  },
+  {
+   "name": "SRV-SQL01",
+   "os": "Windows Server 2019 Standard",
+   "unconstrained_delegation": false,
+   "role": "server"
+  },
+  {
+   "name": "HQ-WS001",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS002",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS003",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS004",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS005",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS006",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS007",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS008",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS009",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS010",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS011",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS012",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS013",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS014",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS015",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS016",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS017",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS018",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS019",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS020",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS021",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS022",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS023",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS024",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS025",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS026",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS027",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS028",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS029",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS030",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS031",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS032",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS033",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS034",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS035",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS036",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS037",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS038",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS039",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  },
+  {
+   "name": "HQ-WS040",
+   "os": "Windows 11 Enterprise",
+   "unconstrained_delegation": false,
+   "role": "workstation"
+  }
+ ],
+ "gmsa_count": 3,
+ "adcs": {
+  "present": true,
+  "cas": [
+   "HQ-ISSUING-CA"
+  ],
+  "templates": [
+   {
+    "name": "User",
+    "enrollee_supplies_subject": false,
+    "client_auth": true,
+    "manager_approval": false,
+    "enroll_principals": [
+     "Domain Users"
+    ]
+   },
+   {
+    "name": "WebServer",
+    "enrollee_supplies_subject": true,
+    "client_auth": false,
+    "manager_approval": false,
+    "enroll_principals": [
+     "Server-Admins"
+    ]
+   },
+   {
+    "name": "VPNUser",
+    "enrollee_supplies_subject": true,
+    "client_auth": true,
+    "manager_approval": false,
+    "enroll_principals": [
+     "Domain Users"
+    ]
+   }
+  ]
+ },
+ "audit_policy": {
+  "Credential Validation": "Success,Failure",
+  "Kerberos Authentication Service": "Success,Failure",
+  "Kerberos Service Ticket Operations": "Success,Failure",
+  "User Account Management": "Success,Failure",
+  "Security Group Management": "Success,Failure",
+  "Computer Account Management": "Success,Failure",
+  "Directory Service Access": "Success,Failure",
+  "Directory Service Changes": "Success,Failure",
+  "Logon": "Success,Failure",
+  "Special Logon": "Success,Failure",
+  "Certification Services": ""
+ }
+}

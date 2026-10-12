@@ -1,0 +1,48 @@
+# hybrid-idsec 設定檔
+# 相對路徑以專案根目錄為準；可用 IDSEC_CONFIG 指定其他設定檔。
+
+output_dir: output
+audit_log: output/audit/audit.jsonl
+capability_matrix: config/capability_matrix.yaml
+
+models:
+  fast: qwen3.8-flash-next      # 高量、低風險：分流、摘要
+  reason: glm-5.3-flash         # 查詢生成、路徑解釋；分工以評測集結果為準
+  base_url: http://litellm:4000 # LiteLLM 閘道（Anthropic Messages 相容）
+
+entities:
+  # ---- 模擬資料（開發與展示用）----
+  - id: hq
+    name: 總公司（模擬）
+    backend: mock
+    data_dir: mock_data/hq
+    reports_dir: mock_data/hq/reports
+  - id: sub-a
+    name: 子公司 A（模擬）
+    backend: mock
+    data_dir: mock_data/sub-a
+    reports_dir: mock_data/sub-a/reports
+  - id: sub-b
+    name: 子公司 B（模擬）
+    backend: mock
+    data_dir: mock_data/sub-b
+    reports_dir: mock_data/sub-b/reports
+
+  # ---- 實機範例（LAB 驗證後啟用）----
+  # - id: hq-live
+  #   name: 總公司
+  #   backend: live
+  #   reports_dir: /data/reports/hq          # PingCastle XML 放這裡
+  #   tooling_file: /data/tooling/hq.yaml    # IT 填寫：MDI、EDR、SIEM、Sysmon 覆蓋率、稽核原則
+  #   ldap:
+  #     server: dc01.corp.example
+  #     base_dn: DC=corp,DC=example
+  #     use_ssl: true                        # 帳密由 IDSEC_LDAP_USER / IDSEC_LDAP_PASSWORD 提供（建議 gMSA 或唯讀帳號）
+  #   graph:
+  #     tenant_id: 00000000-0000-0000-0000-000000000000
+  #     client_id: 00000000-0000-0000-0000-000000000000
+  #     cert_path: /secrets/graph-readonly.pem
+  #     cert_thumbprint: ABCDEF...
+  #   neo4j:
+  #     uri: bolt://bloodhound-neo4j:7687
+  #     user: neo4j                          # 密碼由 IDSEC_NEO4J_PASSWORD 提供

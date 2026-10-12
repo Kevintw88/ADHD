@@ -1,0 +1,55 @@
+# 用法（於專案根目錄）：
+#   cp docker/.env.example docker/.env   # 填入 LiteLLM 金鑰與 vLLM 位址
+#   docker compose -f docker/docker-compose.yml --env-file docker/.env up -d litellm
+#   docker compose -f docker/docker-compose.yml --env-file docker/.env run --rm idsec run
+#   docker compose -f docker/docker-compose.yml --env-file docker/.env run --rm idsec ask hq "先修哪一條路徑？"
+#
+# 部署位置：總公司 Tier 0 隔離區。vLLM 為既有 GPU 叢集，不在此 compose 內。
+
+name: hybrid-idsec
+
+services:
+  litellm:
+    image: ghcr.io/berriai/litellm:main-stable   # 正式環境請改為固定版本並鏡像到內部 registry
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    environment:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:?請在 .env 設定}
+      VLLM_QWEN_BASE: ${VLLM_QWEN_BASE}
+      VLLM_GLM_BASE: ${VLLM_GLM_BASE}
+      VLLM_API_KEY: ${VLLM_API_KEY:-none}
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml:ro
+    networks: [idsec-internal, model-net]
+    restart: unless-stopped
+
+  idsec:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: hybrid-idsec:0.1.0
+    depends_on: [litellm]
+    environment:
+      ANTHROPIC_BASE_URL: http://litellm:4000
+      LITELLM_API_KEY: ${LITELLM_MASTER_KEY}
+      IDSEC_CONFIG: /app/config/settings.yaml
+      # live 法人的唯讀憑證（未使用 mock 時才需要）
+      IDSEC_LDAP_USER: ${IDSEC_LDAP_USER:-}
+      IDSEC_LDAP_PASSWORD: ${IDSEC_LDAP_PASSWORD:-}
+      IDSEC_NEO4J_PASSWORD: ${IDSEC_NEO4J_PASSWORD:-}
+    volumes:
+      - ../config:/app/config:ro
+      - ../output:/app/output
+      # - /secure/graph-readonly.pem:/secrets/graph-readonly.pem:ro
+      # - /secure/reports:/data/reports:ro
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /home/idsec        # Agent CLI 的工作目錄
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    networks: [idsec-internal]   # live 模式需另外接上可達 DC / Graph / Neo4j 的網段
+
+networks:
+  idsec-internal:
+    internal: true   # 無對外出口
+  model-net: {}      # LiteLLM 連往 vLLM 叢集

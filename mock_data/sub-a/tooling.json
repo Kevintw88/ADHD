@@ -1,0 +1,11 @@
+{
+ "mdi": false,
+ "edr": "Trend Micro Apex One",
+ "siem": null,
+ "siem_ingest": {
+  "dc_security": false,
+  "entra_signin": false,
+  "entra_audit": false
+ },
+ "sysmon_coverage": 0.1
+}

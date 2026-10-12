@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HealthcheckData>
+  <DomainFQDN>hq.corp.example</DomainFQDN>
+  <GenerationDate>2026-10-01T09:00:00</GenerationDate>
+  <GlobalScore>100</GlobalScore>
+  <RiskRules>
+    <HealthcheckRiskRule>
+      <Points>50</Points>
+      <Category>Anomalies</Category>
+      <Model>PrivilegeEscalation</Model>
+      <RiskId>A-CertTempCustomSubject</RiskId>
+      <Rationale>At least one certificate template used for authentication can have its subject modified when used (VPNUser).</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>20</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>AccountTakeOver</Model>
+      <RiskId>P-ServiceDomainAdmin</RiskId>
+      <Rationale>A service account with an SPN is member of Domain Admins (svc_sql).</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>20</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>AccountTakeOver</Model>
+      <RiskId>P-Kerberoasting</RiskId>
+      <Rationale>Privileged accounts can be attacked by Kerberoasting: 2 accounts.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>DelegationCheck</Model>
+      <RiskId>P-UnconstrainedDelegation</RiskId>
+      <Rationale>Presence of unconstrained delegation on computers other than DC: 1 (SRV-APP01).</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>Trusts</Category>
+      <Model>SIDFiltering</Model>
+      <RiskId>T-SIDFiltering</RiskId>
+      <Rationale>Trust with legacy.local has SID Filtering disabled.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>10</Points>
+      <Category>StaleObjects</Category>
+      <Model>ObjectConfig</Model>
+      <RiskId>S-NoPreAuth</RiskId>
+      <Rationale>Accounts do not require Kerberos pre-authentication: 2.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>1</Points>
+      <Category>StaleObjects</Category>
+      <Model>ObjectConfig</Model>
+      <RiskId>S-PwdNeverExpires</RiskId>
+      <Rationale>Accounts with password never expires: 2.</Rationale>
+    </HealthcheckRiskRule>
+  </RiskRules>
+</HealthcheckData>
