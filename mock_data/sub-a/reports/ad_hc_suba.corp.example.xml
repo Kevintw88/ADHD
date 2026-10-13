@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HealthcheckData>
+  <DomainFQDN>suba.corp.example</DomainFQDN>
+  <GenerationDate>2026-10-01T09:00:00</GenerationDate>
+  <GlobalScore>80</GlobalScore>
+  <RiskRules>
+    <HealthcheckRiskRule>
+      <Points>30</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>ControlPath</Model>
+      <RiskId>P-ControlPathIndirectEveryone</RiskId>
+      <Rationale>Non-privileged group IT has GenericAll on a Domain Admin account.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>Anomalies</Category>
+      <Model>NetworkSniffing</Model>
+      <RiskId>A-DCLdapSign</RiskId>
+      <Rationale>LDAP signing is not required on domain controllers.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>Anomalies</Category>
+      <Model>PassTheCredential</Model>
+      <RiskId>A-LAPS-NotInstalled</RiskId>
+      <Rationale>LAPS is not deployed.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>10</Points>
+      <Category>StaleObjects</Category>
+      <Model>OldAuthenticationProtocols</Model>
+      <RiskId>S-SMB-v1</RiskId>
+      <Rationale>SMB v1 is enabled on SUBA-DC01.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>10</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>AccountTakeOver</Model>
+      <RiskId>P-AdminPwdTooOld</RiskId>
+      <Rationale>The password of a Domain Admin account has not been changed for more than 3 years.</Rationale>
+    </HealthcheckRiskRule>
+  </RiskRules>
+</HealthcheckData>

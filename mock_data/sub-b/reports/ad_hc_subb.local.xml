@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HealthcheckData>
+  <DomainFQDN>subb.local</DomainFQDN>
+  <GenerationDate>2026-10-01T09:00:00</GenerationDate>
+  <GlobalScore>65</GlobalScore>
+  <RiskRules>
+    <HealthcheckRiskRule>
+      <Points>20</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>AccountTakeOver</Model>
+      <RiskId>P-ServiceDomainAdmin</RiskId>
+      <Rationale>A service account with an SPN is member of Domain Admins (svc_mes).</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>PrivilegedAccounts</Category>
+      <Model>DelegationCheck</Model>
+      <RiskId>P-UnconstrainedDelegation</RiskId>
+      <Rationale>Presence of unconstrained delegation on computers other than DC: 1 (SRV-FILE01).</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>15</Points>
+      <Category>Anomalies</Category>
+      <Model>PassTheCredential</Model>
+      <RiskId>A-LAPS-NotInstalled</RiskId>
+      <Rationale>LAPS is not deployed.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>10</Points>
+      <Category>StaleObjects</Category>
+      <Model>OldAuthenticationProtocols</Model>
+      <RiskId>S-SMB-v1</RiskId>
+      <Rationale>SMB v1 is enabled on SUBB-DC01.</Rationale>
+    </HealthcheckRiskRule>
+    <HealthcheckRiskRule>
+      <Points>5</Points>
+      <Category>Anomalies</Category>
+      <Model>PasswordPolicy</Model>
+      <RiskId>A-NoServicePolicy</RiskId>
+      <Rationale>No password policy for service accounts found (MinimumPasswordLength >= 20).</Rationale>
+    </HealthcheckRiskRule>
+  </RiskRules>
+</HealthcheckData>

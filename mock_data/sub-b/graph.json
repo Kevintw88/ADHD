@@ -1,0 +1,890 @@
+{
+ "nodes": [
+  {
+   "id": "COMPUTER:SRV-FILE01@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SRV-FILE01",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SRV-MES01@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SRV-MES01",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-DC01@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-DC01",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS001@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS001",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS002@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS002",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS003@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS003",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS004@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS004",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS005@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS005",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS006@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS006",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS007@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS007",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS008@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS008",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS009@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS009",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SUBB-WS010@SUBB.LOCAL",
+   "kind": "Computer",
+   "name": "SUBB-WS010",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "DOMAIN:SUBB.LOCAL@SUBB.LOCAL",
+   "kind": "Domain",
+   "name": "subb.local",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "Group",
+   "name": "Admin",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:ADMINISTRATORS@SUBB.LOCAL",
+   "kind": "Group",
+   "name": "Administrators",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:DOMAIN ADMINS@SUBB.LOCAL",
+   "kind": "Group",
+   "name": "Domain Admins",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "Group",
+   "name": "Domain Users",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:ENTERPRISE ADMINS@SUBB.LOCAL",
+   "kind": "Group",
+   "name": "Enterprise Admins",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "Group",
+   "name": "Plant",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:ADMINISTRATOR@SUBB.LOCAL",
+   "kind": "User",
+   "name": "administrator",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:SVC_MES@SUBB.LOCAL",
+   "kind": "User",
+   "name": "svc_mes",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0001@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0001",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0002@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0002",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0003@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0003",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0004@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0004",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0005@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0005",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0006@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0006",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0007@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0007",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0008@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0008",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0009@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0009",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0010@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0010",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0011@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0011",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0012@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0012",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0013@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0013",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0014@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0014",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0015@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0015",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0016@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0016",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0017@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0017",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0018@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0018",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0019@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0019",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0020@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0020",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0021@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0021",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0022@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0022",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0023@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0023",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0024@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0024",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0025@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0025",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0026@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0026",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0027@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0027",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0028@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0028",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0029@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0029",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0030@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0030",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0031@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0031",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0032@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0032",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0033@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0033",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0034@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0034",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0035@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0035",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0036@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0036",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0037@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0037",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0038@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0038",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0039@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0039",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0040@SUBB.LOCAL",
+   "kind": "User",
+   "name": "u0040",
+   "tier0": false,
+   "enabled": true
+  }
+ ],
+ "edges": [
+  {
+   "src": "COMPUTER:SUBB-DC01@SUBB.LOCAL",
+   "dst": "DOMAIN:SUBB.LOCAL@SUBB.LOCAL",
+   "kind": "DCSync"
+  },
+  {
+   "src": "GROUP:ADMINISTRATORS@SUBB.LOCAL",
+   "dst": "DOMAIN:SUBB.LOCAL@SUBB.LOCAL",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "GROUP:DOMAIN ADMINS@SUBB.LOCAL",
+   "dst": "DOMAIN:SUBB.LOCAL@SUBB.LOCAL",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "GROUP:ENTERPRISE ADMINS@SUBB.LOCAL",
+   "dst": "DOMAIN:SUBB.LOCAL@SUBB.LOCAL",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "USER:ADMINISTRATOR@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN ADMINS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:ADMINISTRATOR@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_MES@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN ADMINS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_MES@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0001@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0001@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0002@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0002@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0003@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0003@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0004@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0004@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0005@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0005@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0006@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0006@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0007@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0007@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0008@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0008@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0009@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0009@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0010@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0010@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0011@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0011@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0012@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0012@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0013@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0013@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0014@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0014@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0015@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0015@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0016@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0016@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0017@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0017@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0018@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0018@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0019@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0019@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0020@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0020@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0021@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0021@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0022@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0022@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0023@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0023@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0024@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0024@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0025@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0025@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0026@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0026@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0027@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0027@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0028@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0028@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0029@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0029@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0030@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0030@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0031@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0031@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0032@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0032@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0033@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0033@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0034@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0034@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0035@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0035@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0036@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0036@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0037@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0037@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0038@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0038@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0039@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0039@SUBB.LOCAL",
+   "dst": "GROUP:PLANT@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0040@SUBB.LOCAL",
+   "dst": "GROUP:ADMIN@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0040@SUBB.LOCAL",
+   "dst": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "GROUP:DOMAIN USERS@SUBB.LOCAL",
+   "dst": "COMPUTER:SRV-FILE01@SUBB.LOCAL",
+   "kind": "AdminTo"
+  },
+  {
+   "src": "COMPUTER:SRV-FILE01@SUBB.LOCAL",
+   "dst": "USER:ADMINISTRATOR@SUBB.LOCAL",
+   "kind": "HasSession"
+  }
+ ]
+}

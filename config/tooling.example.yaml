@@ -1,0 +1,30 @@
+# live 法人的工具與遙測現況（LDAP / Graph 讀不到的部分由 IT 填寫）
+mdi: false                 # 是否已部署 Microsoft Defender for Identity 感應器
+edr: "Defender for Endpoint"
+siem: "Splunk"             # 無 SIEM 填 null
+siem_ingest:
+  dc_security: true        # DC Security 事件是否送入 SIEM
+  entra_signin: false
+  entra_audit: false
+sysmon_coverage: 0.35      # Sysmon 部署比例 0.0-1.0，未知填 null
+
+# 同步層與聯邦主機（LDAP 無法可靠判定時填寫，會列入 Tier 0）
+hybrid_hosts:
+  entra-connect: [SRV-AADC01]
+  adfs: []
+  pta: []
+
+# 進階稽核原則：建議以 `auditpol /get /category:* /r` 匯出後轉換
+# 值為 "Success" / "Failure" / "Success,Failure" / ""（未啟用）
+audit_policy:
+  Credential Validation: "Success,Failure"
+  Kerberos Authentication Service: "Success,Failure"
+  Kerberos Service Ticket Operations: "Success,Failure"
+  User Account Management: "Success,Failure"
+  Security Group Management: "Success"
+  Computer Account Management: "Success"
+  Directory Service Access: ""
+  Directory Service Changes: ""
+  Logon: "Success,Failure"
+  Special Logon: "Success"
+  Certification Services: ""

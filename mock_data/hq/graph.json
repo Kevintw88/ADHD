@@ -1,0 +1,4885 @@
+{
+ "nodes": [
+  {
+   "id": "AZROLE:APPLICATION ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "kind": "AZRole",
+   "name": "Application Administrator",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZROLE:GLOBAL ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "kind": "AZRole",
+   "name": "Global Administrator",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "AZSP:HR-SYNC-APP@HQ.CORP.EXAMPLE",
+   "kind": "AZServicePrincipal",
+   "name": "HR-Sync-App",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZSP:REPORTING-APP@HQ.CORP.EXAMPLE",
+   "kind": "AZServicePrincipal",
+   "name": "Reporting-App",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZTENANT:HQ-TENANT@HQ.CORP.EXAMPLE",
+   "kind": "AZTenant",
+   "name": "hq-tenant",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "AZUSER:ADM.CHEN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "AZUser",
+   "name": "adm.chen@hq.corp.example",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZUSER:BREAKGLASS01@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "AZUser",
+   "name": "breakglass01@hq.corp.example",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZUSER:DEV.LIN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "AZUser",
+   "name": "dev.lin@hq.corp.example",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZUSER:HELPDESK.LEE@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "AZUser",
+   "name": "helpdesk.lee@hq.corp.example",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "AZUSER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "AZUser",
+   "name": "it-cloudadmin@hq.corp.example",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "CERTTEMPLATE:VPNUSER@HQ.CORP.EXAMPLE",
+   "kind": "CertTemplate",
+   "name": "VPNUser",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:AZUREADSSOACC@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "AZUREADSSOACC",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:DC01@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "DC01",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:DC02@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "DC02",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS001@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS001",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS002@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS002",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS003@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS003",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS004@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS004",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS005@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS005",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS006@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS006",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS007@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS007",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS008@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS008",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS009@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS009",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS010@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS010",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS011@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS011",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS012@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS012",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS013@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS013",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS014@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS014",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS015@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS015",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS016@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS016",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS017@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS017",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS018@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS018",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS019@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS019",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS020@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS020",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS021@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS021",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS022@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS022",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS023@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS023",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS024@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS024",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS025@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS025",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS026@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS026",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS027@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS027",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS028@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS028",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS029@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS029",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS030@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS030",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS031@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS031",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS032@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS032",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS033@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS033",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS034@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS034",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS035@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS035",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS036@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS036",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS037@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS037",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS038@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS038",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS039@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS039",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:HQ-WS040@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "HQ-WS040",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SRV-AADC01@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "SRV-AADC01",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SRV-APP01@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "SRV-APP01",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SRV-CA01@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "SRV-CA01",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "COMPUTER:SRV-SQL01@HQ.CORP.EXAMPLE",
+   "kind": "Computer",
+   "name": "SRV-SQL01",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "Domain",
+   "name": "hq.corp.example",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:ADMINISTRATORS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Administrators",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:BACKUP OPERATORS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Backup Operators",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:DOMAIN ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Domain Admins",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Domain Users",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:ENTERPRISE ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Enterprise Admins",
+   "tier0": true,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Finance",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "HR",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:IT-HELPDESK@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "IT-Helpdesk",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:IT-OPS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "IT-Ops",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Manufacturing",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "RD",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Sales",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "GROUP:SERVER-ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "Group",
+   "name": "Server-Admins",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:ADM.CHEN@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "adm.chen",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:ADM.WANG@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "adm.wang",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:DEV.LIN@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "dev.lin",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:HELPDESK.LEE@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "helpdesk.lee",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:HELPDESK.WU@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "helpdesk.wu",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "it-cloudadmin",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:OPS.KAO@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "ops.kao",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:SVC_BACKUP@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "svc_backup",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:SVC_SQL@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "svc_sql",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:SVC_WEB@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "svc_web",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0001@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0001",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0002@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0002",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0003@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0003",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0004@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0004",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0005@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0005",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0006@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0006",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0007@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0007",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0008@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0008",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0009@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0009",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0010@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0010",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0011@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0011",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0012@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0012",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0013@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0013",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0014@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0014",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0015@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0015",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0016@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0016",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0017@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0017",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0018@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0018",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0019@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0019",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0020@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0020",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0021@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0021",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0022@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0022",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0023@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0023",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0024@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0024",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0025@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0025",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0026@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0026",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0027@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0027",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0028@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0028",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0029@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0029",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0030@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0030",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0031@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0031",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0032@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0032",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0033@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0033",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0034@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0034",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0035@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0035",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0036@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0036",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0037@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0037",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0038@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0038",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0039@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0039",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0040@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0040",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0041@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0041",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0042@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0042",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0043@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0043",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0044@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0044",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0045@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0045",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0046@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0046",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0047@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0047",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0048@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0048",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0049@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0049",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0050@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0050",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0051@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0051",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0052@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0052",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0053@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0053",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0054@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0054",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0055@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0055",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0056@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0056",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0057@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0057",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0058@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0058",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0059@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0059",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0060@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0060",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0061@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0061",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0062@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0062",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0063@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0063",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0064@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0064",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0065@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0065",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0066@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0066",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0067@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0067",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0068@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0068",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0069@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0069",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0070@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0070",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0071@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0071",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0072@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0072",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0073@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0073",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0074@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0074",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0075@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0075",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0076@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0076",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0077@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0077",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0078@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0078",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0079@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0079",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0080@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0080",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0081@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0081",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0082@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0082",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0083@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0083",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0084@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0084",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0085@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0085",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0086@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0086",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0087@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0087",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0088@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0088",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0089@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0089",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0090@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0090",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0091@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0091",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0092@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0092",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0093@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0093",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0094@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0094",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0095@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0095",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0096@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0096",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0097@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0097",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0098@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0098",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0099@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0099",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0100@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0100",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0101@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0101",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0102@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0102",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0103@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0103",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0104@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0104",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0105@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0105",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0106@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0106",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0107@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0107",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0108@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0108",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0109@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0109",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0110@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0110",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0111@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0111",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0112@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0112",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0113@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0113",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0114@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0114",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0115@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0115",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0116@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0116",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0117@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0117",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0118@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0118",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0119@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0119",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0120@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0120",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0121@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0121",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0122@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0122",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0123@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0123",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0124@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0124",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0125@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0125",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0126@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0126",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0127@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0127",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0128@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0128",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0129@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0129",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0130@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0130",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0131@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0131",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0132@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0132",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0133@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0133",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0134@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0134",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0135@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0135",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0136@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0136",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0137@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0137",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0138@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0138",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0139@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0139",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0140@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0140",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0141@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0141",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0142@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0142",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0143@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0143",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0144@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0144",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0145@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0145",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0146@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0146",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0147@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0147",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0148@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0148",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0149@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0149",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0150@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0150",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0151@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0151",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0152@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0152",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0153@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0153",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0154@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0154",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0155@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0155",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0156@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0156",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0157@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0157",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0158@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0158",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0159@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0159",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0160@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0160",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0161@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0161",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0162@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0162",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0163@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0163",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0164@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0164",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0165@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0165",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0166@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0166",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0167@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0167",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0168@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0168",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0169@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0169",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0170@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0170",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0171@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0171",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0172@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0172",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0173@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0173",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0174@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0174",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0175@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0175",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0176@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0176",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0177@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0177",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0178@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0178",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0179@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0179",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0180@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0180",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0181@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0181",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0182@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0182",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0183@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0183",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0184@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0184",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0185@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0185",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0186@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0186",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0187@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0187",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0188@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0188",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0189@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0189",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0190@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0190",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0191@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0191",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0192@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0192",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0193@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0193",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0194@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0194",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0195@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0195",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0196@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0196",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0197@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0197",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0198@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0198",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0199@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0199",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0200@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0200",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0201@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0201",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0202@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0202",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0203@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0203",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0204@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0204",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0205@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0205",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0206@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0206",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0207@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0207",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0208@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0208",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0209@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0209",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0210@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0210",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0211@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0211",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0212@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0212",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0213@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0213",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0214@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0214",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0215@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0215",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0216@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0216",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0217@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0217",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0218@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0218",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0219@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0219",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0220@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0220",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0221@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0221",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0222@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0222",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0223@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0223",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0224@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0224",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0225@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0225",
+   "tier0": false,
+   "enabled": false
+  },
+  {
+   "id": "USER:U0226@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0226",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0227@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0227",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0228@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0228",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0229@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0229",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0230@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0230",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0231@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0231",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0232@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0232",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0233@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0233",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0234@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0234",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0235@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0235",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0236@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0236",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0237@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0237",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0238@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0238",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0239@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0239",
+   "tier0": false,
+   "enabled": true
+  },
+  {
+   "id": "USER:U0240@HQ.CORP.EXAMPLE",
+   "kind": "User",
+   "name": "u0240",
+   "tier0": false,
+   "enabled": true
+  }
+ ],
+ "edges": [
+  {
+   "src": "AZROLE:GLOBAL ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "dst": "AZTENANT:HQ-TENANT@HQ.CORP.EXAMPLE",
+   "kind": "AZGlobalControl"
+  },
+  {
+   "src": "AZSP:HR-SYNC-APP@HQ.CORP.EXAMPLE",
+   "dst": "AZTENANT:HQ-TENANT@HQ.CORP.EXAMPLE",
+   "kind": "AZDangerousAppPermission"
+  },
+  {
+   "src": "AZUSER:ADM.CHEN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "dst": "AZROLE:GLOBAL ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "kind": "AZHasRole"
+  },
+  {
+   "src": "AZUSER:BREAKGLASS01@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "dst": "AZROLE:GLOBAL ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "kind": "AZHasRole"
+  },
+  {
+   "src": "AZUSER:DEV.LIN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "dst": "AZSP:HR-SYNC-APP@HQ.CORP.EXAMPLE",
+   "kind": "AZOwns"
+  },
+  {
+   "src": "AZUSER:HELPDESK.LEE@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "dst": "AZROLE:APPLICATION ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "kind": "AZHasRole"
+  },
+  {
+   "src": "AZUSER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "dst": "AZROLE:GLOBAL ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "kind": "AZHasRole"
+  },
+  {
+   "src": "CERTTEMPLATE:VPNUSER@HQ.CORP.EXAMPLE",
+   "dst": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "ADCSESC1"
+  },
+  {
+   "src": "COMPUTER:DC01@HQ.CORP.EXAMPLE",
+   "dst": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "DCSync"
+  },
+  {
+   "src": "COMPUTER:DC02@HQ.CORP.EXAMPLE",
+   "dst": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "DCSync"
+  },
+  {
+   "src": "COMPUTER:SRV-AADC01@HQ.CORP.EXAMPLE",
+   "dst": "AZTENANT:HQ-TENANT@HQ.CORP.EXAMPLE",
+   "kind": "HybridControl"
+  },
+  {
+   "src": "GROUP:ADMINISTRATORS@HQ.CORP.EXAMPLE",
+   "dst": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "GROUP:DOMAIN ADMINS@HQ.CORP.EXAMPLE",
+   "dst": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "dst": "CERTTEMPLATE:VPNUSER@HQ.CORP.EXAMPLE",
+   "kind": "Enroll"
+  },
+  {
+   "src": "GROUP:ENTERPRISE ADMINS@HQ.CORP.EXAMPLE",
+   "dst": "DOMAIN:HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "GROUP:SERVER-ADMINS@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:IT-OPS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:ADM.CHEN@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:ADM.CHEN@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:ADM.WANG@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:ADM.WANG@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:DEV.LIN@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:DEV.LIN@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:HELPDESK.LEE@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:HELPDESK.LEE@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:IT-HELPDESK@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:HELPDESK.WU@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:HELPDESK.WU@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:IT-HELPDESK@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:IT-OPS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:OPS.KAO@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:OPS.KAO@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:IT-OPS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_BACKUP@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:BACKUP OPERATORS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_BACKUP@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_SQL@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_SQL@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_WEB@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:SVC_WEB@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SERVER-ADMINS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0001@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0001@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0002@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0002@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0003@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0003@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0004@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0004@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0005@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0005@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0006@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0006@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0007@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0007@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0008@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0008@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0009@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0009@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0010@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0010@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0011@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0011@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0012@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0012@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0013@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0013@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0014@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0014@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0015@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0015@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0016@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0016@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0017@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0017@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0018@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0018@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0019@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0019@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0020@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0020@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0021@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0021@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0022@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0022@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0023@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0023@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0024@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0024@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0025@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0025@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0026@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0026@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0027@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0027@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0028@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0028@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0029@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0029@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0030@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0030@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0031@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0031@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0032@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0032@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0033@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0033@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0034@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0034@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0035@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0035@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0036@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0036@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0037@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0037@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0038@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0038@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0039@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0039@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0040@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0040@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0041@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0041@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0042@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0042@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0043@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0043@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0044@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0044@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0045@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0045@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0046@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0046@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0047@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0047@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0048@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0048@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0049@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0049@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0050@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0050@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0051@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0051@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0052@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0052@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0053@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0053@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0054@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0054@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0055@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0055@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0056@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0056@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0057@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0057@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0058@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0058@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0059@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0059@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0060@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0060@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0061@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0061@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0062@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0062@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0063@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0063@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0064@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0064@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0065@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0065@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0066@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0066@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0067@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0067@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0068@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0068@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0069@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0069@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0070@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0070@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0071@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0071@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0072@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0072@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0073@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0073@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0074@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0074@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0075@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0075@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0076@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0076@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0077@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0077@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0078@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0078@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0079@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0079@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0080@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0080@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0081@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0081@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0082@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0082@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0083@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0083@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0084@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0084@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0085@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0085@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0086@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0086@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0087@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0087@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0088@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0088@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0089@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0089@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0090@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0090@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0091@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0091@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0092@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0092@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0093@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0093@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0094@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0094@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0095@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0095@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0096@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0096@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0097@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0097@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0098@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0098@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0099@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0099@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0100@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0100@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0101@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0101@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0102@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0102@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0103@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0103@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0104@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0104@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0105@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0105@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0106@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0106@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0107@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0107@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0108@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0108@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0109@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0109@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0110@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0110@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0111@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0111@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0112@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0112@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0113@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0113@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0114@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0114@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0115@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0115@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0116@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0116@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0117@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0117@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0118@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0118@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0119@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0119@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0120@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0120@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0121@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0121@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0122@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0122@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0123@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0123@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0124@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0124@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0125@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0125@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0126@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0126@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0127@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0127@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0128@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0128@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0129@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0129@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0130@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0130@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0131@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0131@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0132@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0132@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0133@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0133@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0134@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0134@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0135@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0135@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0136@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0136@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0137@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0137@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0138@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0138@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0139@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0139@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0140@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0140@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0141@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0141@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0142@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0142@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0143@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0143@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0144@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0144@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0145@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0145@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0146@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0146@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0147@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0147@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0148@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0148@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0149@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0149@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0150@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0150@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0151@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0151@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0152@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0152@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0153@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0153@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0154@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0154@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0155@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0155@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0156@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0156@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0157@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0157@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0158@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0158@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0159@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0159@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0160@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0160@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0161@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0161@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0162@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0162@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0163@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0163@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0164@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0164@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0165@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0165@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0166@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0166@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0167@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0167@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0168@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0168@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0169@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0169@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0170@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0170@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0171@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0171@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0172@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0172@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0173@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0173@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0174@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0174@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0175@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0175@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0176@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0176@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0177@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0177@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0178@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0178@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0179@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0179@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0180@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0180@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0181@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0181@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0182@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0182@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0183@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0183@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0184@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0184@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0185@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0185@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0186@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0186@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0187@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0187@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0188@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0188@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0189@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0189@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0190@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0190@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0191@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0191@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0192@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0192@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0193@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0193@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0194@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0194@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0195@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0195@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0196@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0196@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0197@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0197@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0198@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0198@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0199@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0199@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0200@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0200@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0201@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0201@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0202@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0202@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0203@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0203@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0204@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0204@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0205@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0205@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0206@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0206@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0207@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0207@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0208@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0208@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0209@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0209@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0210@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0210@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0211@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0211@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0212@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0212@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0213@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0213@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0214@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0214@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0215@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0215@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0216@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0216@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0217@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0217@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0218@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0218@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0219@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0219@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0220@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0220@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0221@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0221@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0222@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0222@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0223@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0223@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0224@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0224@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0225@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0225@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0226@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0226@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0227@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0227@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0228@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0228@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0229@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0229@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0230@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0230@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0231@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0231@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:RD@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0232@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0232@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0233@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0233@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0234@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0234@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0235@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0235@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:HR@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0236@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0236@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0237@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0237@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0238@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0238@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:FINANCE@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0239@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0239@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:SALES@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0240@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:DOMAIN USERS@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "USER:U0240@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:MANUFACTURING@HQ.CORP.EXAMPLE",
+   "kind": "MemberOf"
+  },
+  {
+   "src": "GROUP:IT-HELPDESK@HQ.CORP.EXAMPLE",
+   "dst": "GROUP:IT-OPS@HQ.CORP.EXAMPLE",
+   "kind": "GenericAll"
+  },
+  {
+   "src": "GROUP:IT-OPS@HQ.CORP.EXAMPLE",
+   "dst": "COMPUTER:SRV-APP01@HQ.CORP.EXAMPLE",
+   "kind": "AdminTo"
+  },
+  {
+   "src": "COMPUTER:SRV-APP01@HQ.CORP.EXAMPLE",
+   "dst": "USER:ADM.WANG@HQ.CORP.EXAMPLE",
+   "kind": "HasSession"
+  },
+  {
+   "src": "GROUP:SERVER-ADMINS@HQ.CORP.EXAMPLE",
+   "dst": "COMPUTER:SRV-AADC01@HQ.CORP.EXAMPLE",
+   "kind": "AdminTo"
+  },
+  {
+   "src": "AZROLE:APPLICATION ADMINISTRATOR@HQ.CORP.EXAMPLE",
+   "dst": "AZSP:HR-SYNC-APP@HQ.CORP.EXAMPLE",
+   "kind": "AZAddSecret"
+  },
+  {
+   "src": "USER:ADM.CHEN@HQ.CORP.EXAMPLE",
+   "dst": "AZUSER:ADM.CHEN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "SyncedToEntraUser"
+  },
+  {
+   "src": "USER:HELPDESK.LEE@HQ.CORP.EXAMPLE",
+   "dst": "AZUSER:HELPDESK.LEE@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "SyncedToEntraUser"
+  },
+  {
+   "src": "USER:DEV.LIN@HQ.CORP.EXAMPLE",
+   "dst": "AZUSER:DEV.LIN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "SyncedToEntraUser"
+  },
+  {
+   "src": "USER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE",
+   "dst": "AZUSER:IT-CLOUDADMIN@HQ.CORP.EXAMPLE@HQ.CORP.EXAMPLE",
+   "kind": "SyncedToEntraUser"
+  }
+ ]
+}

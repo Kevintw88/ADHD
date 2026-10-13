@@ -1,0 +1,11 @@
+{
+ "mdi": true,
+ "edr": "Defender for Endpoint",
+ "siem": "Splunk",
+ "siem_ingest": {
+  "dc_security": true,
+  "entra_signin": true,
+  "entra_audit": true
+ },
+ "sysmon_coverage": 0.7
+}

@@ -1,0 +1,69 @@
+{
+ "tenant_present": true,
+ "tenant_id": "hq-tenant",
+ "sync": {
+  "tool": "EntraConnect",
+  "auth": "PHS",
+  "seamless_sso": true
+ },
+ "licenses": [
+  "SPE_E5"
+ ],
+ "conditional_access": [
+  {
+   "name": "全員 MFA",
+   "state": "enabled",
+   "includes_all_users": true,
+   "requires_mfa": true,
+   "excluded_users": [
+    "breakglass01"
+   ]
+  },
+  {
+   "name": "封鎖舊版驗證",
+   "state": "enabled",
+   "includes_all_users": true,
+   "requires_mfa": false,
+   "excluded_users": []
+  }
+ ],
+ "privileged_roles": [
+  {
+   "role": "Global Administrator",
+   "members": [
+    "it-cloudadmin@hq.corp.example",
+    "breakglass01@hq.corp.example"
+   ],
+   "pim_eligible": [
+    "adm.chen@hq.corp.example"
+   ]
+  },
+  {
+   "role": "Application Administrator",
+   "members": [
+    "helpdesk.lee@hq.corp.example"
+   ],
+   "pim_eligible": []
+  }
+ ],
+ "service_principals": [
+  {
+   "name": "HR-Sync-App",
+   "app_permissions": [
+    "User.Read.All",
+    "RoleManagement.ReadWrite.Directory"
+   ],
+   "owners": [
+    "dev.lin@hq.corp.example"
+   ]
+  },
+  {
+   "name": "Reporting-App",
+   "app_permissions": [
+    "Reports.Read.All"
+   ],
+   "owners": []
+  }
+ ],
+ "guests_count": 37
+}

@@ -1,0 +1,146 @@
+# 能力矩陣：以環境指紋（discovery.py 產出）判定 Profile、啟用模組、缺口與額外 Tier 0。
+#
+# 條件語法
+#   {path: <指紋路徑>, <運算子>: <值>}，運算子：eq ne gt gte lt lte in nonempty empty
+#   all: [...] / any: [...] / not: {...} 可巢狀
+# 文字中的 {路徑} 會代入指紋值；{len:路徑} 代入清單長度。
+
+profiles:   # 由上而下，第一個符合者為準
+  - id: A
+    name: 完整型
+    when:
+      all:
+        - {path: hybrid.is_hybrid, eq: true}
+        - {path: tooling.mdi, eq: true}
+        - {path: tooling.siem, nonempty: true}
+        - {path: telemetry.coverage_score, gte: 0.6}
+  - id: B
+    name: 部分型
+    when: {path: hybrid.is_hybrid, eq: true}
+  - id: C
+    name: 地端型
+    when: {all: []}
+
+modules:
+  # ---------------- Phase 0 ----------------
+  - id: discovery
+    phase: 0
+    pillar: 盤點
+    title: 環境盤點與指紋
+    when: {all: []}
+  # ---------------- Phase 1：預防評估 ----------------
+  - id: assess_ad
+    phase: 1
+    pillar: 預防評估
+    title: AD 組態評估（PingCastle）
+    when: {all: []}
+  - id: assess_adcs
+    phase: 1
+    pillar: 預防評估
+    title: AD CS 評估（Locksmith / ESC 系列）
+    when: {path: services.adcs_present, eq: true}
+    unmet: 未偵測到 AD CS
+  - id: assess_entra
+    phase: 1
+    pillar: 預防評估
+    title: Entra / M365 組態評估（ScubaGear）
+    when: {path: hybrid.tenant_present, eq: true}
+    unmet: 無 Entra 租戶
+  # ---------------- Phase 1：攻擊路徑 ----------------
+  - id: paths_ad
+    phase: 1
+    pillar: 攻擊路徑
+    title: 地端 AD 攻擊路徑（SharpHound）
+    when: {all: []}
+  - id: paths_entra
+    phase: 1
+    pillar: 攻擊路徑
+    title: Entra 攻擊路徑（AzureHound）
+    when: {path: hybrid.tenant_present, eq: true}
+    unmet: 無 Entra 租戶
+  # ---------------- Phase 2（MVP 僅判定，不執行）----------------
+  - id: detect_mdi_triage
+    phase: 2
+    pillar: 威脅偵測
+    title: MDI 告警 AI 分流
+    when:
+      all:
+        - {path: tooling.mdi, eq: true}
+        - {path: tooling.siem, nonempty: true}
+    unmet: 需要 MDI 與 SIEM
+  - id: detect_sigma_dc
+    phase: 2
+    pillar: 偵測工程
+    title: DC 事件 + Sigma 規則偵測
+    when:
+      all:
+        - {path: tooling.mdi, eq: false}
+        - {path: tooling.siem, nonempty: true}
+        - {path: telemetry.siem_ingest.dc_security, eq: true}
+        - {path: telemetry.audit_missing, empty: true}
+    unmet: 無 MDI 時需 SIEM 收到完整 DC 稽核事件
+  - id: detect_entra_signin
+    phase: 2
+    pillar: 威脅偵測
+    title: Entra 登入風險分流
+    when:
+      all:
+        - {path: hybrid.tenant_present, eq: true}
+        - {path: telemetry.siem_ingest.entra_signin, eq: true}
+    unmet: Entra 登入日誌未送入 SIEM
+
+gaps:
+  - id: GAP-AUDIT
+    title: DC 進階稽核原則缺 {len:telemetry.audit_missing} 個必要子類別
+    when: {path: telemetry.audit_missing, nonempty: true}
+    blocks: [detect_sigma_dc]
+    remediation: 以 GPO 啟用 Default Domain Controllers Policy 的進階稽核子類別：{telemetry.audit_missing}
+  - id: GAP-SIEM
+    title: 尚無 SIEM，偵測模組無法啟用
+    when: {path: tooling.siem, empty: true}
+    blocks: [detect_mdi_triage, detect_sigma_dc, detect_entra_signin]
+    remediation: 先接入總公司集中收集，或於子公司部署轉送器
+  - id: GAP-DC-INGEST
+    title: DC Security 事件未送入 SIEM
+    when:
+      all:
+        - {path: tooling.siem, nonempty: true}
+        - {path: telemetry.siem_ingest.dc_security, eq: false}
+    blocks: [detect_sigma_dc]
+    remediation: 設定 Windows Event Forwarding 或代理程式收集所有 DC 的 Security 日誌
+  - id: GAP-ENTRA-INGEST
+    title: Entra 登入與稽核日誌未送入 SIEM
+    when:
+      all:
+        - {path: hybrid.tenant_present, eq: true}
+        - {path: telemetry.siem_ingest.entra_signin, eq: false}
+    blocks: [detect_entra_signin]
+    remediation: 設定 Entra 診斷設定，將 SignInLogs / AuditLogs 匯出至 SIEM
+  - id: GAP-SYSMON
+    title: Sysmon 覆蓋率不足 50%（目前 {telemetry.sysmon_coverage}）
+    when:
+      any:
+        - {path: telemetry.sysmon_coverage, lt: 0.5}
+        - {path: telemetry.sysmon_coverage, empty: true}
+    blocks: []
+    remediation: 優先部署於 Tier 0 與 Tier 1 伺服器
+  - id: GAP-MDI-UNUSED
+    title: 已有 MDI 授權但未部署感應器
+    when:
+      all:
+        - {path: tooling.mdi_licensed, eq: true}
+        - {path: tooling.mdi, eq: false}
+    blocks: [detect_mdi_triage]
+    remediation: 於所有 DC、AD FS、AD CS、Entra Connect 主機安裝 MDI 感應器
+
+tier0_extra:
+  - when: {path: hybrid.sync_tool, ne: "None"}
+    label: Entra Connect / Cloud Sync 主機
+  - when: {path: hybrid.auth_method, eq: ADFS}
+    label: AD FS 伺服器與 Token-signing 憑證（Golden SAML 風險）
+  - when: {path: hybrid.auth_method, eq: PTA}
+    label: PTA Agent 主機
+  - when: {path: hybrid.seamless_sso, eq: true}
+    label: Seamless SSO 電腦帳號 AZUREADSSOACC（需定期輪替金鑰）
+  - when: {path: services.adcs_present, eq: true}
+    label: AD CS 憑證授權單位
