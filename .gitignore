@@ -1,0 +1,21 @@
+# --- 收集到的資料絕不進版控 ---
+ADHD-Collect-*/
+ADHD-Collect-*.zip
+ADHD-Collect-*.zip.sha256
+ADHD-pseudonym*.key
+ADHD-pseudonym-map-*.csv
+*.jsonl
+intake-report*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

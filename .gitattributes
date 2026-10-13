@@ -1,0 +1,7 @@
+* text=auto
+# Windows PowerShell 5.1 腳本：CRLF，檔案本身以 UTF-8 BOM 儲存（中文字串才不會亂碼）
+*.ps1 text eol=crlf
+*.psm1 text eol=crlf
+*.psd1 text eol=crlf
+*.py text eol=lf
+*.md text eol=lf
