@@ -1975,7 +1975,7 @@ function Complete-ADHDBundle {
         try {
             if (Test-Path -LiteralPath $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
             try {
-                # .NET ZipFile 使用 '/' 作為路徑分隔；Windows PowerShell 5.1 需先載入組件
+                # Windows PowerShell 5.1（.NET Framework）的 ZipFile 可能以 '\' 作為路徑分隔；lab 端 verify_bundle.py / unzip 皆可處理
                 Add-Type -AssemblyName System.IO.Compression -ErrorAction Stop
                 Add-Type -AssemblyName System.IO.Compression.FileSystem -ErrorAction Stop
                 [System.IO.Compression.ZipFile]::CreateFromDirectory($script:Ctx.OutDir, $zipPath, [System.IO.Compression.CompressionLevel]::Optimal, $true)
