@@ -41,6 +41,10 @@ DCSYNC_RIGHTS = {"DS-Replication-Get-Changes", "DS-Replication-Get-Changes-All"}
 EXPECTED_DCSYNC_RIDS = {"498", "516", "521", "512", "519"}  # (E)RODC / DC / Domain & Enterprise Admins
 
 KNOWN_CAUSES = {
+    "AD": "未安裝 RSAT-AD、連不到 DC 的 ADWS（TCP 9389，例如未連 VPN）、或未以網域帳號登入；確切原因見訊息",
+    "ADACL": "未安裝 RSAT-AD、連不到 DC 的 ADWS（TCP 9389，例如未連 VPN）、或未以網域帳號登入；確切原因見訊息",
+    "GPO": "未安裝 RSAT-AD、連不到 DC 的 ADWS（TCP 9389，例如未連 VPN）、或未以網域帳號登入；確切原因見訊息",
+    "ADCS": "未安裝 RSAT-AD、連不到 DC 的 ADWS（TCP 9389，例如未連 VPN）、或未以網域帳號登入；確切原因見訊息",
     "ad_password_policies": "FGPP 預設只有 Domain Admins 可讀（預設原則仍會收）",
     "gpo_gpp_cpassword": "執行主機無法存取 \\\\<domain>\\SYSVOL",
     "gpo_reports": "未安裝 GPMC / RSAT Group Policy，或帳號無法讀取部分 GPO",
@@ -166,6 +170,15 @@ def check_status(bundles: list[Bundle], o: Out) -> None:
                 o.warn(f"{name}: {st} — {d.get('message') or ''}".rstrip(" —") + f"｜常見原因：{cause}")
     o.line("ok / partial / error / skipped",
            f"{counter['ok']} / {counter['partial']} / {counter['error']} / {counter['skipped']}", "datasetStatus")
+    for b in bundles:
+        msgs = list(dict.fromkeys(b.manifest.get("warnings") or []))
+        if not msgs:
+            continue
+        print(f"  收集端訊息 [{b.manifest.get('bundle')}]（manifest.warnings，共 {len(msgs)} 則）：")
+        for m in msgs[:12]:
+            print(f"    - {m}")
+        if len(msgs) > 12:
+            print(f"    ...其餘見 collection.log")
 
 
 def check_ad(bundles: list[Bundle], o: Out) -> dict[str, dict[str, Any]]:
@@ -286,7 +299,10 @@ def check_hybrid(bundles: list[Bundle], o: Out, by_sid: dict[str, dict[str, Any]
     with_sid = [u for u in synced if u.get("onPremisesSecurityIdentifier")]
     matched = [u for u in with_sid if u["onPremisesSecurityIdentifier"] in by_sid]
     o.line("Entra 使用者 / 由地端同步", f"{len(entra)} / {len(synced)}", "entraUsers")
-    o.line("同步帳號可對應到本次 AD 使用者", pct(len(matched), len(with_sid)), "hybridJoinRate")
+    if not by_sid:
+        o.line("同步帳號可對應到本次 AD 使用者", "n/a（本輪沒有 AD 資料，無法比對）", "hybridJoinRate")
+    else:
+        o.line("同步帳號可對應到本次 AD 使用者", pct(len(matched), len(with_sid)), "hybridJoinRate")
     if by_sid and with_sid and len(matched) / len(with_sid) < 0.9:
         domains = Counter(u.get("onPremisesDomainName") for u in with_sid if u["onPremisesSecurityIdentifier"] not in by_sid)
         o.warn(f"有同步帳號對應不到 AD —— 來源網域分布 {dict(domains.most_common(5))}（其他網域請另外收一份 AD bundle）")

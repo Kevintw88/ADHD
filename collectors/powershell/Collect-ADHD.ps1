@@ -158,7 +158,7 @@ param(
 # ---------------------------------------------------------------------------
 # 常數
 # ---------------------------------------------------------------------------
-$script:CollectorVersion = '0.1.0'
+$script:CollectorVersion = '0.1.1'
 $script:SchemaVersion    = 'adhd.collect/1'
 $script:Utf8NoBom        = New-Object System.Text.UTF8Encoding -ArgumentList $false
 
@@ -648,6 +648,7 @@ function Initialize-ADHDContext {
         AD             = $null
         GuidMap        = $null
         GraphConnected = $false
+        ADInitError    = $null
         Entra          = @{
             TenantId         = $null
             Account          = $null
@@ -751,7 +752,8 @@ function Add-ADHDDirectoryDataset {
 # ===========================================================================
 function Initialize-ADHDAdContext {
     if (-not (Test-ADHDModule 'ActiveDirectory')) {
-        Write-ADHDLog '找不到 ActiveDirectory 模組（請安裝 RSAT: Active Directory module）。' 'WARN'
+        $script:Ctx.ADInitError = '找不到 ActiveDirectory 模組（請安裝 RSAT: Active Directory module）'
+        Write-ADHDLog ($script:Ctx.ADInitError + '。') 'WARN'
         return $false
     }
     try {
@@ -785,6 +787,7 @@ function Initialize-ADHDAdContext {
         return $true
     }
     catch {
+        $script:Ctx.ADInitError = Protect-ADHDText $_.Exception.Message
         Write-ADHDLog ("AD 初始化失敗：" + $_.Exception.Message) 'ERROR'
         return $false
     }
@@ -2058,10 +2061,10 @@ function Invoke-ADHDMain {
             Write-ADHDLog "==== 模組 $m ===="
             try {
                 switch ($m) {
-                    'AD'           { if ($adOk) { Invoke-ADHDModuleAD } else { Add-ADHDSkipped 'AD' 'AD' 'AD 環境初始化失敗' } }
-                    'ADACL'        { if ($adOk) { Invoke-ADHDModuleADACL } else { Add-ADHDSkipped 'ADACL' 'ADACL' 'AD 環境初始化失敗' } }
-                    'GPO'          { if ($adOk) { Invoke-ADHDModuleGPO } else { Add-ADHDSkipped 'GPO' 'GPO' 'AD 環境初始化失敗' } }
-                    'ADCS'         { if ($adOk) { Invoke-ADHDModuleADCS } else { Add-ADHDSkipped 'ADCS' 'ADCS' 'AD 環境初始化失敗' } }
+                    'AD'           { if ($adOk) { Invoke-ADHDModuleAD } else { Add-ADHDSkipped 'AD' 'AD' ('AD 環境初始化失敗：' + $script:Ctx.ADInitError) } }
+                    'ADACL'        { if ($adOk) { Invoke-ADHDModuleADACL } else { Add-ADHDSkipped 'ADACL' 'ADACL' ('AD 環境初始化失敗：' + $script:Ctx.ADInitError) } }
+                    'GPO'          { if ($adOk) { Invoke-ADHDModuleGPO } else { Add-ADHDSkipped 'GPO' 'GPO' ('AD 環境初始化失敗：' + $script:Ctx.ADInitError) } }
+                    'ADCS'         { if ($adOk) { Invoke-ADHDModuleADCS } else { Add-ADHDSkipped 'ADCS' 'ADCS' ('AD 環境初始化失敗：' + $script:Ctx.ADInitError) } }
                     'EntraConnect' { Invoke-ADHDModuleEntraConnect }
                     'Entra' {
                         $scopes = @('Directory.Read.All', 'Policy.Read.All', 'RoleManagement.Read.Directory', 'AuditLog.Read.All',
@@ -2073,7 +2076,7 @@ function Invoke-ADHDMain {
                         $scopes = @('AuditLog.Read.All', 'Directory.Read.All', 'IdentityRiskEvent.Read.All')
                         if (Connect-ADHDGraph -Scopes $scopes) { Invoke-ADHDModuleEntraLogs } else { Add-ADHDSkipped 'EntraLogs' 'EntraLogs' 'Graph 連線失敗' }
                     }
-                    'DCLogs'       { if ($adOk -or $script:Opt.DomainControllers.Count -gt 0) { Invoke-ADHDModuleDCLogs } else { Add-ADHDSkipped 'DCLogs' 'DCLogs' 'AD 環境初始化失敗且未指定 -DomainControllers' } }
+                    'DCLogs'       { if ($adOk -or $script:Opt.DomainControllers.Count -gt 0) { Invoke-ADHDModuleDCLogs } else { Add-ADHDSkipped 'DCLogs' 'DCLogs' ('AD 環境初始化失敗且未指定 -DomainControllers：' + $script:Ctx.ADInitError) } }
                 }
             }
             catch {
