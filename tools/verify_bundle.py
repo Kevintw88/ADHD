@@ -11,12 +11,13 @@ Verifies a bundle produced by collectors/powershell/Collect-ADHD.ps1 (schema adh
   * the pseudonymization key / mapping file did not travel with the bundle
   * when pseudonymization is enabled, no un-pseudonymized e-mail addresses remain
 
-Exit code: 0 = pass, 1 = errors found (or warnings with --strict), 2 = usage / unreadable bundle.
+Exit code: 0 = every bundle passed, 1 = any bundle has errors (or warnings with --strict), 2 = usage error.
 Standard library only, so it runs on an air-gapped analysis host.
 
 Usage:
     python3 tools/verify_bundle.py ADHD-Collect-SubA-20261013T010203Z.zip
-    python3 tools/verify_bundle.py path/to/bundle-folder --json report.json --strict
+    python3 tools/verify_bundle.py ADHD-Collect-SubA*.zip --json report.json   # several bundles at once
+    python3 tools/verify_bundle.py path/to/bundle-folder --strict
 """
 from __future__ import annotations
 
@@ -235,19 +236,7 @@ def verify(bundle_arg: Path) -> Report:
     return report
 
 
-def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description="Verify an ADHD collection bundle before analysis.")
-    ap.add_argument("bundle", type=Path, help="bundle folder or .zip produced by Collect-ADHD.ps1")
-    ap.add_argument("--json", type=Path, help="write the verification report as JSON to this path")
-    ap.add_argument("--strict", action="store_true", help="treat warnings as failures")
-    args = ap.parse_args(argv)
-
-    if not args.bundle.exists():
-        print(f"error: {args.bundle} does not exist", file=sys.stderr)
-        return 2
-
-    report = verify(args.bundle)
-
+def print_report(report: Report, strict: bool) -> bool:
     print(f"Bundle : {report.bundle}")
     print(f"Schema : {report.schema}")
     width = max((len(d["name"] or "") for d in report.datasets), default=10)
@@ -257,19 +246,44 @@ def main(argv: list[str] | None = None) -> int:
         print(f"WARN   {w}")
     for e in report.errors:
         print(f"ERROR  {e}")
-    failed = bool(report.errors) or (args.strict and bool(report.warnings))
+    failed = bool(report.errors) or (strict and bool(report.warnings))
     print(f"Result : {'FAIL' if failed else 'PASS'} ({len(report.errors)} error(s), {len(report.warnings)} warning(s))")
+    return failed
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description="Verify ADHD collection bundles before analysis.")
+    ap.add_argument("bundles", nargs="+", type=Path, metavar="bundle",
+                    help="one or more bundle folders or .zip files produced by Collect-ADHD.ps1")
+    ap.add_argument("--json", type=Path, help="write the verification report(s) as JSON to this path")
+    ap.add_argument("--strict", action="store_true", help="treat warnings as failures")
+    args = ap.parse_args(argv)
+
+    missing = [p for p in args.bundles if not p.exists()]
+    for p in missing:
+        print(f"error: {p} does not exist", file=sys.stderr)
+    if missing:
+        return 2
+
+    results = []
+    any_failed = False
+    for i, bundle in enumerate(args.bundles):
+        if i:
+            print()
+        report = verify(bundle)
+        failed = print_report(report, args.strict)
+        any_failed = any_failed or failed
+        results.append({"bundle": report.bundle, "schema": report.schema, "passed": not failed,
+                        "errors": report.errors, "warnings": report.warnings, "datasets": report.datasets})
+
+    if len(results) > 1:
+        passed = sum(1 for r in results if r["passed"])
+        print(f"\nOverall: {'FAIL' if any_failed else 'PASS'} ({passed}/{len(results)} bundle(s) passed)")
 
     if args.json:
-        args.json.write_text(
-            json.dumps(
-                {"bundle": report.bundle, "schema": report.schema, "passed": not failed,
-                 "errors": report.errors, "warnings": report.warnings, "datasets": report.datasets},
-                ensure_ascii=False, indent=2,
-            ),
-            encoding="utf-8",
-        )
-    return 1 if failed else 0
+        payload: Any = results[0] if len(results) == 1 else {"passed": not any_failed, "bundles": results}
+        args.json.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return 1 if any_failed else 0
 
 
 if __name__ == "__main__":

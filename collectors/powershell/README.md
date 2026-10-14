@@ -164,9 +164,11 @@ Application.Read.All, UserAuthenticationMethod.Read.All, IdentityRiskyUser.Read.
 ```bash
 python3 tools/verify_bundle.py ADHD-Collect-SubA-20261013T010203Z.zip
 python3 tools/verify_bundle.py ADHD-Collect-SubA-20261013T010203Z.zip --strict --json intake-report.json
+python3 tools/verify_bundle.py ADHD-Collect-SubA*.zip --json intake-report.json      # 一次驗同一輪的多份 bundle
+python3 tools/bundle_sanity.py ADHD-Collect-SubA*.zip --json sanity-report.json      # 驗收通過後的語意檢查
 ```
 
-檢查項目：manifest schema、每個檔案的 SHA-256 與筆數、每行 JSON 合法、禁止欄位、`cpassword` 值與私鑰區塊、金鑰 / 對照表是否被帶出、未假名化的 email。結束碼 0 = 通過、1 = 失敗。
+檢查項目：manifest schema、每個檔案的 SHA-256 與筆數、每行 JSON 合法、禁止欄位、`cpassword` 值與私鑰區塊、金鑰 / 對照表是否被帶出、未假名化的 email。結束碼 0 = 全部通過、1 = 任一份失敗、2 = 參數錯誤。
 
 ---
 
