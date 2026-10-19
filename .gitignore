@@ -19,3 +19,8 @@ venv/
 .idea/
 .DS_Store
 Thumbs.db
+
+# --- 分析輸出（含環境資料）也不進版控 ---
+reports/
+graph.sqlite
+findings.json
