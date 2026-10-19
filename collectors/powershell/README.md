@@ -177,7 +177,7 @@ python3 tools/bundle_sanity.py ADHD-Collect-SubA*.zip --json sanity-report.json 
 - **FGPP**：Password Settings Container 預設只有 Domain Admins 可讀，一般帳號讀不到時只會記錄警告。
 - **msDS-KeyCredentialLink**：非特權帳號可能讀不到內容，`keyCredentialLinkCount` 為 0 不代表一定沒有 shadow credentials。
 - **GPO / SYSVOL**：GroupPolicy 模組不支援 `-Credential`，會使用目前登入身分。
-- **假名化覆蓋率**：只對「已收集到的使用者」的識別值做精確比對，再加上 email 樣式比對。沒有出現在 AD / Entra 使用者清單中的姓名（例如外部人員的顯示名稱）可能保留原文；`entraconnect_config/` 是原廠匯出格式，不做假名化（內容以同步規則與連接器設定為主）。
+- **假名化覆蓋率**：只對「已收集到的使用者」的識別值做精確比對，再加上 email 樣式比對。沒有出現在 AD / Entra 使用者清單中的姓名（例如外部人員的顯示名稱）可能保留原文。單獨執行 EntraConnect 模組時（0.1.2 起），本機 Administrators / ADSyncAdmins 的使用者成員、ADSync 服務帳號與 connector 登入帳號會被登錄並假名化，`entraconnect_config/` 的文字檔也會套用；同一把金鑰下，假名與 AD bundle 一致。0.1.1 以前單獨收集的 AADC bundle 可能含上述帳號明文。
 - **CA 伺服器層級設定**（`EDITF_ATTRIBUTESUBJECTALTNAME2`、CA 本身的權限、Web Enrollment）存在 CA 主機登錄機碼，本版未收集；ESC6/7/8 需另行確認。
 - **PowerShell 語言模式**：需要 FullLanguage；在 AppLocker / WDAC 強制 Constrained Language Mode 的主機上無法執行。
 - 首次執行會被 EDR 視為大量 LDAP 查詢，建議事先通知子公司 SOC。

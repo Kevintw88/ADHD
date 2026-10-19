@@ -158,7 +158,7 @@ param(
 # ---------------------------------------------------------------------------
 # 常數
 # ---------------------------------------------------------------------------
-$script:CollectorVersion = '0.1.1'
+$script:CollectorVersion = '0.1.2'
 $script:SchemaVersion    = 'adhd.collect/1'
 $script:Utf8NoBom        = New-Object System.Text.UTF8Encoding -ArgumentList $false
 
@@ -1461,12 +1461,29 @@ function Invoke-ADHDModuleADCS {
 # ===========================================================================
 # 模組：EntraConnect（在 Entra Connect 伺服器上執行）
 # ===========================================================================
+function Register-ADHDAccountName {
+    # 在 Entra Connect 伺服器等「沒有 AD 使用者清單」的執行環境中，登錄看到的使用者帳號名稱，
+    # 讓它們也被假名化；同一把金鑰下產生的假名與 AD bundle 一致（HMAC 為確定性）。
+    param([string] $Name, [string] $Sid)
+    if ([string]::IsNullOrEmpty($Name) -or -not $script:Ctx.Pseudo) { return }
+    if ($Sid -and (Test-ADHDBuiltinSid $Sid)) { return }
+    if ($Name -match '^(?i)(NT AUTHORITY|NT SERVICE|BUILTIN|IIS APPPOOL|NT VIRTUAL MACHINE|Window Manager|Font Driver Host)\\') { return }
+    $sam = $Name.Trim()
+    $bs = $sam.LastIndexOf('\')
+    if ($bs -ge 0) { $sam = $sam.Substring($bs + 1) }
+    if ($sam.Length -lt 2 -or $sam.EndsWith('$')) { return }   # 電腦 / gMSA 帳號保留（主機名稱不假名化）
+    if (Test-ADHDInfraAccount $sam) { return }
+    if ($sam.Contains('@') -and (Test-ADHDInfraAccount $sam.Substring(0, $sam.IndexOf('@')))) { return }
+    Register-ADHDPii @($sam)
+}
+
 function Get-ADHDLocalGroupMembers {
     param([string] $Sid, [string] $Name)
     $list = New-Object System.Collections.Generic.List[object]
     $args2 = @{ ErrorAction = 'Stop' }
     if ($Sid) { $args2.SID = $Sid } else { $args2.Name = $Name }
     foreach ($m in (Get-LocalGroupMember @args2)) {
+        if ([string]$m.ObjectClass -eq 'User') { Register-ADHDAccountName -Name ([string]$m.Name) -Sid ([string]$m.SID) }
         $list.Add([ordered]@{
             name            = [string]$m.Name
             sid             = [string]$m.SID
@@ -1495,6 +1512,7 @@ function Invoke-ADHDModuleEntraConnect {
         }
         $svc = $null
         try { $svc = Get-CimInstance -ClassName Win32_Service -Filter "Name='ADSync'" -ErrorAction Stop } catch { }
+        if ($svc) { Register-ADHDAccountName -Name ([string]$svc.StartName) }
         $admins = $null; $adsyncAdmins = $null; $err = New-Object System.Collections.Generic.List[string]
         try { $admins = Get-ADHDLocalGroupMembers -Sid 'S-1-5-32-544' } catch { $err.Add('Administrators: ' + $_.Exception.Message) }
         try { $adsyncAdmins = Get-ADHDLocalGroupMembers -Name 'ADSyncAdmins' } catch { $err.Add('ADSyncAdmins: ' + $_.Exception.Message) }
@@ -1519,7 +1537,9 @@ function Invoke-ADHDModuleEntraConnect {
                 if ($null -eq $cp) { continue }
                 $n = [string](Get-ADHDProp $cp 'Name')
                 if (-not $n -or $n -match '(?i)password|secret|key') { continue }
-                $params[$n] = [string](Get-ADHDProp $cp 'Value')
+                $v = [string](Get-ADHDProp $cp 'Value')
+                if ($n -match '(?i)login-user|user-?name$') { Register-ADHDAccountName -Name $v }
+                $params[$n] = $v
             }
             $parts = New-Object System.Collections.Generic.List[object]
             foreach ($pt in (Get-ADHDProp $c 'Partitions')) {
@@ -1558,6 +1578,16 @@ function Invoke-ADHDModuleEntraConnect {
     try {
         if (Get-Command Get-ADSyncServerConfiguration -ErrorAction SilentlyContinue) {
             Get-ADSyncServerConfiguration -Path $dir -ErrorAction Stop | Out-Null
+            if ($script:Ctx.Pseudo) {
+                foreach ($f in (Get-ChildItem -LiteralPath $dir -Recurse -File | Where-Object { $_.Extension -in @('.xml', '.json', '.txt', '.csv') })) {
+                    try {
+                        $txt = [System.IO.File]::ReadAllText($f.FullName)
+                        $new = Protect-ADHDText $txt
+                        if ($new -cne $txt) { [System.IO.File]::WriteAllText($f.FullName, $new, $script:Utf8NoBom) }
+                    }
+                    catch { Write-ADHDLog ("entraconnect_config 假名化失敗：{0}：{1}" -f $f.Name, $_.Exception.Message) 'WARN' }
+                }
+            }
             Add-ADHDDirectoryDataset -Name 'entraconnect_config' -Module 'EntraConnect' -RelativeDir $rel
         }
         else { Add-ADHDSkipped 'entraconnect_config' 'EntraConnect' 'Get-ADSyncServerConfiguration 不存在（Entra Connect 版本過舊）' }

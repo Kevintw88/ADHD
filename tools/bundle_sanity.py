@@ -211,6 +211,10 @@ def check_ad(bundles: list[Bundle], o: Out) -> dict[str, dict[str, Any]]:
     elif not da.get("members"):
         o.warn("Domain Admins 成員為空 —— 若不符預期，代表 member 屬性讀取失敗")
 
+    contradict = [u for u in users if u.get("uacFlags") is not None and bool(u.get("enabled")) == ("ACCOUNTDISABLE" in (u.get("uacFlags") or []))]
+    if contradict:
+        o.warn(f"{len(contradict)} 個使用者的 enabled 與 userAccountControl 的 ACCOUNTDISABLE 互相矛盾 —— 收集器判讀錯誤，請回報")
+
     builtin_cnt = sum(1 for u in users if u.get("isBuiltin"))
     o.line("內建帳號（RID<1000）", builtin_cnt)
     if not any((u.get("samAccountName") or "").lower() == "krbtgt" for u in users):
@@ -232,8 +236,21 @@ def check_acl(bundles: list[Bundle], o: Out, by_sid: dict[str, dict[str, Any]]) 
     o.line("objectType 未解析名稱", pct(len(unresolved), len(typed)), "unresolvedAceTypes")
     if len(guid_map) < 1000:
         o.warn(f"GUID 對照表只有 {len(guid_map)} 筆（一般網域 > 1500）—— schema 讀取可能被截斷")
-    if typed and len(unresolved) / len(typed) > 0.02:
-        o.warn("超過 2% ACE 的 objectType 無法解析 —— Extended-Rights 容器可能讀取失敗")
+    if unresolved:
+        where: dict[str, Counter[str]] = {}
+        for r in acls:
+            for a in r.get("aces") or []:
+                if a.get("objectType") and not a.get("objectTypeName"):
+                    where.setdefault(a["objectType"], Counter())[r.get("reason") or "?"] += 1
+        tier0 = sum(c["domainRoot"] + c["adminSDHolder"] for c in where.values())
+        o.line("其中位於 domain root / AdminSDHolder", tier0, "unresolvedTier0Aces")
+        print(f"  未解析的 objectType GUID（{len(where)} 種，依次數排序，最多 10 種）：")
+        for g, c in sorted(where.items(), key=lambda kv: -sum(kv[1].values()))[:10]:
+            print(f"    {g}  x{sum(c.values()):<4} 出現於 {dict(c)}")
+        if tier0:
+            o.warn(f"domain root / AdminSDHolder 有 {tier0} 個 ACE 的 objectType 無法解析 —— DCSync / Tier0 權限判讀可能不完整")
+        elif typed and len(unresolved) / len(typed) > 0.02:
+            o.warn("超過 2% ACE 的 objectType 無法解析（不影響 Tier0 物件）—— 多半是已移除產品留下的 schema 殘留 GUID，請將上列 GUID 回報以補對照")
     reasons = Counter(r.get("reason") for r in acls)
     o.line("各類目標", dict(reasons))
     if not reasons.get("domainRoot"):
@@ -249,6 +266,18 @@ def check_acl(bundles: list[Bundle], o: Out, by_sid: dict[str, dict[str, Any]]) 
         rights = a.get("rights") or ""
         if name in DCSYNC_RIGHTS or ("GenericAll" in rights):
             holders.setdefault(a["principal"], set()).add(name or rights)
+    connectors = [c for c in collect(bundles, "entraconnect_connectors") if (c.get("type") or "").upper() == "AD"]
+    login_users = {}
+    for c in connectors:
+        for k, v in (c.get("connectivityParameters") or {}).items():
+            if re.search(r"(?i)login-user|user-?name$", k) and v:
+                login_users[str(v).rsplit("\\", 1)[-1].lower()] = c
+    memberships: dict[str, list[str]] = {}
+    for g in collect(bundles, "ad_groups"):
+        for m in g.get("members") or []:
+            memberships.setdefault(m, []).append(g.get("name") or g.get("sid"))
+
+    review: list[tuple[str, dict[str, Any], set[str]]] = []
     print("  可 DCSync 的主體（Get-Changes-All 或 GenericAll on domain root）：")
     for sid, rights in sorted(holders.items()):
         if "DS-Replication-Get-Changes-All" not in rights and not any("GenericAll" in r for r in rights):
@@ -256,13 +285,39 @@ def check_acl(bundles: list[Bundle], o: Out, by_sid: dict[str, dict[str, Any]]) 
         obj = by_sid.get(sid, {})
         label = obj.get("samAccountName") or obj.get("name") or "?"
         rid = sid.rsplit("-", 1)[-1]
+        names = {(obj.get("samAccountName") or "").lower(), (obj.get("userPrincipalName") or "").lower()} - {""}
         if rid in EXPECTED_DCSYNC_RIDS or sid in ("S-1-5-32-544", "S-1-5-18", "S-1-5-9"):
             tag = "預期"
-        elif re.match(r"(?i)^MSOL_", label):
-            tag = "預期（Entra Connect PHS）"
+        elif re.match(r"(?i)^MSOL_", label) or names & set(login_users):
+            tag = "預期（Entra Connect connector）"
         else:
             tag = "需確認"
-        print(f"    {tag:<22} {sid:<48} {label}")
+            review.append((sid, obj, rights))
+        print(f"    {tag:<24} {sid:<48} {label}")
+
+    for sid, obj, rights in review:
+        print(f"  [需確認] {sid}")
+        if not obj:
+            print("    不在本輪收集的 AD 物件中（可能是其他網域或已刪除的物件）")
+            continue
+        print(f"    類型 / 啟用 / adminCount     {obj.get('objectClass')} / {obj.get('enabled')} / {obj.get('adminCount')}")
+        print(f"    建立 / 密碼變更 / 最後登入   {obj.get('whenCreated')} / {obj.get('pwdLastSet')} / {obj.get('lastLogonTimestamp')}")
+        print(f"    權限                         {', '.join(sorted(rights))}")
+        print(f"    所屬群組                     {', '.join(sorted(map(str, memberships.get(sid, [])))) or '（無）'}")
+        if obj.get("servicePrincipalNames"):
+            print(f"    SPN                          {', '.join(obj['servicePrincipalNames'])}")
+        created = parse_ts(obj.get("whenCreated"))
+        for c in connectors:
+            ct = parse_ts(c.get("creationTime"))
+            if created and ct and abs((created - ct).total_seconds()) <= 2 * 86400:
+                hours = abs((created - ct).total_seconds()) / 3600
+                print(f"    → 建立時間與 AD connector「{c.get('name')}」相差 {hours:.1f} 小時，很可能是 Entra Connect 的 AD DS connector 帳號")
+                break
+        else:
+            if connectors and created:
+                print("    → 建立時間與 Entra Connect connector 不接近；請子公司以 SID 確認此帳號用途")
+            else:
+                print("    → 請子公司以 SID 確認此帳號用途：Get-ADObject -Filter \"objectSid -eq '<SID>'\" -Properties *")
 
 
 def check_pseudonymization(bundles: list[Bundle], o: Out) -> None:
@@ -306,6 +361,30 @@ def check_hybrid(bundles: list[Bundle], o: Out, by_sid: dict[str, dict[str, Any]
     if by_sid and with_sid and len(matched) / len(with_sid) < 0.9:
         domains = Counter(u.get("onPremisesDomainName") for u in with_sid if u["onPremisesSecurityIdentifier"] not in by_sid)
         o.warn(f"有同步帳號對應不到 AD —— 來源網域分布 {dict(domains.most_common(5))}（其他網域請另外收一份 AD bundle）")
+    if matched:
+        both_on = ad_off_entra_on = ad_on_entra_off = both_off = 0
+        recent_disabled = 0
+        now = datetime.now(timezone.utc)
+        for u in matched:
+            a = by_sid[u["onPremisesSecurityIdentifier"]]
+            ad_on, en_on = bool(a.get("enabled")), bool(u.get("accountEnabled"))
+            if ad_on and en_on:
+                both_on += 1
+            elif not ad_on and en_on:
+                ad_off_entra_on += 1
+            elif ad_on and not en_on:
+                ad_on_entra_off += 1
+            else:
+                both_off += 1
+            ll = parse_ts(a.get("lastLogonTimestamp"))
+            if not ad_on and ll and (now - ll).days <= 30:
+                recent_disabled += 1
+        o.line("啟用狀態 AD/Entra：都啟用 / 都停用", f"{both_on} / {both_off}", "enabledBoth")
+        o.line("AD 停用但 Entra 啟用 / AD 啟用但 Entra 停用", f"{ad_off_entra_on} / {ad_on_entra_off}", "enabledMismatch")
+        o.line("AD 停用但 30 天內有登入紀錄", recent_disabled)
+        if ad_off_entra_on > max(3, 0.1 * len(matched)):
+            o.warn("大量帳號 AD 為停用、Entra 為啟用 —— 同步正常時不應發生；可能是同步規則不同步 accountEnabled、"
+                   "停用帳號未被移出同步範圍，或收集器判讀問題。請子公司抽查 1–2 個 SID：Get-ADUser <SID> | Select Enabled")
     o.line("含 signInActivity", pct(sum(1 for u in entra if u.get("signInActivity")), len(entra)))
     roles = collect(bundles, "entra_role_assignments")
     o.line("目錄角色指派 / CA 原則", f"{len(roles)} / {len(collect(bundles, 'entra_ca_policies'))}")

@@ -513,6 +513,46 @@ Assert-True (Test-Path -LiteralPath $keyFile) '假名化金鑰在 bundle 外'
 Assert-True (@(Get-ChildItem -LiteralPath $OutputRoot -Filter 'ADHD-pseudonym-map-*.csv').Count -eq 1) '對照表在 bundle 外'
 Assert-True (-not (Test-Path -LiteralPath (Join-Path $bundle 'ADHD-pseudonym.key'))) 'bundle 內沒有金鑰'
 
+# ---------------------------------------------------------------------------
+# 第二次執行：只跑 EntraConnect（模擬 Entra Connect 伺服器：沒有 AD 使用者清單），沿用同一把金鑰
+# ---------------------------------------------------------------------------
+$firstJdoe = $jdoe.samAccountName
+$Include = @('EntraConnect')
+$Label = 'SmokeSub-AADC'
+$PseudonymKeyFile = $keyFile
+$script:ADHDTestHooks.AvailableModules = @('ADSync')
+function Get-ADSyncConnector {
+    [pscustomobject]@{
+        Name = 'sub.local'; Identifier = [guid]::NewGuid(); Type = 'AD'; Version = 5; CreationTime = [datetime]'2024-01-01'
+        ConnectivityParameters = @(
+            [pscustomobject]@{ Name = 'forest-name'; Value = 'sub.local' },
+            [pscustomobject]@{ Name = 'forest-login-user'; Value = 'jdoe' },
+            [pscustomobject]@{ Name = 'forest-login-domain'; Value = 'SUB' }
+        )
+        Partitions = @(); ObjectInclusionList = @('user')
+    }
+}
+function Get-ADSyncServerConfiguration {
+    [CmdletBinding()] param($Path)
+    New-Item -ItemType Directory -Path (Join-Path $Path 'Connectors') -Force | Out-Null
+    Set-Content -LiteralPath (Join-Path $Path 'Connectors/Connector_sub.local.xml') -Value '<connector name="sub.local"><parameter name="forest-login-user">jdoe</parameter><owner>SUB\jdoe</owner></connector>'
+}
+$result2 = Invoke-ADHDMain
+$bundle2 = $result2.BundlePath
+$m2 = Get-Content -LiteralPath (Join-Path $bundle2 'manifest.json') -Raw | ConvertFrom-Json
+Assert-True ($m2.pseudonymization.keyId -eq $manifest.pseudonymization.keyId) 'AADC 單獨執行：沿用同一把金鑰'
+$srv2 = @(Get-Content -LiteralPath (Join-Path $bundle2 'entraconnect_server.jsonl') -Encoding UTF8 | ConvertFrom-Json)
+Assert-True ($srv2[0].localAdministrators[0].name -eq "SUB\$firstJdoe") 'AADC 單獨執行：本機管理員帳號假名化，且與 AD bundle 一致'
+Assert-True ($srv2[0].localAdministrators[1].name -eq 'SUB\Domain Admins') 'AADC 單獨執行：群組名稱保留'
+$conn2 = @(Get-Content -LiteralPath (Join-Path $bundle2 'entraconnect_connectors.jsonl') -Encoding UTF8 | ConvertFrom-Json)
+Assert-True ($conn2[0].connectivityParameters.'forest-login-user' -eq $firstJdoe) 'AADC 單獨執行：connector 帳號假名化，且與 AD bundle 一致'
+$cfg2 = Get-Content -LiteralPath (Join-Path $bundle2 'entraconnect_config/Connectors/Connector_sub.local.xml') -Raw
+Assert-True ($cfg2 -match [regex]::Escape(">$firstJdoe<") -and $cfg2 -match [regex]::Escape(">SUB\$firstJdoe<")) 'AADC 單獨執行：entraconnect_config 已假名化'
+$all2 = (Get-ChildItem -LiteralPath $bundle2 -Recurse -File | Where-Object { $_.Name -ne 'collection.log' } | ForEach-Object { Get-Content -LiteralPath $_.FullName -Raw }) -join "`n"
+Assert-True ($all2.IndexOf('jdoe', [System.StringComparison]::OrdinalIgnoreCase) -lt 0) 'AADC 單獨執行：bundle 不含 jdoe 明文'
+$dsMap = @{}; foreach ($d in $m2.datasets) { $dsMap[$d.name] = $d }
+Assert-True ($dsMap['entraconnect_config'].files[0].sha256 -eq (Get-FileHash -LiteralPath (Join-Path $bundle2 'entraconnect_config/Connectors/Connector_sub.local.xml') -Algorithm SHA256).Hash.ToLowerInvariant()) 'AADC 單獨執行：假名化後的 config 雜湊與 manifest 一致'
+
 Write-Host ''
 if ($failures.Count -gt 0) {
     Write-Host ("{0} 項失敗" -f $failures.Count) -ForegroundColor Red
