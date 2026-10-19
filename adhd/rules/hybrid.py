@@ -146,7 +146,8 @@ def disabled_in_ad_enabled_in_entra(ctx, hits):
         why = "無法取得租用戶最後同步時間"
     found.sort(key=lambda a: (a["detail"].get("lastSignInDays") is None, a["detail"].get("lastSignInDays") or 0))
     hits.add(f"{len(found)} 個帳號在 AD 已停用，但對應的 Entra 帳號仍啟用；其中 {recent} 個近 30 天仍有雲端登入"
-             + (f"、{priv} 個持有特權角色" if priv else "") + f"。{why}。",
+             + (f"、{priv} 個持有特權角色" if priv else "") + f"。{why}。"
+             "處理前請先以 tools/diag_enabled.py 與 collectors/powershell/diagnostics/Test-ADHDEnabledState.ps1 確認實際狀態。",
              found, "high" if recent or priv else "medium",
              {"recentCloudSignIns": recent, "privileged": priv, "tenantLastSyncDays": tenant_sync,
               "objectLastSyncDays": {"min": min(sync_ages), "max": max(sync_ages)} if sync_ages else None})

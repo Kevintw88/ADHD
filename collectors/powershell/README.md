@@ -193,3 +193,22 @@ pwsh -NoProfile -File tests/powershell/Invoke-CollectorSmokeTest.ps1
 ```
 
 真實環境驗證請先在 lab AD / 測試租用戶跑一次，再交給子公司。
+
+---
+
+## 8. 診斷工具
+
+`diagnostics/Test-ADHDEnabledState.ps1`：唯讀確認 AD 與 Entra ID 的帳號啟用狀態（對應分析的 HY-005）。
+
+| 模式 | 執行位置 | 內容 |
+|---|---|---|
+| 預設 | 網域成員主機，一般網域使用者 | 三種獨立方式判斷停用（AD 模組 Enabled、userAccountControl 位元、LDAP 伺服器端篩選）、各 DC 停用數、停用帳號的修改日與容器分布、與 Entra `accountEnabled` / 最後同步 / 最後登入比對 |
+| `-EntraConnect` | Entra Connect 伺服器，系統管理員 | 同步排程、最近執行結果、所有寫入 `accountEnabled` 的同步規則、指定帳號（`-SampleDn`）在連接器空間與 metaverse 的值 |
+
+```powershell
+.\Test-ADHDEnabledState.ps1 -SidFile .\mismatch-sids.txt -TenantId <tenant> *> .\enabled-check.log
+.\Test-ADHDEnabledState.ps1 -EntraConnect -SampleDn '<停用帳號的 DN>' *> .\aadc-check.log
+```
+
+`mismatch-sids.txt` 由 lab 端 `python3 tools/diag_enabled.py <bundles> --sids-out mismatch-sids.txt` 產生。CSV 預設只含 SID 與狀態；`-IncludeNames` 會加入帳號名稱，只供子公司內部使用。測試：`pwsh -File tests/powershell/Invoke-EnabledStateDiagTest.ps1`。
+
