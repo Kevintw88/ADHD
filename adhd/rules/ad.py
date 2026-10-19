@@ -29,10 +29,35 @@ def _connector_accounts(ctx) -> set[str]:
     """Lower-case account names the Entra Connect AD DS connectors log in with."""
     names = set()
     for c in ctx.rows("entraconnect_connectors"):
+        if str(c.get("type") or "").upper() != "AD":   # the Entra-side connector logs in with a cloud Sync_ account
+            continue
         for k, v in (c.get("connectivityParameters") or {}).items():
             if re.search(r"(?i)login-user|user-?name$", k) and v:
                 names.add(str(v).rsplit("\\", 1)[-1].lower())
     return names
+
+
+def _nondefault_dcsync(ctx) -> list[str]:
+    if not ctx.domain_sid:
+        return []
+    expected = set(ctx.tier0_groups) | {"S-1-5-18", "S-1-5-9"}
+    return [e.src for e in ctx.graph.edges_in(ctx.domain_sid, ["DCSync"]) if e.src not in expected]
+
+
+def connector_sids(ctx) -> tuple[list[str], str | None]:
+    """AD DS connector account SIDs and how they were identified ('matched' by name, or 'inferred')."""
+    names = _connector_accounts(ctx)
+    if not names:
+        return [], None
+    matched = [u["sid"] for u in ctx.users() if _is_connector(ctx, u["sid"], names)]
+    if matched:
+        return matched, "matched"
+    # 0.1.1 AADC bundles carry the login name in clear text, so it never matches a pseudonymised AD name.
+    # With exactly one unmatched login and exactly one non-default DCSync holder, the holder is almost certainly it.
+    holders = [s for s in _nondefault_dcsync(ctx) if ctx.graph.kind(s) == "user"]
+    if len(names) == 1 and len(holders) == 1:
+        return holders, "inferred"
+    return [], None
 
 
 def _is_connector(ctx, sid: str, names: set[str]) -> bool:
@@ -483,22 +508,28 @@ def dcsync(ctx, hits):
         return
     expected = set(ctx.tier0_groups) | {"S-1-5-18", "S-1-5-9"}
     connectors = _connector_accounts(ctx)
+    conn_sids, how = connector_sids(ctx)
     bad, conn = [], []
     for e in ctx.graph.edges_in(ctx.domain_sid, ["DCSync"]):
         if e.src in expected:
             continue
-        if _is_connector(ctx, e.src, connectors):
+        if how == "matched" and e.src in conn_sids:
             conn.append(ctx.ref(e.src, "Entra Connect AD DS connector 帳號"))
         else:
-            bad.append(ctx.ref(e.src, _account_context(ctx, e.src, connectors)))
+            detail = _account_context(ctx, e.src, connectors)
+            if how == "inferred" and e.src in conn_sids:
+                detail["likelyConnector"] = True
+            bad.append(ctx.ref(e.src, detail))
     if bad:
         note = ""
         known_names = {str(r.get(k) or "").lower() for r in ctx.users() for k in ("samAccountName", "userPrincipalName")}
         unmatched = [n for n in connectors if n not in known_names and not n.startswith("msol_")]
         if unmatched and ctx.round_pseudonymized():
             note = ("注意：Entra Connect bundle 中的 connector 帳號名稱（" + "、".join(unmatched) + "）未假名化"
-                    "（收集器 0.1.1 以前），無法和 AD 帳號自動比對。若以下帳號就是 connector 帳號，"
-                    "請以 0.1.2 重收 EntraConnect（沿用同一把金鑰），或由子公司以 SID 確認。")
+                    "（收集器 0.1.1 以前），無法和 AD 帳號自動比對。"
+                    + ("依「唯一的非預設 DCSync 持有者」推斷它就是 connector 帳號（likelyConnector），見 HY-004；"
+                       if how == "inferred" else "若以下帳號就是 connector 帳號，")
+                    + "請以 0.1.2 重收 EntraConnect（沿用同一把金鑰），或由子公司以 SID 確認。")
         hits.add(f"{len(bad)} 個非預設主體可執行 DCSync。{note}", bad, "critical")
     if conn:
         hits.add("Entra Connect connector 帳號具 DCSync 權限（密碼雜湊同步所需）。此帳號已納入 Tier0 評估；"

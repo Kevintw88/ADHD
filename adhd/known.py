@@ -87,6 +87,13 @@ GLOBAL_ADMIN = "62e90394-69f5-4237-9190-012177145e10"
 DIRECTORY_SYNC_ROLE = "d29b2b05-8046-44ba-8758-1e26182fcf32"
 
 MICROSOFT_TENANTS = {"f8cdef31-a31e-4b4a-93e4-5f571e91255a", "72f988bf-86f1-41af-91ab-2d7cd011db47"}
+# Microsoft first-party public clients whose service principal owner tenant varies between tenants.
+MICROSOFT_FIRST_PARTY_APPIDS = {
+    "14d82eec-204b-4c2f-b7e8-296a70dab67e",  # Microsoft Graph Command Line Tools
+    "04b07795-8ddb-461a-bbee-02f9e1bf7b46",  # Microsoft Azure CLI
+    "1950a258-227b-4e31-a9cf-717495945fc2",  # Microsoft Azure PowerShell
+    "d3590ed6-52b3-4102-aeff-aad2292ab01c",  # Microsoft Office
+}
 # Tenant-owned service principals that Entra creates and credentials itself.
 SYSTEM_SERVICE_PRINCIPALS = {"P2P Server"}
 

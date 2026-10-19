@@ -124,7 +124,7 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
              keyCredentialLinkCount=1 if v else 0),
         user(1103, "u-helpdesk", logon=1),
         user(1105, "u-cloudadmin", logon=1),
-        user(1106, "svc-aadc", logon=1, pwd=100, flags=("NORMAL_ACCOUNT", "NOT_DELEGATED")),
+        user(1106, "svc-aadc", logon=1, pwd=100, flags=("NORMAL_ACCOUNT", "NOT_DELEGATED"), keyCredentialLinkCount=1 if v else 0),
     ]
     if v:
         users += [
@@ -135,6 +135,7 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
                  allowedToDelegateTo=["cifs/dc01.corp.local"]),
             user(1104, "u-old", logon=300, adminCount=1),
             user(1107, "u-evil", logon=1),
+            user(1110, "u-left", enabled=False, logon=200),
         ]
     computers = [
         computer(1000, "DC01", os="Windows Server 2022 Standard", dc=True, laps=False,
@@ -326,6 +327,8 @@ def _entra(vulnerable: bool) -> dict[str, Any]:
             eu("e-staleadmin", "stale@corp.onmicrosoft.com", signInActivity={"lastSignInDateTime": ago(200)}),
             eu("e-staleguest", "g_y.com#EXT#@corp.onmicrosoft.com", userType="Guest",
                signInActivity={"lastSignInDateTime": ago(300)}),
+            eu("e-left", "u-left@corp.com", onPremisesSyncEnabled=True, onPremisesSecurityIdentifier=sid(1110),
+               onPremisesLastSyncDateTime=ago(200), signInActivity={"lastSignInDateTime": ago(3)}),
         ]
     reg = [{"id": u["id"], "userPrincipalName": u["userPrincipalName"], "isMfaRegistered": True, "methodsRegistered": ["fido2"]}
            for u in users]
@@ -430,7 +433,8 @@ def _entra(vulnerable: bool) -> dict[str, Any]:
     domains = [{"id": "corp.com", "authenticationType": "Federated" if v else "Managed"},
                {"id": "corp.onmicrosoft.com", "authenticationType": "Managed"}]
     return {
-        "entra_organization": [{"id": TENANT, "displayName": "Corp"}], "entra_domains": domains, "entra_users": users,
+        "entra_organization": [{"id": TENANT, "displayName": "Corp", "onPremisesSyncEnabled": True,
+                                "onPremisesLastSyncDateTime": ago(0.02)}], "entra_domains": domains, "entra_users": users,
         "entra_groups": groups, "entra_role_definitions": role_defs, "entra_role_assignments": assignments,
         "entra_pim_eligibility": eligibility, "entra_pim_assignments": pim_assign, "entra_admin_units": [],
         "entra_admin_unit_roles": [], "entra_ca_policies": ca, "entra_named_locations": [],

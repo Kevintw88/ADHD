@@ -75,7 +75,7 @@ Domain Admins、Enterprise Admins、Schema Admins、Administrators、Domain Cont
 
 ## 規則
 
-約 60 條，分 AD、ADCS、Entra、Hybrid 四類，完整清單見 [rules.md](rules.md)。每條規則的狀態：
+64 條，分 AD、ADCS、Entra、Hybrid 四類，完整清單見 [rules.md](rules.md)。每條規則的狀態：
 
 | 狀態 | 意義 |
 |---|---|

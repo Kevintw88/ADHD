@@ -327,10 +327,12 @@ def risky_delegated(ctx, hits):
             by_client[e.src].append(f"{ctx.label(e.dst)}: {', '.join(risky)}")
     first_party, other = [], []
     for sp, grants in by_client.items():
-        owner = (ctx.entra.get(sp) or {}).get("appOwnerOrganizationId")
-        item = ctx.ref(sp, {"grants": sorted(grants), "owner": "Microsoft" if owner in known.MICROSOFT_TENANTS
+        row = ctx.entra.get(sp) or {}
+        owner = row.get("appOwnerOrganizationId")
+        ms = owner in known.MICROSOFT_TENANTS or row.get("appId") in known.MICROSOFT_FIRST_PARTY_APPIDS
+        item = ctx.ref(sp, {"grants": sorted(grants), "owner": "Microsoft" if ms
                             else ("本租用戶" if owner == ctx.tenant_id else "第三方")})
-        (first_party if owner in known.MICROSOFT_TENANTS else other).append(item)
+        (first_party if ms else other).append(item)
     if other:
         hits.add(f"{len(other)} 個本租用戶 / 第三方應用程式取得代表組織同意的高風險委派權限。", other, "high")
     if first_party:

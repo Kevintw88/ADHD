@@ -84,3 +84,5 @@
 | HY-001 | 高 | 雲端特權角色由地端同步帳號持有 | 同步帳號的密碼與狀態由 AD 決定：能重設該 AD 帳號密碼的人（含 AD 的服務台委派）即可取得雲端特權。 | entra_role_assignments<br>entra_users | T1078.002, T1078.004 |
 | HY-002 | 中 | AD Tier0 帳號同步到 Entra ID | AD 特權帳號同步後，其密碼雜湊也同步到雲端，雲端端的釣魚或權杖竊取會直接威脅 AD Tier0。 | ad_users<br>ad_groups<br>entra_users | T1078.002 |
 | HY-003 | 資訊 | Entra Connect 組態摘要 | 彙整 Entra Connect 的伺服器、版本、同步模式與 connector 帳號，供後續分析與報告使用。 | entraconnect_server | T1003.006 |
+| HY-004 | 嚴重 | Entra Connect 的 AD DS connector 帳號權限過高或被當成一般帳號使用 | connector 帳號的密碼保存在 Entra Connect 伺服器上，該伺服器的本機管理員可以取出。帳號若是 Tier0 群組成員，取得伺服器即取得網域。 | entraconnect_connectors<br>ad_users<br>ad_groups<br>ad_acls | T1003.006, T1555, T1078.002 |
+| HY-005 | 高 | AD 已停用但 Entra 仍啟用的同步帳號 | Entra Connect 預設會把 AD 的停用狀態同步到 Entra。兩邊不一致代表「在 AD 停用帳號」（一般的離職流程）沒有關閉雲端存取。 | ad_users<br>entra_users | T1078.004 |

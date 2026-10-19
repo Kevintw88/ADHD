@@ -34,7 +34,7 @@ EXPECTED_VULNERABLE = {
     "EN-007": "high", "EN-008": "medium", "EN-009": "info", "EN-010": "medium", "EN-011": "high", "EN-012": "high",
     "EN-013": "critical", "EN-014": "medium", "EN-015": "high", "EN-016": "high", "EN-017": "low", "EN-018": "high",
     "EN-019": "high", "EN-020": "medium", "EN-021": "medium", "EN-022": "info",
-    "HY-001": "high", "HY-002": "medium", "HY-003": "info",
+    "HY-001": "high", "HY-002": "medium", "HY-003": "info", "HY-004": "high", "HY-005": "high",
 }
 # rules that legitimately produce informational output in a tidy environment
 INFO_IN_CLEAN = {"AD-014", "AD-021", "ADCS-007", "EN-008", "EN-009", "EN-014", "HY-003"}
@@ -162,6 +162,19 @@ class VulnerableRound(RoundCase):
         p2p = [f for f in self.results["EN-014"].findings if any(a["id"] == "entra:sp-p2p" for a in f.affected)]
         self.assertEqual([f.severity for f in p2p], ["info"])
 
+    def test_disabled_in_ad_enabled_in_entra(self):
+        f = self.finding("HY-005")
+        self.assertEqual([a["id"] for a in f.affected], ["entra:e-left"])
+        self.assertEqual(f.evidence["recentCloudSignIns"], 1)
+        self.assertIn("同步規則", f.summary)            # tenant sync is running -> rule / filter hypothesis
+
+    def test_connector_key_credential(self):
+        f = self.finding("HY-004")
+        a = f.affected[0]
+        self.assertEqual(a["id"], fx.sid(1106))
+        self.assertEqual(a["detail"]["identifiedBy"], "名稱比對")
+        self.assertIn("CORP\\u-svc", a["detail"]["nonTier0LocalAdminsOnServer"])
+
     def test_hotspots_merge_ad_and_entra(self):
         from adhd.report import build_document
         doc = build_document(self.ctx, list(self.results.values()))
@@ -211,6 +224,32 @@ class CoverageAndCli(unittest.TestCase):
         self.assertEqual(res["AD-003"].status, "skipped")
         self.assertIn("ad_users(未收集)", res["AD-003"].reason)
         self.assertEqual(res["HY-003"].status, "finding")
+
+    def test_privileged_connector_inferred_from_cleartext_login(self):
+        """SubA case: 0.1.1 AADC bundle (cleartext login 'ithd'), connector account is a Domain Admin."""
+        data = fx._ad_common(True)
+        for g in data["ad_groups"]:
+            if g["sid"] == fx.sid(512):
+                g["members"].append(fx.sid(1106))
+        for r in data["ad_acls"]:
+            if r["reason"] == "domainRoot":
+                r["aces"] = [a for a in r["aces"] if a["principal"] != fx.sid(1107)]
+        aadc = fx._aadc(True)
+        aadc["entraconnect_connectors"][0]["connectivityParameters"]["forest-login-user"] = "ithd"
+        aadc["entraconnect_connectors"].append({"name": "corp.onmicrosoft.com - AAD", "type": "Extensible2",
+                                                "connectivityParameters": {"UserName": "{guid}@corp.onmicrosoft.com"}})
+        b1 = fx.write_bundle(self.root / "b", "ad", data, scope={"adDomainSid": fx.DOM})
+        b2 = fx.write_bundle(self.root / "b", "aadc", aadc)
+        res = {r.rule.id: r for r in run_rules(build_context(open_round([b1, b2], self.root / "x")))}
+        hy = res["HY-004"].findings
+        self.assertEqual([f.severity for f in hy], ["critical"])
+        d = hy[0].affected[0]["detail"]
+        self.assertEqual(hy[0].affected[0]["id"], fx.sid(1106))
+        self.assertTrue(d["inTier0Group"])
+        self.assertIn("推斷", d["identifiedBy"])
+        bad = [f for f in res["AD-021"].findings if f.severity == "critical"][0]
+        self.assertTrue(bad.affected[0]["detail"]["likelyConnector"])
+        self.assertNotIn("{guid}", bad.summary)          # Entra-side connector account is not an AD login
 
     def test_esc4_without_enterprise_ca_is_low(self):
         data = fx._ad_common(True)
