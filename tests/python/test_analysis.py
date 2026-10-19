@@ -24,7 +24,7 @@ import fixtures as fx  # noqa: E402
 EXPECTED_VULNERABLE = {
     "AD-001": "high", "AD-002": "medium", "AD-003": "critical", "AD-004": "high", "AD-005": "high",
     "AD-006": "critical", "AD-007": "critical", "AD-008": "medium", "AD-009": "high", "AD-010": "medium",
-    "AD-011": "medium", "AD-012": "medium", "AD-013": "critical", "AD-014": "medium", "AD-015": "medium",
+    "AD-011": "medium", "AD-012": "medium", "AD-013": "critical", "AD-014": "medium", "AD-015": "high",
     "AD-016": "high", "AD-017": "high", "AD-018": "high", "AD-019": "critical", "AD-020": "critical",
     "AD-021": "critical", "AD-022": "high", "AD-023": "high", "AD-024": "medium", "AD-025": "low",
     "AD-026": "high", "AD-027": "medium", "AD-028": "low", "AD-029": "low", "AD-030": "medium",
@@ -37,7 +37,7 @@ EXPECTED_VULNERABLE = {
     "HY-001": "high", "HY-002": "medium", "HY-003": "info",
 }
 # rules that legitimately produce informational output in a tidy environment
-INFO_IN_CLEAN = {"AD-014", "AD-021", "ADCS-007", "EN-008", "EN-009", "HY-003"}
+INFO_IN_CLEAN = {"AD-014", "AD-021", "ADCS-007", "EN-008", "EN-009", "EN-014", "HY-003"}
 
 
 def _top(result):
@@ -138,6 +138,39 @@ class VulnerableRound(RoundCase):
         self.assertEqual({a["id"] for a in self.finding("EN-019").affected}, {fx.sid(1102)})
         self.assertEqual(self.finding("EN-005").affected[0]["id"], "entra:e-ga1")
 
+    def test_calibrations_from_suba(self):
+        # built-in RODC groups mention "password" in their default description
+        self.assertNotIn(fx.sid(571), {a["id"] for a in self.finding("AD-018").affected})
+        # DCSync detail reports real Tier0-group membership, not the DCSync-derived Tier0 flag
+        bad = self.finding("AD-021", "非預設主體").affected[0]
+        self.assertFalse(bad["detail"]["inTier0Group"])
+        # orphan SIDs are labelled
+        self.assertIn("孤立", self.ctx.label(fx.sid(2104)))
+        # ESC4: published + broad = critical, orphan-only writer = low
+        sev = {f.severity: [a["label"] for a in f.affected] for f in self.results["ADCS-004"].findings}
+        self.assertEqual(sev["critical"], ["ESC4"])
+        self.assertEqual(sev["low"], ["OrphanACL"])
+        # EN-015: Microsoft first-party grants are low and aggregated per client
+        by_sev = {f.severity: f for f in self.results["EN-015"].findings}
+        self.assertEqual([a["id"] for a in by_sev["low"].affected], ["entra:sp-photos"])
+        self.assertEqual([a["id"] for a in by_sev["high"].affected], ["entra:sp-app"])
+        # LAPS: Tier0 server separated (high), stale host excluded
+        laps = {f.title: f for f in self.results["AD-015"].findings}
+        self.assertEqual([a["label"] for a in laps["Tier0 伺服器沒有 LAPS"].affected], ["CA-AADC"])
+        self.assertFalse(any(a["label"] == "OLD-PC" for f in laps.values() for a in f.affected))
+        # P2P Server is a system service principal (info)
+        p2p = [f for f in self.results["EN-014"].findings if any(a["id"] == "entra:sp-p2p" for a in f.affected)]
+        self.assertEqual([f.severity for f in p2p], ["info"])
+
+    def test_hotspots_merge_ad_and_entra(self):
+        from adhd.report import build_document
+        doc = build_document(self.ctx, list(self.results.values()))
+        hs = {h["id"]: h for h in doc["hotspots"]}
+        self.assertIn(fx.sid(1105), hs, "synced cloud admin should be merged under its AD SID")
+        h = hs[fx.sid(1105)]
+        self.assertIn("entra:e-cloudadmin", h["accounts"])
+        self.assertTrue({"EN-002", "HY-001"} <= {r.split("（")[0] for r in h["rules"]})
+
     def test_finding_shape(self):
         for r in self.results.values():
             for f in r.findings:
@@ -179,6 +212,16 @@ class CoverageAndCli(unittest.TestCase):
         self.assertIn("ad_users(未收集)", res["AD-003"].reason)
         self.assertEqual(res["HY-003"].status, "finding")
 
+    def test_esc4_without_enterprise_ca_is_low(self):
+        data = fx._ad_common(True)
+        data["adcs_cas"] = []
+        for t in data["adcs_templates"]:
+            t["published"] = False
+        b = fx.write_bundle(self.root / "b", "no-ca", data, scope={"adDomainSid": fx.DOM})
+        res = {r.rule.id: r for r in run_rules(build_context(open_round([b], self.root / "x")))}
+        self.assertEqual({f.severity for f in res["ADCS-004"].findings}, {"low"})
+        self.assertEqual(res["ADCS-001"].status, "pass")
+
     def test_failed_dataset_marks_rule_skipped(self):
         data = fx._ad_common(True)
         data["gpo_gpp_cpassword"] = ("error", "無法存取 SYSVOL")
@@ -219,6 +262,30 @@ class CoverageAndCli(unittest.TestCase):
         self.assertEqual([r.rule.id for r in res if r.status == "error"], [])
         self.assertIn("S-1-5-21-1-2-3-512", ctx.tier0)
         self.assertTrue(any(r.rule.id == "ADCS-001" and r.status == "finding" for r in res))
+
+
+class Exceptions(unittest.TestCase):
+    def test_apply_exceptions(self):
+        from adhd.exceptions import apply_exceptions
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            paths = fx.make_round(root / "b", True)
+            ctx = build_context(open_round(paths, root / "x"))
+            results = run_rules(ctx)
+            exc = [
+                {"id": "entra:e-ga1", "rules": ["EN-005"], "reason": "break-glass", "expires": "2027-01-01"},
+                {"id": "*", "rules": ["EN-012"], "reason": "project", "owner": "IT"},
+                {"id": "entra:nobody", "rules": ["*"], "reason": "stale entry"},
+                {"id": "S-1-5-21-10-20-30-1102", "rules": ["AD-004"], "reason": "expired", "expires": "2026-01-01"},
+            ]
+            accepted, warnings = apply_exceptions(results, exc, ctx.as_of)
+            res = {r.rule.id: r for r in results}
+            self.assertEqual(res["EN-005"].status, "accepted")
+            self.assertEqual(res["EN-012"].status, "accepted")
+            self.assertEqual(res["AD-004"].status, "finding")          # expired exception not applied
+            self.assertEqual({a["ruleId"] for a in accepted}, {"EN-005", "EN-012"})
+            self.assertTrue(any("已過期" in w for w in warnings))
+            self.assertTrue(any("未比對" in w and "entra:nobody" in w for w in warnings))
 
 
 class Helpers(unittest.TestCase):

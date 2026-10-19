@@ -35,6 +35,26 @@ python3 tools/analyze.py ... --only AD-020 ADCS    # 只跑指定規則 / 類別
 
 帳號名稱沿用收集時的假名（`u-xxxxxxxxxxxx`），報告可以安全地在 lab 內流通；需要還原時由子公司以對照表查詢。輸出含環境資料，`.gitignore` 已排除，不要提交到 repo。
 
+## 重點對象（跨規則關聯）
+
+報告會把同一個身分在不同規則的發現合併計分（嚴重 10、高 5、中 2、低 1；資訊類不計），列在摘要之後：
+
+- AD 帳號與它同步到 Entra 的帳號視為同一身分（依 `onPremisesSecurityIdentifier`）；
+- App 註冊與它的服務主體視為同一身分；
+- 條件式存取原則的「排除對象」也會計入（標示為「排除對象」）。
+
+單條規則看起來只是「中」的問題，疊在同一個 Tier0 帳號上時往往才是最該先處理的。`findings.json` 的 `hotspots[]` 提供同樣的資料給地端模型。
+
+## 已確認例外
+
+審查後確認可接受的項目（例如緊急存取帳號），寫進例外檔，分析時加上 `--exceptions`：
+
+```bash
+python3 tools/analyze.py ... --out ... --exceptions /srv/adhd/exceptions/SubA.json
+```
+
+格式見 [exceptions.example.json](exceptions.example.json)：`id` 是 findings.json 中 `affected[].id`（SID、`entra:<objectId>` 等），`*` 代表整條規則；`reason` 必填；`expires` 到期後自動失效並在報告中提醒。被接受的項目從發現中移出，改列在報告末的「已接受的例外」；比對不到任何發現的例外也會提醒（可能已修正，可以移除）。例外檔含環境識別資訊，和報告一樣存放在 lab，不進 repo。
+
 ## 關聯圖
 
 | 節點 id | 類型 |

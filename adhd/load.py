@@ -57,6 +57,7 @@ class Context:
         self.dn_index: dict[str, str] = {}
         self.tier0_groups: dict[str, str] = {}
         self.tier0: set[str] = set()
+        self.tier0_by_group: set[str] = set()
         self.dc_sids: set[str] = set()
         self.entra: dict[str, dict[str, Any]] = {}
         self.role_names: dict[str, str] = {}
@@ -100,6 +101,12 @@ class Context:
     def computers(self) -> list[dict[str, Any]]:
         return self.rows("ad_computers")
 
+    def round_pseudonymized(self) -> bool:
+        return any(b.pseudonymized for b in self.round.bundles)
+
+    def is_orphan(self, sid: str) -> bool:
+        return bool(self.graph.nodes.get(sid, {}).get("orphan"))
+
     def is_tier0_user(self, sid: str) -> bool:
         return sid in self.tier0 and self.graph.kind(sid) in ("user", "gmsa")
 
@@ -111,6 +118,17 @@ def _sid_label(sid: str, domain_sid: str | None) -> str:
     rid = rid_of(sid)
     if rid in known.DOMAIN_RIDS and (domain_sid is None or sid.startswith(domain_sid + "-") or rid in (518, 519, 498, 527)):
         return known.DOMAIN_RIDS[rid] + ("" if domain_sid and sid.startswith(domain_sid + "-") else " (other domain)")
+    return sid
+
+
+def _principal(ctx: Context, sid: str) -> str:
+    """Ensure a node exists for a SID seen in a membership / ACL / owner reference."""
+    g = ctx.graph
+    if sid not in g.nodes:
+        dom = ctx.domain_sid
+        orphan = bool(dom and sid.startswith(dom + "-") and rid_of(sid) not in known.DOMAIN_RIDS)
+        label = f"{sid}（孤立 SID：目前不存在，可能已刪除）" if orphan else _sid_label(sid, dom)
+        g.add_node(sid, "foreignPrincipal", label, orphan=True if orphan else None)
     return sid
 
 
@@ -152,9 +170,7 @@ def _load_ad(ctx: Context) -> None:
             if isinstance(m, str) and m.startswith("DN:"):
                 src = _node_for_dn(ctx, m[3:], "unknown")
             else:
-                src = m
-                if src not in g.nodes:
-                    g.add_node(src, "foreignPrincipal", _sid_label(src, dom_sid))
+                src = _principal(ctx, m)
             g.add_edge(src, r["sid"], "MemberOf")
     if dom_sid:
         for ds in ("ad_users", "ad_computers", "ad_service_accounts"):
@@ -216,7 +232,7 @@ def _load_ad(ctx: Context) -> None:
             ctx.dc_sids.add(c["sid"])
     for r in ctx.rows("ad_service_accounts"):
         for p in r.get("principalsAllowedToRetrievePassword") or []:
-            src = p if not str(p).startswith("DN:") else _node_for_dn(ctx, p[3:], "unknown")
+            src = _principal(ctx, p) if not str(p).startswith("DN:") else _node_for_dn(ctx, p[3:], "unknown")
             g.add_edge(src, r["sid"], "ReadGMSAPassword")
     for ds in ("ad_users", "ad_computers", "ad_service_accounts"):
         for r in ctx.rows(ds):
@@ -228,15 +244,13 @@ def _load_ad(ctx: Context) -> None:
                     g.add_edge(sid, tgt, "AllowedToDelegate", spn=[spn],
                                protocolTransition="TRUSTED_TO_AUTH_FOR_DELEGATION" in (r.get("uacFlags") or []))
             for p in r.get("rbcdAllowedPrincipals") or []:
-                g.add_edge(p, sid, "AllowedToAct")
+                g.add_edge(_principal(ctx, p), sid, "AllowedToAct")
 
 
 def _add_ace_edges(ctx: Context, target: str, owner: str | None, aces: list[dict[str, Any]]) -> None:
     g = ctx.graph
     if owner:
-        if owner not in g.nodes:
-            g.add_node(owner, "foreignPrincipal", _sid_label(owner, ctx.domain_sid))
-        g.add_edge(owner, target, "Owns")
+        g.add_edge(_principal(ctx, owner), target, "Owns")
     repl: dict[str, set[str]] = defaultdict(set)
     for ace in aces:
         p = ace.get("principal")
@@ -245,8 +259,7 @@ def _add_ace_edges(ctx: Context, target: str, owner: str | None, aces: list[dict
         kinds = acl.classify(ace)
         if not kinds:
             continue
-        if p not in g.nodes:
-            g.add_node(p, "foreignPrincipal", _sid_label(p, ctx.domain_sid))
+        _principal(ctx, p)
         self_applies = acl.applies_to_self(ace)
         for k in kinds:
             if k in ("GetChanges", "GetChangesAll"):
@@ -379,6 +392,7 @@ def _compute_tier0(ctx: Context) -> None:
     for gid in ctx.tier0_groups:
         ctx.tier0.add(gid)
         ctx.tier0 |= {m for m in g.members(gid) if m.startswith("S-1-")}
+    ctx.tier0_by_group = set(ctx.tier0)
     ctx.tier0 |= ctx.dc_sids
     # Anyone who can DCSync holds every password hash in the domain: Tier0-equivalent.
     if ctx.domain_sid:

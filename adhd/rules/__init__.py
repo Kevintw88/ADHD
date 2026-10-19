@@ -51,13 +51,14 @@ class Finding:
 @dataclass
 class RuleResult:
     rule: Rule
-    status: str  # finding | pass | skipped | error
+    status: str  # finding | pass | skipped | error | accepted
     reason: str | None = None
     findings: list[Finding] = field(default_factory=list)
+    accepted: int = 0
 
     def to_dict(self) -> dict[str, Any]:
         return {"ruleId": self.rule.id, "title": self.rule.title, "category": self.rule.category,
-                "status": self.status, "reason": self.reason, "findings": len(self.findings)}
+                "status": self.status, "reason": self.reason, "findings": len(self.findings), "accepted": self.accepted}
 
 
 class Hits:

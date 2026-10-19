@@ -295,12 +295,18 @@ def app_credentials(ctx, hits):
                 expired.append(ctx.ref(nid, {"keyId": c.get("keyId"), "expired": c.get("endDateTime")}))
             elif start and end and (end - start).days > 730 and c in (r.get("passwordCredentials") or []):
                 long_lived.append(ctx.ref(nid, {"keyId": c.get("keyId"), "lifetimeDays": (end - start).days}))
+    system_sp = []
     for r in ctx.rows("entra_service_principals"):
         if r.get("passwordCredentials") and r.get("preferredSingleSignOnMode") != "saml" \
                 and r.get("appOwnerOrganizationId") == ctx.tenant_id:
-            sp_pw.append(ctx.ref(f"entra:{r['id']}", {"passwords": len(r["passwordCredentials"])}))
+            item = ctx.ref(f"entra:{r['id']}", {"passwords": len(r["passwordCredentials"])})
+            (system_sp if r.get("displayName") in known.SYSTEM_SERVICE_PRINCIPALS else sp_pw).append(item)
     if sp_pw:
         hits.add(f"{len(sp_pw)} 個服務主體設有服務主體層級的密碼。", sp_pw, "medium", title="服務主體層級的密碼")
+    if system_sp:
+        hits.add("系統自動建立的服務主體帶有服務主體層級的憑證（例如 P2P Server 用於 Entra 加入裝置間的 RDP），"
+                 "通常由服務自動產生；請確認憑證建立時間與裝置使用情況一致。", system_sp, "info",
+                 title="系統服務主體的憑證")
     if long_lived:
         hits.add(f"{len(long_lived)} 個 client secret 存留期超過 2 年。", long_lived, "medium", title="長效 client secret")
     if expired:
@@ -311,16 +317,26 @@ def app_credentials(ctx, hits):
       requires=["entra_oauth2_grants"], attack=["T1528"],
       remediation="覆核以「代表組織同意」(AllPrincipals) 授予的高風險委派權限，移除不需要的同意。")
 def risky_delegated(ctx, hits):
-    """代表整個組織同意的委派權限，讓 App 能以任何登入使用者的身分存取資料。"""
-    found = []
+    """代表整個組織同意的委派權限，讓 App 能以任何登入使用者的身分存取資料（仍受該使用者本身權限限制）。"""
+    by_client: dict[str, list[str]] = defaultdict(list)
     for e in ctx.graph.edges:
         if e.kind != "OAuthGrant" or "AllPrincipals" not in (e.props.get("consentType") or []):
             continue
         risky = sorted(set(e.props.get("scope") or []) & known.HIGH_DELEGATED_SCOPES)
         if risky:
-            found.append(ctx.ref(e.src, {"resource": ctx.label(e.dst), "scopes": risky}))
-    if found:
-        hits.add(f"{len(found)} 個應用程式取得代表組織同意的高風險委派權限。", found)
+            by_client[e.src].append(f"{ctx.label(e.dst)}: {', '.join(risky)}")
+    first_party, other = [], []
+    for sp, grants in by_client.items():
+        owner = (ctx.entra.get(sp) or {}).get("appOwnerOrganizationId")
+        item = ctx.ref(sp, {"grants": sorted(grants), "owner": "Microsoft" if owner in known.MICROSOFT_TENANTS
+                            else ("本租用戶" if owner == ctx.tenant_id else "第三方")})
+        (first_party if owner in known.MICROSOFT_TENANTS else other).append(item)
+    if other:
+        hits.add(f"{len(other)} 個本租用戶 / 第三方應用程式取得代表組織同意的高風險委派權限。", other, "high")
+    if first_party:
+        hits.add(f"{len(first_party)} 個 Microsoft 第一方應用程式有代表組織同意的高風險委派權限"
+                 "（多為 SharePoint / Office 功能自動建立或管理員曾同意，請確認仍在使用）。", first_party, "low",
+                 title="Microsoft 第一方應用程式的組織同意")
 
 
 @rule("EN-016", "Identity Protection 風險使用者", category="Entra", severity="high",

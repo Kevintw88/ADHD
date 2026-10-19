@@ -145,7 +145,10 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
         computer(1302, "SRV01", os="Windows Server 2008 R2 Standard" if v else "Windows Server 2022 Standard"),
         computer(1303, "AZUREADSSOACC", os=None, laps=False, pwd=100 if v else 10, logon=None, ou="CN=Computers"),
         computer(1304, "CA01", os="Windows Server 2022 Standard"),
+        computer(1305, "CA-AADC", os="Windows Server 2022 Standard", laps=not v),
     ]
+    if v:
+        computers.append(computer(1306, "OLD-PC", os="Windows 10 Enterprise", laps=False, logon=400))
     groups = [
         group(sid(512), "Domain Admins", [sid(500), sid(1101)], adminCount=1),
         group(sid(519), "Enterprise Admins", [sid(500)], adminCount=1),
@@ -160,6 +163,8 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
         group("S-1-5-32-548", "Account Operators", [sid(1103)] if v else [], isBuiltin=True),
         group("S-1-5-32-554", "Pre-Windows 2000 Compatible Access", ["S-1-5-7"] if v else ["S-1-5-11"], isBuiltin=True),
         group(sid(1201), "Helpdesk", [sid(1103)]),
+        group(sid(571), "Allowed RODC Password Replication Group", [], descriptionHasSecretHint=True),
+        group(sid(572), "Denied RODC Password Replication Group", [], descriptionHasSecretHint=True),
         group(sid(1500), "Exchange Windows Permissions", []),
     ]
     gmsa = [{"objectClass": "msDS-GroupManagedServiceAccount", "sid": sid(1400), "name": "gmsa-sql",
@@ -260,10 +265,14 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
              "extendedKeyUsage": ["1.3.6.1.4.1.311.20.2.1"], "applicationPolicies": [], "clientAuthCapable": False,
              "noSecurityExtension": False, "owner": sid(519),
              "aces": [ace(sid(1102), "ExtendedRight", ENROLL, "Certificate-Enrollment")]},
-            {"name": "ESC4", "displayName": "ESC4", "distinguishedName": f"CN=ESC4,CN=Certificate Templates,{PKS}", "published": False,
+            {"name": "ESC4", "displayName": "ESC4", "distinguishedName": f"CN=ESC4,CN=Certificate Templates,{PKS}", "published": True,
              "enrolleeSuppliesSubject": False, "managerApproval": True, "authorizedSignaturesRequired": 0,
              "extendedKeyUsage": ["1.3.6.1.5.5.7.3.1"], "applicationPolicies": [], "clientAuthCapable": False,
              "noSecurityExtension": False, "owner": sid(519), "aces": [ace("S-1-5-11", "GenericAll")]},
+            {"name": "OrphanACL", "displayName": "OrphanACL", "distinguishedName": f"CN=OrphanACL,CN=Certificate Templates,{PKS}",
+             "published": False, "enrolleeSuppliesSubject": False, "managerApproval": True, "authorizedSignaturesRequired": 0,
+             "extendedKeyUsage": ["1.3.6.1.5.5.7.3.1"], "applicationPolicies": [], "clientAuthCapable": False,
+             "noSecurityExtension": False, "owner": sid(519), "aces": [ace(sid(2104), "GenericAll")]},
             {"name": "ESC9", "displayName": "ESC9", "distinguishedName": f"CN=ESC9,CN=Certificate Templates,{PKS}", "published": True,
              "enrolleeSuppliesSubject": False, "managerApproval": False, "authorizedSignaturesRequired": 0,
              "extendedKeyUsage": ["1.3.6.1.5.5.7.3.2"], "applicationPolicies": [], "clientAuthCapable": True,
@@ -367,6 +376,10 @@ def _entra(vulnerable: bool) -> dict[str, Any]:
          "passwordCredentials": [{"keyId": "spk1", "endDateTime": ahead(300)}] if v else []},
         {"id": "sp-role", "appId": "app-3", "displayName": "Automation", "appOwnerOrganizationId": TENANT,
          "servicePrincipalType": "Application"},
+        {"id": "sp-photos", "appId": "ms-photos", "displayName": "Microsoft Photos",
+         "appOwnerOrganizationId": "f8cdef31-a31e-4b4a-93e4-5f571e91255a", "servicePrincipalType": "Application"},
+        {"id": "sp-p2p", "appId": "p2p", "displayName": "P2P Server", "appOwnerOrganizationId": TENANT,
+         "servicePrincipalType": "Application", "passwordCredentials": [{"keyId": "p1", "endDateTime": ahead(200)}]},
     ]
     apps = [
         {"id": "a-1", "appId": "app-1", "displayName": "HR Sync",
@@ -384,6 +397,9 @@ def _entra(vulnerable: bool) -> dict[str, Any]:
                 {"id": "x3", "appRoleId": "role-mailrw", "principalId": "sp-app2", "resourceId": "sp-graph"}]
     grants = [{"clientId": "sp-app", "consentType": "AllPrincipals", "resourceId": "sp-graph",
                "scope": "User.Read Mail.ReadWrite" if v else "User.Read openid"}]
+    if v:
+        grants.append({"clientId": "sp-photos", "consentType": "AllPrincipals", "resourceId": "sp-graph",
+                       "scope": "Files.ReadWrite.All"})
     authz = [{"id": "authorizationPolicy", "allowInvitesFrom": "everyone" if v else "adminsAndGuestInviters",
               "guestUserRoleId": "a0b1b346-4d3e-4e8b-98f8-753987be4970" if v else "2af84b1e-32c8-42b7-82bc-daa82404023b",
               "defaultUserRolePermissions": {"allowedToCreateApps": v},

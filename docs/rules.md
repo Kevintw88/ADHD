@@ -68,7 +68,7 @@
 | EN-012 | 中 | 來賓存取設定寬鬆 | 來賓權限與成員相同時可列舉整個目錄；任何人都能邀請時無法控管外部帳號。 | entra_authorization_policy | T1078.004 |
 | EN-013 | 高 | 服務主體持有高風險應用程式權限 | 應用程式權限不需使用者登入、不受 CA / MFA 限制；部分權限可直接提升為 Global Administrator。 | entra_app_role_assignments<br>entra_service_principals | T1098.001, T1528 |
 | EN-014 | 中 | 應用程式憑證衛生 | 長效 secret 外洩風險高；服務主體層級的密碼不顯示在 App 註冊頁面，常被用作後門。 | entra_applications<br>entra_service_principals | T1098.001 |
-| EN-015 | 高 | 管理員同意的高風險委派權限 | 代表整個組織同意的委派權限，讓 App 能以任何登入使用者的身分存取資料。 | entra_oauth2_grants | T1528 |
+| EN-015 | 高 | 管理員同意的高風險委派權限 | 代表整個組織同意的委派權限，讓 App 能以任何登入使用者的身分存取資料（仍受該使用者本身權限限制）。 | entra_oauth2_grants | T1528 |
 | EN-016 | 高 | Identity Protection 風險使用者 | Identity Protection 判定帳號可能已遭入侵。 | entra_risky_users | T1078.004 |
 | EN-017 | 低 | 長期未登入的來賓帳號 | 閒置的來賓帳號保留對租用戶資源的存取，且沒有人監控。 | entra_users | T1078.004 |
 | EN-018 | 高 | 特權物件的擁有者不是特權帳號 | 群組擁有者可加自己為成員；App / 服務主體擁有者可新增憑證並以其身分操作。 | entra_role_assignments<br>entra_group_memberships | T1098, T1098.001 |

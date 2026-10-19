@@ -42,6 +42,24 @@ def _is_connector(ctx, sid: str, names: set[str]) -> bool:
     return bool(sam and (sam in names or upn in names or sam.startswith("msol_")))
 
 
+def _account_context(ctx, sid: str, connectors: set[str]) -> dict[str, Any]:
+    """Facts that change how a privileged account should be read (shared by several rules)."""
+    r = ctx.by_sid.get(sid) or {}
+    synced = [ctx.label(e.dst) for e in ctx.graph.edges_out(sid, ["SyncedTo"])]
+    out: dict[str, Any] = {
+        "inTier0Group": sid in ctx.tier0_by_group,
+        "enabled": r.get("enabled"),
+        "passwordNeverExpires": "DONT_EXPIRE_PASSWORD" in _flags(r) or None,
+        "keyCredentials": r.get("keyCredentialLinkCount") or None,
+        "syncedToEntra": synced[0] if synced else None,
+        "lastLogonDays": ctx.days_since(r.get("lastLogonTimestamp")),
+        "passwordAgeDays": _pwd_age(ctx, r),
+    }
+    if connectors:
+        out["connectorLoginAccounts"] = sorted(connectors)
+    return {k: v for k, v in out.items() if v is not None}
+
+
 # ---------------------------------------------------------------------------------------------
 @rule("AD-001", "krbtgt 密碼過久未重設", category="AD", severity="medium", requires=["ad_domain"],
       attack=["T1558.001"],
@@ -283,12 +301,27 @@ def laps(ctx, hits):
         hits.add("網域未延伸 LAPS schema：所有主機的本機管理員密碼皆未受 LAPS 管理。", [], "high",
                  {"computers": len(ws)})
         return
-    missing = [c for c in ws if not c.get("hasLaps")]
-    if missing:
-        hits.add(f"{len(missing)}/{len(ws)} 台啟用中的 Windows 主機沒有 LAPS 密碼。",
-                 [ctx.ref(c["sid"], {"os": c.get("operatingSystem"), "lastLogonDays": ctx.days_since(c.get("lastLogonTimestamp"))})
-                  for c in missing], "high" if len(missing) / len(ws) > 0.5 else "medium",
-                 {"coverage": round(1 - len(missing) / len(ws), 3)})
+    def active(c):
+        d = ctx.days_since(c.get("lastLogonTimestamp"))
+        return d is not None and d <= STALE_DAYS
+    live = [c for c in ws if active(c)]
+    missing = [c for c in live if not c.get("hasLaps")]
+    stale_missing = len([c for c in ws if not active(c) and not c.get("hasLaps")])
+    t0_hosts = _tier0_hosts(ctx)
+    t0_missing = [c for c in missing if c["sid"] in t0_hosts]
+    other = [c for c in missing if c["sid"] not in t0_hosts]
+    def item(c):
+        return ctx.ref(c["sid"], {"os": c.get("operatingSystem"), "lastLogonDays": ctx.days_since(c.get("lastLogonTimestamp")),
+                                  "role": t0_hosts.get(c["sid"])})
+    ev = {"coverage": round(1 - len(missing) / len(live), 3) if live else None, "activeHosts": len(live),
+          "staleWithoutLaps": stale_missing}
+    if t0_missing:
+        hits.add(f"{len(t0_missing)} 台 Tier0 伺服器（Entra Connect / CA 等）沒有 LAPS：本機管理員密碼外洩即可取得 Tier0 憑證。",
+                 [item(c) for c in t0_missing], "high", ev, title="Tier0 伺服器沒有 LAPS")
+    if other:
+        hits.add(f"{len(other)}/{len(live)} 台近 {STALE_DAYS} 天有登入的 Windows 主機沒有 LAPS 密碼"
+                 + (f"（另有 {stale_missing} 台閒置主機，見 AD-028）" if stale_missing else "") + "。",
+                 [item(c) for c in other], "high" if len(other) / max(len(live), 1) > 0.5 else "medium", ev)
 
 
 @rule("AD-016", "網域密碼原則偏弱", category="AD", severity="medium", requires=["ad_password_policies"],
@@ -311,6 +344,22 @@ def password_policy(ctx, hits):
         hits.add("預設網域密碼原則：" + "、".join(issues) + "。",
                  [{"id": "default-password-policy", "label": "Default Domain Policy", "kind": "passwordPolicy", "detail": issues}],
                  "high" if ml < 8 or not p.get("lockoutThreshold") else "medium", {"policy": p})
+
+
+def _tier0_hosts(ctx) -> dict[str, str]:
+    """Computer SID -> role for servers that hold Tier0 secrets (Entra Connect, Enterprise CA)."""
+    by_name = {str(c.get("name") or "").lower(): c["sid"] for c in ctx.computers()}
+    by_host = {str(c.get("dnsHostName") or "").lower(): c["sid"] for c in ctx.computers()}
+    out = {}
+    for s in ctx.rows("entraconnect_server"):
+        sid = by_name.get(str(s.get("computerName") or "").lower())
+        if sid:
+            out[sid] = "Entra Connect"
+    for ca in ctx.rows("adcs_cas"):
+        sid = by_host.get(str(ca.get("dnsHostName") or "").lower())
+        if sid:
+            out[sid] = "Enterprise CA"
+    return out
 
 
 _LEGACY_OS = re.compile(r"(?i)windows\s+(xp|vista|7\b|8\b|8\.1|nt|2000)|server\s+(2000|2003|2008|2012)")
@@ -342,6 +391,9 @@ def secret_hint(ctx, hits):
     found = []
     for ds in ("ad_users", "ad_computers", "ad_groups", "ad_service_accounts"):
         for r in ctx.rows(ds):
+            sid = str(r.get("sid") or "")
+            if sid.startswith("S-1-5-32-") or 0 <= rid_of(sid) < 1000:
+                continue  # built-in objects (e.g. "Allowed RODC Password Replication Group") mention passwords by design
             if r.get("descriptionHasSecretHint") or r.get("infoHasSecretHint"):
                 found.append(ctx.ref(r["sid"], "description" if r.get("descriptionHasSecretHint") else "info"))
     for r in ctx.rows("ad_ous"):
@@ -438,9 +490,16 @@ def dcsync(ctx, hits):
         if _is_connector(ctx, e.src, connectors):
             conn.append(ctx.ref(e.src, "Entra Connect AD DS connector 帳號"))
         else:
-            bad.append(ctx.ref(e.src, {"tier0Member": e.src in ctx.tier0}))
+            bad.append(ctx.ref(e.src, _account_context(ctx, e.src, connectors)))
     if bad:
-        hits.add(f"{len(bad)} 個非預設主體可執行 DCSync。", bad, "critical")
+        note = ""
+        known_names = {str(r.get(k) or "").lower() for r in ctx.users() for k in ("samAccountName", "userPrincipalName")}
+        unmatched = [n for n in connectors if n not in known_names and not n.startswith("msol_")]
+        if unmatched and ctx.round_pseudonymized():
+            note = ("注意：Entra Connect bundle 中的 connector 帳號名稱（" + "、".join(unmatched) + "）未假名化"
+                    "（收集器 0.1.1 以前），無法和 AD 帳號自動比對。若以下帳號就是 connector 帳號，"
+                    "請以 0.1.2 重收 EntraConnect（沿用同一把金鑰），或由子公司以 SID 確認。")
+        hits.add(f"{len(bad)} 個非預設主體可執行 DCSync。{note}", bad, "critical")
     if conn:
         hits.add("Entra Connect connector 帳號具 DCSync 權限（密碼雜湊同步所需）。此帳號已納入 Tier0 評估；"
                  "它與 Entra Connect 伺服器都必須以 Tier0 標準保護。",

@@ -91,16 +91,32 @@ def esc3(ctx, hits):
       remediation="範本的寫入、WriteDacl、WriteOwner、擁有者只保留 Enterprise Admins / Domain Admins / SYSTEM。")
 def esc4(ctx, hits):
     """能修改範本即可把它改成 ESC1 再申請憑證。"""
-    found, broad = [], False
+    has_ca = bool(ctx.rows("adcs_cas"))
+    groups: dict[str, list] = {"critical": [], "high": [], "medium": [], "low": []}
     for t in ctx.rows("adcs_templates"):
         nid = _template_id(ctx, t)
         ps = sorted({e.src for e in ctx.graph.edges_in(nid, _WRITE)
                      if e.src not in ctx.tier0 and e.src not in known.SAFE_ACL_PRINCIPALS})
-        if ps:
-            found.append(ctx.ref(nid, {"writers": [ctx.label(p) for p in ps], "published": t.get("published")}))
-            broad = broad or any(ctx.is_broad(p) for p in ps)
-    if found:
-        hits.add(f"{len(found)} 個範本可被非 Tier0 主體修改。", found, "critical" if broad else "high")
+        if not ps:
+            continue
+        live = [p for p in ps if not ctx.is_orphan(p)]
+        if not has_ca or not live:
+            sev = "low"           # nothing can issue from it / only deleted principals hold the right
+        elif not t.get("published"):
+            sev = "medium"        # attacker also needs a CA to publish it
+        else:
+            sev = "critical" if any(ctx.is_broad(p) for p in live) else "high"
+        groups[sev].append(ctx.ref(nid, {"writers": [ctx.label(p) for p in ps], "published": t.get("published")}))
+    notes = {
+        "critical": "已發佈且可被廣泛群組修改（改成 ESC1 即可冒充任何帳號）",
+        "high": "已發佈且可被非 Tier0 主體修改",
+        "medium": "未發佈但可被非 Tier0 主體修改（需同時能在 CA 上發佈才可利用）",
+        "low": "可修改者僅為孤立 SID，或網域中沒有 Enterprise CA（目前無法用於簽發，屬 ACL 清理項目）",
+    }
+    for sev in ("critical", "high", "medium", "low"):
+        if groups[sev]:
+            hits.add(f"{len(groups[sev])} 個範本{notes[sev]}。", groups[sev], sev,
+                     {"enterpriseCAs": len(ctx.rows("adcs_cas"))})
 
 
 @rule("ADCS-005", "ESC5：非 Tier0 主體可控制 PKI 物件", category="ADCS", severity="high",

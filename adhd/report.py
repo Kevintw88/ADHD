@@ -22,7 +22,57 @@ def _findings(results: list[RuleResult]) -> list[dict[str, Any]]:
     return out
 
 
-def build_document(ctx, results: list[RuleResult]) -> dict[str, Any]:
+WEIGHT = {"critical": 10, "high": 5, "medium": 2, "low": 1, "info": 0}
+_PRINCIPAL_KINDS = {"user", "computer", "group", "gmsa", "foreignPrincipal", "entraUser", "entraGroup",
+                    "servicePrincipal", "application"}
+
+
+def hotspots(ctx, findings: list[dict[str, Any]], limit: int = 15) -> list[dict[str, Any]]:
+    """Identities (AD account merged with its synced Entra account) that appear in several findings."""
+    g = ctx.graph
+    agg: dict[str, dict[str, Any]] = {}
+
+    def identity(nid: str) -> str:
+        if g.kind(nid) == "application":            # App registration and its service principal are one identity
+            for e in g.edges_out(nid, ["AppIdentity"]):
+                return e.dst
+        if nid.startswith("entra:"):
+            for e in g.edges_in(nid, ["SyncedTo"]):
+                return e.src
+        return nid
+
+    for f in findings:
+        if f["severity"] == "info":
+            continue
+        ids = [a.get("id") for a in f["affected"]] + list((f.get("evidence") or {}).get("excludedUsers") or [])
+        for nid in dict.fromkeys(i for i in ids if i):
+            if g.kind(nid) not in _PRINCIPAL_KINDS:
+                continue
+            key = identity(nid)
+            h = agg.setdefault(key, {"id": key, "accounts": set(), "findings": [], "rules": [], "severities": []})
+            h["accounts"].add(nid)
+            if f["findingId"] not in h["findings"]:
+                h["findings"].append(f["findingId"])
+                h["rules"].append(f["ruleId"] + ("（排除對象）" if nid not in [a.get("id") for a in f["affected"]] else ""))
+                h["severities"].append(f["severity"])
+    out = []
+    for h in agg.values():
+        if len(h["findings"]) < 2:
+            continue
+        accounts = sorted(h["accounts"] | {h["id"]}, key=lambda x: (x.startswith("entra:"), x))
+        out.append({
+            "id": h["id"], "label": " / ".join(dict.fromkeys(g.label(a) for a in accounts)),
+            "accounts": accounts, "tier0": h["id"] in ctx.tier0,
+            "score": sum(WEIGHT[s] for s in h["severities"]),
+            "maxSeverity": min(h["severities"], key=SEVERITY_RANK.__getitem__),
+            "findings": h["findings"], "rules": h["rules"],
+        })
+    out.sort(key=lambda h: (-h["score"], SEVERITY_RANK[h["maxSeverity"]], h["label"]))
+    return out[:limit]
+
+
+def build_document(ctx, results: list[RuleResult], accepted: list[dict[str, Any]] | None = None,
+                   exception_warnings: list[str] | None = None) -> dict[str, Any]:
     findings = _findings(results)
     status = Counter(r.status for r in results)
     return {
@@ -34,12 +84,16 @@ def build_document(ctx, results: list[RuleResult]) -> dict[str, Any]:
         "scope": {"adDomain": ctx.domain_dns, "adDomainSid": ctx.domain_sid, "entraTenantId": ctx.tenant_id},
         "summary": {
             "findingsBySeverity": {s: sum(1 for f in findings if f["severity"] == s) for s in SEVERITIES},
-            "rules": {k: status.get(k, 0) for k in ("finding", "pass", "skipped", "error")},
+            "rules": {k: status.get(k, 0) for k in ("finding", "pass", "skipped", "error", "accepted")},
+            "acceptedExceptions": len(accepted or []),
             "tier0Principals": len(ctx.tier0),
             "graph": ctx.graph.stats(),
         },
+        "hotspots": hotspots(ctx, findings),
         "rules": [r.to_dict() for r in results],
         "findings": findings,
+        "accepted": accepted or [],
+        "exceptionWarnings": exception_warnings or [],
     }
 
 
@@ -63,7 +117,7 @@ def _md_escape(s: Any) -> str:
 
 
 SEV_LABEL = {"critical": "嚴重", "high": "高", "medium": "中", "low": "低", "info": "資訊"}
-STATUS_LABEL = {"finding": "有發現", "pass": "通過", "skipped": "略過", "error": "錯誤"}
+STATUS_LABEL = {"finding": "有發現", "pass": "通過", "skipped": "略過", "error": "錯誤", "accepted": "已接受例外"}
 
 
 def write_markdown(doc: dict[str, Any], path: Path) -> None:
@@ -76,8 +130,19 @@ def write_markdown(doc: dict[str, Any], path: Path) -> None:
     lines += ["", "## 摘要", "", "| 嚴重 | 高 | 中 | 低 | 資訊 |", "|---|---|---|---|---|",
               "| " + " | ".join(str(s["findingsBySeverity"][k]) for k in SEVERITIES) + " |", ""]
     r = s["rules"]
-    lines.append(f"規則：{r['finding']} 條有發現、{r['pass']} 條通過、{r['skipped']} 條因資料不足略過、{r['error']} 條錯誤。"
-                 f"Tier0 主體 {s['tier0Principals']} 個。")
+    lines.append(f"規則：{r['finding']} 條有發現、{r['pass']} 條通過、{r['skipped']} 條因資料不足略過、{r['error']} 條錯誤"
+                 + (f"、{r['accepted']} 條全數為已接受例外" if r.get("accepted") else "") + f"。Tier0 主體 {s['tier0Principals']} 個。"
+                 + (f"已接受例外 {s['acceptedExceptions']} 筆（見文末）。" if s.get("acceptedExceptions") else ""))
+    for w in doc.get("exceptionWarnings") or []:
+        lines.append(f"- ⚠ {w}")
+    if doc.get("hotspots"):
+        lines += ["", "## 重點對象（同一身分出現在多條規則）", "",
+                  "AD 帳號與其同步的 Entra 帳號視為同一身分。分數：嚴重 10、高 5、中 2、低 1。", "",
+                  "| 對象 | Tier0 | 分數 | 最高嚴重度 | 相關發現 |", "|---|---|---|---|---|"]
+        for h in doc["hotspots"]:
+            rel = "、".join(f"{fid} {rid}" for fid, rid in zip(h["findings"], h["rules"]))
+            lines.append(f"| {_md_escape(h['label'])} | {'是' if h['tier0'] else ''} | {h['score']} | "
+                         f"{SEV_LABEL[h['maxSeverity']]} | {_md_escape(rel)} |")
     lines += ["", "| # | 嚴重度 | 規則 | 標題 | 數量 |", "|---|---|---|---|---|"]
     for f in doc["findings"]:
         lines.append(f"| {f['findingId']} | {SEV_LABEL[f['severity']]} | {f['ruleId']} | {_md_escape(f['title'])} | {f['count']} |")
@@ -95,6 +160,14 @@ def write_markdown(doc: dict[str, Any], path: Path) -> None:
             if len(f["affected"]) > MD_AFFECTED_LIMIT:
                 lines.append(f"| …另 {len(f['affected']) - MD_AFFECTED_LIMIT} 筆（見 findings.json） | | |")
         lines += ["", f"**修補建議：** {f['remediation']}", ""]
+    if doc.get("accepted"):
+        lines += ["## 已接受的例外", "", "| 規則 | 嚴重度 | 對象 | 理由 | 負責人 | 到期 |", "|---|---|---|---|---|---|"]
+        for a in doc["accepted"]:
+            x = a["exception"]
+            objs = "、".join(str(o.get("label")) for o in a["affected"]) or "（整條規則）"
+            lines.append(f"| {a['ruleId']} | {SEV_LABEL[a['severity']]} | {_md_escape(objs)} | {_md_escape(x.get('reason'))} | "
+                         f"{_md_escape(x.get('owner') or '')} | {x.get('expires') or ''} |")
+        lines.append("")
     lines += ["## 規則執行狀態", "", "| 規則 | 標題 | 狀態 | 說明 |", "|---|---|---|---|"]
     for rr in doc["rules"]:
         reason = (rr.get("reason") or "").split("\n")[0]

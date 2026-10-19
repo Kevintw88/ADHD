@@ -11,6 +11,7 @@ import tempfile
 from pathlib import Path
 
 from .bundle import BundleError, open_round
+from .exceptions import ExceptionFileError, apply_exceptions, load_exceptions
 from .load import build_context
 from .report import SEV_LABEL, STATUS_LABEL, build_document, write_json, write_markdown, write_sqlite
 from .rules import SEVERITIES, all_rules, run_rules
@@ -41,6 +42,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--only", nargs="*", help="run only these rule ids or categories (AD, ADCS, Entra, Hybrid)")
     ap.add_argument("--allow-mixed-keys", action="store_true",
                     help="analyse bundles pseudonymised with different keys (pseudonyms will not line up)")
+    ap.add_argument("--exceptions", type=Path, help="JSON file of reviewed / accepted exceptions (see adhd/exceptions.py)")
     ap.add_argument("--no-sqlite", action="store_true", help="skip graph.sqlite")
     ap.add_argument("--list-rules", action="store_true", help="print the rule catalogue and exit")
     ap.add_argument("--markdown", action="store_true", help="with --list-rules: print as a Markdown table")
@@ -64,7 +66,14 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         ctx = build_context(rnd)
         results = run_rules(ctx, args.only)
-        doc = build_document(ctx, results)
+        accepted, warnings = [], []
+        if args.exceptions:
+            try:
+                accepted, warnings = apply_exceptions(results, load_exceptions(args.exceptions), ctx.as_of)
+            except ExceptionFileError as exc:
+                print(f"error: {exc}", file=sys.stderr)
+                return 2
+        doc = build_document(ctx, results, accepted, warnings)
 
     args.out.mkdir(parents=True, exist_ok=True)
     write_json(doc, args.out / "findings.json")
@@ -76,7 +85,13 @@ def main(argv: list[str] | None = None) -> int:
     print(f"範圍：{doc['scope'].get('adDomain')} / tenant {doc['scope'].get('entraTenantId')}　資料時間 {doc['asOfUtc']}")
     print(f"圖：{s['graph']['nodes']} 節點、{s['graph']['edges']} 邊；Tier0 主體 {s['tier0Principals']} 個")
     print("發現：" + "、".join(f"{SEV_LABEL[k]} {s['findingsBySeverity'][k]}" for k in SEVERITIES))
-    print("規則：" + "、".join(f"{STATUS_LABEL[k]} {v}" for k, v in s["rules"].items()))
+    print("規則：" + "、".join(f"{STATUS_LABEL[k]} {v}" for k, v in s["rules"].items() if v or k != "accepted"))
+    if accepted:
+        print(f"已接受例外：{len(accepted)} 筆")
+    for w in warnings:
+        print(f"  WARN {w}", file=sys.stderr)
+    for h in doc["hotspots"][:5]:
+        print(f"重點對象：{h['label']}（{h['score']} 分，{len(h['findings'])} 筆發現）")
     for r in doc["rules"]:
         if r["status"] == "error":
             print(f"  ERROR {r['ruleId']}: {(r['reason'] or '').splitlines()[0]}", file=sys.stderr)
