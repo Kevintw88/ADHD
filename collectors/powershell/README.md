@@ -202,13 +202,15 @@ pwsh -NoProfile -File tests/powershell/Invoke-CollectorSmokeTest.ps1
 
 | 模式 | 執行位置 | 內容 |
 |---|---|---|
-| 預設 | 網域成員主機，一般網域使用者 | 三種獨立方式判斷停用（AD 模組 Enabled、userAccountControl 位元、LDAP 伺服器端篩選）、各 DC 停用數、停用帳號的修改日與容器分布、與 Entra `accountEnabled` / 最後同步 / 最後登入比對 |
-| `-EntraConnect` | Entra Connect 伺服器，系統管理員 | 同步排程、最近執行結果、所有寫入 `accountEnabled` 的同步規則、指定帳號（`-SampleDn`）在連接器空間與 metaverse 的值 |
+| 預設 | 網域成員主機，一般網域使用者 | 三種獨立方式判斷停用（AD 模組 Enabled、userAccountControl 位元、LDAP 伺服器端篩選）、各 DC（含站台）停用數、DC 之間的複寫狀態與失敗紀錄、停用帳號的修改日與容器分布、與 Entra `accountEnabled` / 最後同步 / 最後登入比對、問題帳號的 userAccountControl 複寫中繼資料（在哪台 DC、何時修改；抽樣帳號在每台 DC 的值與版本號） |
+| `-EntraConnect` | Entra Connect 伺服器，系統管理員 | 同步排程、最近執行結果、Entra Connect 讀取的 DC（本機站台、偏好 DC、匯入時實際連線的 DC）、所有寫入 `accountEnabled` 的同步規則、指定帳號（`-SampleDn`）在連接器空間與 metaverse 的值 |
 
 ```powershell
 .\Test-ADHDEnabledState.ps1 -SidFile .\mismatch-sids.txt -TenantId <tenant> *> .\enabled-check.log
 .\Test-ADHDEnabledState.ps1 -EntraConnect -SampleDn '<停用帳號的 DN>' *> .\aadc-check.log
 ```
+
+收集器只查詢 PDC Emulator；多站台網域中若 DC 之間複寫失敗，PDC 與 Entra Connect 讀取的 DC 看到的狀態可能不同，兩種模式的輸出對照即可判斷。
 
 `mismatch-sids.txt` 由 lab 端 `python3 tools/diag_enabled.py <bundles> --sids-out mismatch-sids.txt` 產生。CSV 預設只含 SID 與狀態；`-IncludeNames` 會加入帳號名稱，只供子公司內部使用。測試：`pwsh -File tests/powershell/Invoke-EnabledStateDiagTest.ps1`。
 
