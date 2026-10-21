@@ -24,3 +24,9 @@ Thumbs.db
 reports/
 graph.sqlite
 findings.json
+
+# agent / evaluation outputs (contain environment data)
+agent-*/
+eval-*/
+transcript.jsonl
+verification.json

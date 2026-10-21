@@ -27,6 +27,7 @@
 | `adhd/`、`tools/analyze.py` | 離線分析：AD / Entra 混合關聯圖、66 條規則與攻擊路徑，輸出報告、JSON 與 SQLite（[docs/analysis.md](docs/analysis.md)、[規則目錄](docs/rules.md)） |
 | `tools/paths.py` | 攻擊路徑查詢：起點與優先切斷的步驟、單一主體到 Tier0 的路徑、誰能取得某個物件 |
 | `tools/mcp_server.py` | 唯讀 MCP 伺服器（stdio），讓地端模型查詢發現、關聯圖與攻擊路徑（[docs/mcp.md](docs/mcp.md)） |
+| `tools/agent.py`、`tools/eval_agent.py` | 調查 Agent：地端模型（vLLM 等 OpenAI 相容 API）透過 MCP 產出中文報告，並以確定性檢查器驗證引用；比較多個模型（[docs/agent.md](docs/agent.md)） |
 | `tests/powershell/` | 收集器的 mock 端對端測試 |
 | `tests/python/` | 分析的合成環境測試（脆弱 / 乾淨兩套） |
 
