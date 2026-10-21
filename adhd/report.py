@@ -217,6 +217,8 @@ def write_sqlite(ctx, doc: dict[str, Any], path: Path) -> None:
             CREATE TABLE findings(finding_id TEXT PRIMARY KEY, rule_id TEXT, severity TEXT, title TEXT, count INTEGER, data TEXT);
             CREATE TABLE affected(finding_id TEXT, node_id TEXT, label TEXT, detail TEXT);
             CREATE TABLE rules(rule_id TEXT PRIMARY KEY, title TEXT, category TEXT, status TEXT, reason TEXT);
+            CREATE TABLE attack_steps(src TEXT, dst TEXT, kind TEXT, cost REAL, note TEXT);
+            CREATE TABLE attack_targets(node_id TEXT PRIMARY KEY, reason TEXT);
             CREATE TABLE attack_paths(entry_id TEXT PRIMARY KEY, entry_label TEXT, broad INTEGER, hops INTEGER, cost REAL,
                                       exposed_accounts INTEGER, target_id TEXT, target_label TEXT, path TEXT, steps TEXT);
         """)
@@ -241,7 +243,14 @@ def write_sqlite(ctx, doc: dict[str, Any], path: Path) -> None:
         con.executemany("INSERT INTO attack_paths VALUES(?,?,?,?,?,?,?,?,?,?)", [
             (e["id"], e["label"], 1 if e["broad"] else 0, e["hops"], e["cost"], e["exposedAccounts"], e["target"],
              e["targetLabel"], e["path"], json.dumps(e["steps"], ensure_ascii=False)) for e in res.get("entries", [])])
+        stored = getattr(ctx, "_attack_graph", None)
+        if stored is not None:
+            ag = stored[0]
+            con.executemany("INSERT INTO attack_steps VALUES(?,?,?,?,?)", [
+                (src, dst, kind, cost, note) for dst, steps in ag.rev.items() for src, kind, cost, note in steps])
+            con.executemany("INSERT INTO attack_targets VALUES(?,?)", list(ag.targets.items()))
         con.executescript("""
+            CREATE INDEX attack_steps_dst ON attack_steps(dst);
             CREATE INDEX edges_src ON edges(src, kind);
             CREATE INDEX edges_dst ON edges(dst, kind);
             CREATE INDEX nodes_kind ON nodes(kind);

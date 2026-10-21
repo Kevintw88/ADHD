@@ -38,7 +38,7 @@ python3 tools/analyze.py ... --only AD-020 ADCS    # 只跑指定規則 / 類別
 |---|---|---|
 | `findings.md` | 人 | 摘要、依嚴重度排序的發現（對象、細節、修補建議、ATT&CK）、每條規則的執行狀態 |
 | `findings.json` | 地端模型 / 自動化 | schema `adhd.findings/1`：`summary`、`rules[]`（狀態與略過原因）、`findings[]`（含 `affected[]` 與 `evidence`） |
-| `graph.sqlite` | 查詢 / 之後的 MCP 工具 | `nodes`、`edges`、`findings`、`affected`、`rules`、`meta` |
+| `graph.sqlite` | 查詢 / MCP 伺服器 | `nodes`、`edges`、`findings`、`affected`、`rules`、`meta`，以及攻擊路徑的 `attack_paths`、`attack_steps`、`attack_targets` |
 
 帳號名稱沿用收集時的假名（`u-xxxxxxxxxxxx`），報告可以安全地在 lab 內流通；需要還原時由子公司以對照表查詢。輸出含環境資料，`.gitignore` 已排除，不要提交到 repo。
 
@@ -115,7 +115,7 @@ Tier0 目標：AD Tier0（見上）、網域物件、Entra Tier0 角色與持有
 - **優先切斷（PATH-002）**：最多帳號的最短路徑都經過的步驟。
 - 每個主體只算最短的一條；切斷後可能仍有較長的替代路徑，處理後要重新分析確認。
 
-`findings.json` 的 `attackPaths`（前 100 個起點，含每一步的 id）與 `graph.sqlite` 的 `attack_paths` 表提供同樣的資料給地端模型與之後的 MCP 工具；`tools/paths.py` 可以查單一主體的路徑（`--from`）或誰能取得某個物件（`--to`）。
+`findings.json` 的 `attackPaths`（前 100 個起點，含每一步的 id）與 `graph.sqlite` 的 `attack_paths` 表提供同樣的資料給地端模型與 [MCP 伺服器](mcp.md)；`tools/paths.py` 可以查單一主體的路徑（`--from`）或誰能取得某個物件（`--to`）。
 
 ## SQLite 查詢範例
 

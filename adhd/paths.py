@@ -496,27 +496,45 @@ def resolve(ctx, query: str) -> list[str]:
     return [n for n, node in g.nodes.items() if q in str(node.get("label") or "").lower()][:20]
 
 
-def who_can_reach(ctx, target: str, limit: int = 20) -> list[dict[str, Any]]:
-    """Principals with a route to *target* (any node), cheapest first."""
-    if getattr(ctx, "_attack_graph", None) is None:
-        analyze(ctx)
-    ag = ctx._attack_graph[0]
+class _CtxView:
+    """What the path queries need from a Context: labels, kinds and which principals are not footholds."""
+
+    def __init__(self, ctx) -> None:
+        self.ctx = ctx
+
+    def label(self, nid: str) -> str:
+        return self.ctx.label(nid)
+
+    def kind(self, nid: str) -> str:
+        return self.ctx.graph.kind(nid)
+
+    def skip(self, nid: str) -> bool:
+        return nid.startswith("S-1-") and _skip_source(self.ctx, nid)
+
+
+def reach(view, ag: AttackGraph, target: str, limit: int = 20) -> list[dict[str, Any]]:
+    """Principals with a route to *target* (any node), cheapest first.  *view* supplies label / kind / skip."""
     dist, nxt = shortest(ag, [target], stop_at_targets=True)
     out = []
     for n, d in sorted(dist.items(), key=lambda x: x[1]):
-        if n == target or ctx.graph.kind(n) not in PRINCIPAL_KINDS:
+        if n == target or view.kind(n) not in PRINCIPAL_KINDS or view.skip(n):
             continue
-        if n.startswith("S-1-") and _skip_source(ctx, n):
-            continue
-        p = path_from(ctx, nxt, n)
+        p = path_from(view, nxt, n)
         entry, rest = _entry(p)
         if entry != n or not rest:
             continue
-        out.append({"id": n, "label": ctx.label(n), "kind": ctx.graph.kind(n), "tier0": n in ag.targets,
+        out.append({"id": n, "label": view.label(n), "kind": view.kind(n), "tier0": n in ag.targets,
                     "hops": hops(rest), "cost": round(d, 2), "path": render(rest), "steps": rest})
         if len(out) >= limit:
             break
     return out
+
+
+def who_can_reach(ctx, target: str, limit: int = 20) -> list[dict[str, Any]]:
+    """Principals with a route to *target* (any node), cheapest first."""
+    if getattr(ctx, "_attack_graph", None) is None:
+        analyze(ctx)
+    return reach(_CtxView(ctx), ctx._attack_graph[0], target, limit)
 
 
 def route_from(ctx, start: str) -> list[dict[str, Any]]:

@@ -13,7 +13,7 @@
 │   Collect-ADHD.ps1        │ ─────────▶ │        ↓                              │
 │   唯讀 LDAP / Graph /     │            │ adhd/ 關聯圖 + 規則（tools/analyze.py）│
 │   Event Log，預設假名化    │            │        ↓ findings.json / graph.sqlite │
-└───────────────────────────┘            │ 地端模型（Agent / MCP）                │
+└───────────────────────────┘            │ MCP 伺服器（唯讀）→ 地端模型 Agent     │
                                           └──────────────────────────────────────┘
 ```
 
@@ -26,6 +26,7 @@
 | `tools/bundle_sanity.py` | 驗收後的語意檢查（收集是否悄悄不完整、跨 bundle 假名一致性） |
 | `adhd/`、`tools/analyze.py` | 離線分析：AD / Entra 混合關聯圖、66 條規則與攻擊路徑，輸出報告、JSON 與 SQLite（[docs/analysis.md](docs/analysis.md)、[規則目錄](docs/rules.md)） |
 | `tools/paths.py` | 攻擊路徑查詢：起點與優先切斷的步驟、單一主體到 Tier0 的路徑、誰能取得某個物件 |
+| `tools/mcp_server.py` | 唯讀 MCP 伺服器（stdio），讓地端模型查詢發現、關聯圖與攻擊路徑（[docs/mcp.md](docs/mcp.md)） |
 | `tests/powershell/` | 收集器的 mock 端對端測試 |
 | `tests/python/` | 分析的合成環境測試（脆弱 / 乾淨兩套） |
 
