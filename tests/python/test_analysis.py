@@ -16,6 +16,7 @@ from adhd import acl  # noqa: E402
 from adhd.analyze import main as analyze_main  # noqa: E402
 from adhd.bundle import open_round  # noqa: E402
 from adhd.load import build_context, parent_dn  # noqa: E402
+from adhd.paths import analyze as analyze_paths, who_can_reach  # noqa: E402
 from adhd.rules import SEVERITY_RANK, all_rules, run_rules  # noqa: E402
 
 import fixtures as fx  # noqa: E402
@@ -35,6 +36,7 @@ EXPECTED_VULNERABLE = {
     "EN-013": "critical", "EN-014": "medium", "EN-015": "high", "EN-016": "high", "EN-017": "low", "EN-018": "high",
     "EN-019": "high", "EN-020": "medium", "EN-021": "medium", "EN-022": "info",
     "HY-001": "high", "HY-002": "medium", "HY-003": "info", "HY-004": "high", "HY-005": "high",
+    "PATH-001": "critical", "PATH-002": "info",
 }
 # rules that legitimately produce informational output in a tidy environment
 INFO_IN_CLEAN = {"AD-014", "AD-021", "ADCS-007", "EN-008", "EN-009", "EN-014", "HY-003"}
@@ -184,6 +186,35 @@ class VulnerableRound(RoundCase):
         self.assertIn("entra:e-cloudadmin", h["accounts"])
         self.assertTrue({"EN-002", "HY-001"} <= {r.split("（")[0] for r in h["rules"]})
 
+    def test_attack_path_entries(self):
+        res = analyze_paths(self.ctx)
+        e = {x["id"]: x for x in res["entries"]}
+        self.assertTrue(e[fx.sid(513)]["broad"])                              # Domain Users -> ESC1 -> domain
+        self.assertEqual([s["kind"] for s in e[fx.sid(513)]["steps"]], ["Enroll", "ADCSImpersonate"])
+        self.assertEqual(e[fx.sid(1102)]["steps"][0]["kind"], "AdminTo")       # local admin on the Entra Connect server
+        self.assertEqual(e[fx.sid(1102)]["target"], fx.sid(1305))
+        self.assertEqual([s["kind"] for s in e[fx.sid(1104)]["steps"]], ["WriteDacl", "SDProp"])   # AdminSDHolder
+        self.assertEqual(e[fx.sid(1301)]["steps"][0]["kind"], "AllowedToAct")
+        self.assertEqual(e["entra:e-user"]["steps"][0]["kind"], "Owns")         # owner of a role-assignable group
+        self.assertTrue(e[fx.sid(1105)]["crossesAdEntra"])                     # AD account -> synced Global Admin
+        for t0 in (fx.sid(512), fx.sid(1101), fx.sid(1305), fx.sid(1304)):     # Tier0 and Tier0-equivalent hosts are targets
+            self.assertNotIn(t0, e)
+        self.assertGreater(res["accountsWithPath"], 0)
+        self.assertTrue(self.ctx.is_broad(res["chokepoints"][0]["from"]))     # ESC4 / ESC1 reachable by everyone
+
+    def test_attack_path_inheritance(self):
+        # Helpdesk's inheritable GenericAll on OU=Workstations reaches the Entra Connect server below it ...
+        src = {r["id"]: r for r in who_can_reach(self.ctx, fx.sid(1305), 50)}
+        self.assertIn("繼承自 Workstations", src[fx.sid(1201)]["path"])
+        # ... while inheritable ACEs never reach objects with a protected DACL (adminCount=1)
+        for r in who_can_reach(self.ctx, fx.sid(1101), 50):
+            last = r["steps"][-1]
+            self.assertFalse(last.get("note", "").startswith("繼承自"), r["path"])
+        # control of a GPO reaches the computers it applies to (here tied with a route of equal cost via Domain Admins)
+        ag = self.ctx._attack_graph[0]
+        self.assertIn((f"gpo:{fx.GPO_DDCP}", "GPOAppliesTo", fx.sid(1000)), ag._seen)
+        self.assertIn((fx.sid(1201), "GenericWrite", f"gpo:{fx.GPO_DDCP}"), ag._seen)
+
     def test_finding_shape(self):
         for r in self.results.values():
             for f in r.findings:
@@ -279,12 +310,17 @@ class CoverageAndCli(unittest.TestCase):
         self.assertTrue(doc["findings"][0]["severity"] == "critical")
         md = (out / "findings.md").read_text(encoding="utf-8")
         self.assertIn("## 規則執行狀態", md)
+        self.assertIn("## 攻擊路徑", md)
+        self.assertGreater(doc["attackPaths"]["entriesTotal"], 3)
+        self.assertTrue(doc["attackPaths"]["entries"][0]["steps"])
         con = sqlite3.connect(str(out / "graph.sqlite"))
         try:
             n = con.execute("SELECT count(*) FROM edges WHERE kind='DCSync'").fetchone()[0]
             self.assertGreaterEqual(n, 3)
             t0 = con.execute("SELECT count(*) FROM nodes WHERE tier0=1").fetchone()[0]
             self.assertGreater(t0, 5)
+            broad = con.execute("SELECT count(*) FROM attack_paths WHERE broad=1").fetchone()[0]
+            self.assertGreaterEqual(broad, 1)
         finally:
             con.close()
         other = fx.write_bundle(self.root / "c", "other-key", fx._aadc(True), key_id="different")

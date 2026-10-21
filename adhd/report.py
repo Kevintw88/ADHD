@@ -71,6 +71,19 @@ def hotspots(ctx, findings: list[dict[str, Any]], limit: int = 15) -> list[dict[
     return out[:limit]
 
 
+PATHS_LIMIT = 100
+
+
+def _attack_paths(ctx) -> dict[str, Any] | None:
+    """Attack-path summary when the PATH rules ran (adhd.paths memoises it on the context)."""
+    res = getattr(ctx, "_attack_paths", None)
+    if res is None:
+        return None
+    out = {k: v for k, v in res.items() if k != "entries"}
+    out.update(entries=res["entries"][:PATHS_LIMIT], entriesTotal=len(res["entries"]))
+    return out
+
+
 def build_document(ctx, results: list[RuleResult], accepted: list[dict[str, Any]] | None = None,
                    exception_warnings: list[str] | None = None) -> dict[str, Any]:
     findings = _findings(results)
@@ -90,6 +103,7 @@ def build_document(ctx, results: list[RuleResult], accepted: list[dict[str, Any]
             "graph": ctx.graph.stats(),
         },
         "hotspots": hotspots(ctx, findings),
+        "attackPaths": _attack_paths(ctx),
         "rules": [r.to_dict() for r in results],
         "findings": findings,
         "accepted": accepted or [],
@@ -143,6 +157,22 @@ def write_markdown(doc: dict[str, Any], path: Path) -> None:
             rel = "、".join(f"{fid} {rid}" for fid, rid in zip(h["findings"], h["rules"]))
             lines.append(f"| {_md_escape(h['label'])} | {'是' if h['tier0'] else ''} | {h['score']} | "
                          f"{SEV_LABEL[h['maxSeverity']]} | {_md_escape(rel)} |")
+    ap = doc.get("attackPaths")
+    if ap and ap.get("entries"):
+        lines += ["", "## 攻擊路徑（到 Tier0 的最短路徑）", "",
+                  f"啟用中的帳號有 {ap['accountsWithPath']}/{ap['accountsTotal']} 個有通往 Tier0 的路徑。"
+                  "起點是實際持有第一個可濫用權限的主體；「影響帳號」是透過群組成員關係共用這條路徑的帳號數。"
+                  "每個起點只列最短的一條，切斷後可能仍有較長的替代路徑。", "",
+                  "| 起點 | 廣泛群組 | 步數 | 影響帳號 | 路徑 |", "|---|---|---|---|---|"]
+        for e in ap["entries"][:MD_AFFECTED_LIMIT]:
+            lines.append(f"| {_md_escape(e['label'])} | {'是' if e['broad'] else ''} | {e['hops']} | {e['exposedAccounts']} | "
+                         f"{_md_escape(e['path'])} |")
+        if ap["entriesTotal"] > MD_AFFECTED_LIMIT:
+            lines.append(f"| …另 {ap['entriesTotal'] - MD_AFFECTED_LIMIT} 個起點（見 findings.json / graph.sqlite） | | | | |")
+        if ap.get("chokepoints"):
+            lines += ["", "優先切斷（最多帳號的路徑經過的步驟）：", ""]
+            for i, c in enumerate(ap["chokepoints"], 1):
+                lines.append(f"{i}. {_md_escape(c['fromLabel'])} →[{c['action']}]→ {_md_escape(c['toLabel'])}（{c['accounts']} 個帳號）")
     lines += ["", "| # | 嚴重度 | 規則 | 標題 | 數量 |", "|---|---|---|---|---|"]
     for f in doc["findings"]:
         lines.append(f"| {f['findingId']} | {SEV_LABEL[f['severity']]} | {f['ruleId']} | {_md_escape(f['title'])} | {f['count']} |")
@@ -187,6 +217,8 @@ def write_sqlite(ctx, doc: dict[str, Any], path: Path) -> None:
             CREATE TABLE findings(finding_id TEXT PRIMARY KEY, rule_id TEXT, severity TEXT, title TEXT, count INTEGER, data TEXT);
             CREATE TABLE affected(finding_id TEXT, node_id TEXT, label TEXT, detail TEXT);
             CREATE TABLE rules(rule_id TEXT PRIMARY KEY, title TEXT, category TEXT, status TEXT, reason TEXT);
+            CREATE TABLE attack_paths(entry_id TEXT PRIMARY KEY, entry_label TEXT, broad INTEGER, hops INTEGER, cost REAL,
+                                      exposed_accounts INTEGER, target_id TEXT, target_label TEXT, path TEXT, steps TEXT);
         """)
         meta = {"schema": doc["schema"], "asOfUtc": doc["asOfUtc"], "generatedUtc": doc["generatedUtc"],
                 "scope": json.dumps(doc["scope"], ensure_ascii=False), "bundles": json.dumps(doc["bundles"], ensure_ascii=False)}
@@ -205,6 +237,10 @@ def write_sqlite(ctx, doc: dict[str, Any], path: Path) -> None:
             for f in doc["findings"] for a in f["affected"]])
         con.executemany("INSERT INTO rules VALUES(?,?,?,?,?)", [
             (r["ruleId"], r["title"], r["category"], r["status"], r.get("reason")) for r in doc["rules"]])
+        res = getattr(ctx, "_attack_paths", None) or {}
+        con.executemany("INSERT INTO attack_paths VALUES(?,?,?,?,?,?,?,?,?,?)", [
+            (e["id"], e["label"], 1 if e["broad"] else 0, e["hops"], e["cost"], e["exposedAccounts"], e["target"],
+             e["targetLabel"], e["path"], json.dumps(e["steps"], ensure_ascii=False)) for e in res.get("entries", [])])
         con.executescript("""
             CREATE INDEX edges_src ON edges(src, kind);
             CREATE INDEX edges_dst ON edges(dst, kind);

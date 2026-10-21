@@ -24,7 +24,8 @@
 | `collectors/powershell/` | 現場資料收集器與使用說明（需要準備什麼、怎麼跑、輸出格式） |
 | `tools/verify_bundle.py` | Lab 端 bundle 驗收（雜湊、筆數、禁止欄位、假名化外洩檢查），僅用標準函式庫 |
 | `tools/bundle_sanity.py` | 驗收後的語意檢查（收集是否悄悄不完整、跨 bundle 假名一致性） |
-| `adhd/`、`tools/analyze.py` | 離線分析：AD / Entra 混合關聯圖 + 約 60 條規則，輸出報告、JSON 與 SQLite（[docs/analysis.md](docs/analysis.md)、[規則目錄](docs/rules.md)） |
+| `adhd/`、`tools/analyze.py` | 離線分析：AD / Entra 混合關聯圖、66 條規則與攻擊路徑，輸出報告、JSON 與 SQLite（[docs/analysis.md](docs/analysis.md)、[規則目錄](docs/rules.md)） |
+| `tools/paths.py` | 攻擊路徑查詢：起點與優先切斷的步驟、單一主體到 Tier0 的路徑、誰能取得某個物件 |
 | `tests/powershell/` | 收集器的 mock 端對端測試 |
 | `tests/python/` | 分析的合成環境測試（脆弱 / 乾淨兩套） |
 

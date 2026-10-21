@@ -145,8 +145,8 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
                  flags=("WORKSTATION_TRUST_ACCOUNT", "TRUSTED_FOR_DELEGATION") if v else ("WORKSTATION_TRUST_ACCOUNT",)),
         computer(1302, "SRV01", os="Windows Server 2008 R2 Standard" if v else "Windows Server 2022 Standard"),
         computer(1303, "AZUREADSSOACC", os=None, laps=False, pwd=100 if v else 10, logon=None, ou="CN=Computers"),
-        computer(1304, "CA01", os="Windows Server 2022 Standard"),
-        computer(1305, "CA-AADC", os="Windows Server 2022 Standard", laps=not v),
+        computer(1304, "CA01", os="Windows Server 2022 Standard", ou="OU=Workstations" if v else "OU=Tier0 Servers"),
+        computer(1305, "CA-AADC", os="Windows Server 2022 Standard", laps=not v, ou="OU=Workstations" if v else "OU=Tier0 Servers"),
     ]
     if v:
         computers.append(computer(1306, "OLD-PC", os="Windows 10 Enterprise", laps=False, logon=400))
@@ -190,6 +190,8 @@ def _ad_common(vulnerable: bool) -> dict[str, Any]:
         {"objectClass": "organizationalUnit", "name": "Domain Controllers", "distinguishedName": f"OU=Domain Controllers,{DOM_DN}",
          "gpLinks": [{"gpoGuid": GPO_DDCP, "enabled": True, "enforced": False, "order": 1}], "blockInheritance": False},
         {"objectClass": "organizationalUnit", "name": "Workstations", "distinguishedName": f"OU=Workstations,{DOM_DN}",
+         "gpLinks": [], "blockInheritance": False, "descriptionHasSecretHint": False},
+        {"objectClass": "organizationalUnit", "name": "Tier0 Servers", "distinguishedName": f"OU=Tier0 Servers,{DOM_DN}",
          "gpLinks": [], "blockInheritance": False, "descriptionHasSecretHint": False},
     ]
     gpos = [{"id": GPO_DDP, "displayName": "Default Domain Policy"},

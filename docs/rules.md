@@ -86,3 +86,10 @@
 | HY-003 | 資訊 | Entra Connect 組態摘要 | 彙整 Entra Connect 的伺服器、版本、同步模式與 connector 帳號，供後續分析與報告使用。 | entraconnect_server | T1003.006 |
 | HY-004 | 嚴重 | Entra Connect 的 AD DS connector 帳號權限過高或被當成一般帳號使用 | connector 帳號的密碼保存在 Entra Connect 伺服器上，該伺服器的本機管理員可以取出。帳號若是 Tier0 群組成員，取得伺服器即取得網域。 | entraconnect_connectors<br>ad_users<br>ad_groups<br>ad_acls | T1003.006, T1555, T1078.002 |
 | HY-005 | 高 | AD 已停用但 Entra 仍啟用的同步帳號 | Entra Connect 預設會把 AD 的停用狀態同步到 Entra。兩邊不一致代表「在 AD 停用帳號」（一般的離職流程）沒有關閉雲端存取。 | ad_users<br>entra_users | T1078.004 |
+
+## Path
+
+| 規則 | 預設嚴重度 | 標題 | 說明 | 需要的資料集 | ATT&CK |
+|---|---|---|---|---|---|
+| PATH-001 | 高 | 非 Tier0 主體有通往 Tier0 的攻擊路徑 | 單看一條權限常常只是「中」，串起來才看得出某個普通帳號只要幾步就能拿到網域或租用戶的最高權限。每個起點只列最便宜的一條路徑（成員關係不計步數）；起點是實際持有第一個可濫用權限的主體，透過群組成員關係共用同一路徑的帳號計入 exposedAccounts。 | ad_users<br>ad_groups<br>ad_acls | T1078, T1098, T1484, T1003.006 |
+| PATH-002 | 資訊 | 攻擊路徑的關鍵步驟（優先切斷） | 最多帳號的最短路徑都經過的步驟：處理一條就能切斷最多路徑。 | ad_users<br>ad_groups<br>ad_acls | T1078 |

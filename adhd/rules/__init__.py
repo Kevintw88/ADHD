@@ -101,7 +101,7 @@ def _missing(ctx: Any, requires: Sequence[str | tuple[str, ...]]) -> list[str]:
 
 
 def all_rules() -> list[Rule]:
-    from . import ad, adcs, entra, hybrid  # noqa: F401  (registration side effects)
+    from . import ad, adcs, entra, hybrid, paths  # noqa: F401  (registration side effects)
     return sorted(REGISTRY, key=lambda r: r.id)
 
 

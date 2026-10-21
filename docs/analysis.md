@@ -18,6 +18,11 @@ python3 tools/bundle_sanity.py /srv/adhd/intake/ADHD-Collect-SubA*20261015*.zip
 # 2. 分析（同一輪的 bundle 一起丟進去）
 python3 tools/analyze.py /srv/adhd/intake/ADHD-Collect-SubA*20261015*.zip --out /srv/adhd/reports/SubA-20261015
 
+# 攻擊路徑查詢
+python3 tools/paths.py /srv/adhd/intake/ADHD-Collect-SubA*20261015*.zip                  # 起點與優先切斷的步驟
+python3 tools/paths.py ... --from u-3b6a98551f47                                        # 某個主體到 Tier0 的最短路徑
+python3 tools/paths.py ... --to CA-TWCA-01                                              # 誰能取得某個物件
+
 # 其他
 python3 tools/analyze.py --list-rules              # 規則目錄（docs/rules.md 同內容）
 python3 tools/analyze.py ... --only AD-020 ADCS    # 只跑指定規則 / 類別
@@ -77,7 +82,7 @@ Domain Admins、Enterprise Admins、Schema Admins、Administrators、Domain Cont
 
 ## 規則
 
-64 條，分 AD、ADCS、Entra、Hybrid 四類，完整清單見 [rules.md](rules.md)。每條規則的狀態：
+66 條，分 AD、ADCS、Entra、Hybrid、Path 五類，完整清單見 [rules.md](rules.md)。每條規則的狀態：
 
 | 狀態 | 意義 |
 |---|---|
@@ -85,6 +90,32 @@ Domain Admins、Enterprise Admins、Schema Admins、Administrators、Domain Cont
 | 通過 | 資料完整且沒有發現 |
 | 略過 | 需要的資料集沒收到或收集失敗（原因寫在報告最後的狀態表） |
 | 錯誤 | 規則執行例外（不影響其他規則；請回報） |
+
+## 攻擊路徑
+
+PATH-001 / PATH-002 把關聯圖上的事實串成「誰取得 A 就能接管 B」的攻擊步驟，從所有 Tier0 資產反向計算每個主體的最短路徑（成員關係不計步數，各步驟有成本，例如重設密碼 1、資源型委派 1.5、定向 Kerberoasting 2）。實作在 `adhd/paths.py`。
+
+| 步驟來源 | 說明 |
+|---|---|
+| 群組 / 角色成員 | AD 群組、Entra 群組、Entra 角色；Everyone 與 Authenticated Users 視為所有啟用帳號的隱含成員 |
+| ACL 權限 | 只採用對該類物件真的能取得控制的權限（使用者：重設密碼、Key Credential、SPN…；群組：新增成員；電腦：LAPS、RBCD…） |
+| 可繼承的 ACE | OU / 容器上會被繼承的 ACE，展開到符合 inheritedObjectType 的後代物件；遇到受保護的 DACL 或 adminCount=1 的物件停止 |
+| 容器控制 | 對 OU 有 GenericAll / WriteDacl / WriteOwner / Owns，可加入可繼承權限，取得其下所有未受保護的物件 |
+| GPO | 能修改 GPO 即取得它套用到的使用者與電腦（考慮停用的連結、封鎖繼承與強制） |
+| AdminSDHolder | 能修改 AdminSDHolder 即取得所有 adminCount=1 的物件 |
+| 委派 | 資源型限制委派、限制委派（含 / 不含協定轉換） |
+| Entra Connect | 伺服器的本機管理員 → 伺服器 → 保存在其上的 AD DS connector 帳號 |
+| ADCS | 已發佈 ESC1 範本的申請權、已發佈範本的修改權（ESC4）→ 網域；企業 CA 主機視同 Tier0 |
+| 混合 | AD 帳號 → 由它同步的 Entra 帳號；Entra 群組 / App / 服務主體的擁有者 |
+
+Tier0 目標：AD Tier0（見上）、網域物件、Entra Tier0 角色與持有者、持有可提權應用程式權限的服務主體，以及 Entra Connect 伺服器與企業 CA 主機。
+
+- **起點**：實際持有第一個可濫用權限的主體（不是先經過成員關係的帳號）；經過廣泛群組的路徑只列在該廣泛群組下。
+- **影響帳號（exposedAccounts）**：最短路徑以這個起點開始的啟用帳號數（透過群組成員關係共用）。
+- **優先切斷（PATH-002）**：最多帳號的最短路徑都經過的步驟。
+- 每個主體只算最短的一條；切斷後可能仍有較長的替代路徑，處理後要重新分析確認。
+
+`findings.json` 的 `attackPaths`（前 100 個起點，含每一步的 id）與 `graph.sqlite` 的 `attack_paths` 表提供同樣的資料給地端模型與之後的 MCP 工具；`tools/paths.py` 可以查單一主體的路徑（`--from`）或誰能取得某個物件（`--to`）。
 
 ## SQLite 查詢範例
 
@@ -100,6 +131,9 @@ WHERE d.tier0 = 1 AND s.tier0 = 0
 
 -- 某條發現影響的對象
 SELECT label, detail FROM affected WHERE finding_id = 'F001';
+
+-- 影響最多帳號的攻擊路徑
+SELECT entry_label, hops, exposed_accounts, path FROM attack_paths ORDER BY broad DESC, exposed_accounts DESC LIMIT 10;
 ```
 
 ## 給地端模型的介面
@@ -116,7 +150,7 @@ SELECT label, detail FROM affected WHERE finding_id = 'F001';
 - Entra 角色未區分管理單位（AU）範圍的指派，AU 範圍的角色也會被當作特權。
 - 條件式存取只判斷「是否套用所有使用者 / 管理員角色 + 所有雲端應用程式」，未評估位置、平台、裝置等條件造成的缺口。
 - ADCS 只評估 AD 中的範本與 CA 物件（ESC1–5、ESC9）；ESC6 / 7 / 8 / 11 需在 CA 主機上檢查。
-- 攻擊路徑（多跳的最短路徑）是 Phase 1 第 3 步，尚未實作；目前規則只看單跳的權限。
+- 攻擊路徑只用收集到的資料：沒有工作階段（誰登入哪台主機）與一般主機的本機管理員資料，所以「登入過的主機被入侵」這類路徑不會出現；Entra 端未包含角色之間的管理關係（例如 Privileged Authentication Administrator 可重設 GA 的驗證方式）。
 
 ## 測試
 

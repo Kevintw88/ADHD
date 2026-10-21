@@ -7,5 +7,5 @@ Standard library only, so it runs on an air-gapped analysis host.
     from adhd.rules import run_rules
 """
 
-__version__ = "0.2.1"
+__version__ = "0.3.0"
 FINDINGS_SCHEMA = "adhd.findings/1"
