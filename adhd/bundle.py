@@ -115,14 +115,48 @@ class Bundle:
         return out
 
 
+def _source(b: Bundle, dataset: str) -> str | None:
+    """What a dataset is a snapshot of.  Two bundles with the same dataset from the same source overlap
+    (e.g. a re-collection); different sources (another domain, a second Entra Connect server) are merged."""
+    scope = b.manifest.get("scope") or {}
+    if dataset.startswith("entraconnect"):
+        return "aadc:" + str(((b.manifest.get("runContext") or {}).get("computer") or "")).lower()
+    if dataset.startswith(("ad_", "dc_")):
+        return "ad:" + str(scope.get("adDomainSid") or scope.get("adDomain") or "").lower()
+    if dataset.startswith("entra_"):
+        return "entra:" + str(scope.get("entraTenantId") or "").lower()
+    return None
+
+
 class Round:
-    """All bundles of one collection round, with datasets merged by name."""
+    """All bundles of one collection round, with datasets merged by name.
+
+    When the same dataset of the same source appears in more than one bundle (a re-collection passed together
+    with the original), only the most recently finished bundle's copy is used, so rows are never doubled;
+    ``superseded`` lists what was set aside."""
 
     def __init__(self, bundles: list[Bundle]) -> None:
         if not bundles:
             raise BundleError("no bundles given")
         self.bundles = bundles
         self._cache: dict[str, list[dict[str, Any]]] = {}
+        self.superseded: list[dict[str, str]] = []
+        self._use: dict[str, list[Bundle]] = {}
+        epoch = datetime.min.replace(tzinfo=timezone.utc)
+        names = {n for b in bundles for n in b.datasets}
+        for name in sorted(names):
+            have = [b for b in bundles if b.datasets.get(name, {}).get("status") in USABLE]
+            groups: dict[Any, list[Bundle]] = {}
+            for b in have:
+                src = _source(b, name)
+                groups.setdefault(src if src is not None else id(b), []).append(b)
+            use = []
+            for grp in groups.values():
+                grp = sorted(grp, key=lambda x: x.finished or epoch)
+                use.append(grp[-1])
+                for old in grp[:-1]:
+                    self.superseded.append({"dataset": name, "bundle": old.name, "usedInstead": grp[-1].name})
+            self._use[name] = [b for b in bundles if b in use]
 
     @property
     def key_ids(self) -> set[str]:
@@ -136,7 +170,8 @@ class Round:
     def status(self, name: str) -> str | None:
         """Best status of a dataset across bundles: ok > partial > error > skipped > None (never collected)."""
         order = ["ok", "partial", "error", "skipped"]
-        found = [b.datasets[name].get("status") for b in self.bundles if name in b.datasets]
+        pool = self._use.get(name) or self.bundles
+        found = [b.datasets[name].get("status") for b in pool if name in b.datasets]
         for st in order:
             if st in found:
                 return st
@@ -148,7 +183,7 @@ class Round:
     def rows(self, name: str) -> list[dict[str, Any]]:
         if name not in self._cache:
             merged: list[dict[str, Any]] = []
-            for b in self.bundles:
+            for b in self._use.get(name, []):
                 merged.extend(b.rows(name))
             self._cache[name] = merged
         return self._cache[name]
@@ -169,6 +204,7 @@ class Round:
                 "modules": ((b.manifest.get("runContext") or {}).get("parameters") or {}).get("include"),
                 "finishedUtc": b.manifest.get("finishedUtc"),
                 "keyId": b.key_id,
+                "supersededDatasets": [x["dataset"] for x in self.superseded if x["bundle"] == b.name],
             }
             for b in self.bundles
         ]

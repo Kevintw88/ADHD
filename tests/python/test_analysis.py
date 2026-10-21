@@ -328,6 +328,27 @@ class Exceptions(unittest.TestCase):
 
 
 class Helpers(unittest.TestCase):
+    def test_overlapping_bundles_use_newest(self):
+        def stamp(path, finished, scope):
+            m = json.loads((path / "manifest.json").read_text(encoding="utf-8"))
+            m["finishedUtc"], m["scope"] = finished, scope
+            (path / "manifest.json").write_text(json.dumps(m), encoding="utf-8")
+        dom = {"adDomainSid": "S-1-5-21-10-20-30"}
+        with tempfile.TemporaryDirectory() as tmp:
+            r = Path(tmp)
+            old = fx.write_bundle(r, "old", {"ad_users": [fx.user(1101, "a", enabled=False), fx.user(1102, "b")]})
+            new = fx.write_bundle(r, "new", {"ad_users": [fx.user(1101, "a")]})
+            other = fx.write_bundle(r, "other", {"ad_users": [fx.user(1201, "c")]})
+            stamp(old, "2026-10-15T07:00:00.000Z", dom)
+            stamp(new, "2026-10-20T07:00:00.000Z", dom)
+            stamp(other, "2026-10-14T07:00:00.000Z", {"adDomainSid": "S-1-5-21-99-99-99"})
+            rnd = open_round([old, new, other], r / "x")
+            users = {u["sid"]: u for u in rnd.rows("ad_users")}
+            self.assertEqual(len(rnd.rows("ad_users")), 2)            # old copy dropped, other domain kept
+            self.assertTrue(users[fx.sid(1101)]["enabled"])
+            self.assertEqual(rnd.superseded, [{"dataset": "ad_users", "bundle": "old", "usedInstead": "new"}])
+            self.assertEqual([d["supersededDatasets"] for d in rnd.describe()], [["ad_users"], [], []])
+
     def test_parent_dn_with_escaped_comma(self):
         self.assertEqual(parent_dn(r"CN=Doe\, John,OU=Staff,DC=corp,DC=local"), "OU=Staff,DC=corp,DC=local")
         self.assertIsNone(parent_dn("DC=local"))

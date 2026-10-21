@@ -25,6 +25,8 @@ python3 tools/analyze.py ... --only AD-020 ADCS    # 只跑指定規則 / 類別
 
 不同假名化金鑰的 bundle 預設拒絕一起分析（假名對不上會產生錯誤結論）；確定要混用時加 `--allow-mixed-keys`。
 
+補收的 bundle 可以和原本那輪一起丟進去：同一個資料集若同時出現在兩份 bundle、而且來源相同（同一個 AD 網域、同一個租用戶、同一台 Entra Connect 伺服器），只採用收集完成時間較新的那份，並在執行時與 `findings.json` 的 `bundles[].supersededDatasets` 註明；來源不同（例如另一個網域、第二台 Entra Connect）則合併。
+
 ## 輸出
 
 | 檔案 | 給誰 | 內容 |

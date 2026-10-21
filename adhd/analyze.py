@@ -64,6 +64,13 @@ def main(argv: list[str] | None = None) -> int:
             print(f"error: bundles use different pseudonymisation keys {sorted(rnd.key_ids)}; "
                   "analyse one round at a time (or pass --allow-mixed-keys)", file=sys.stderr)
             return 2
+        if rnd.superseded:
+            by_bundle: dict = {}
+            for x in rnd.superseded:
+                by_bundle.setdefault((x["bundle"], x["usedInstead"]), []).append(x["dataset"])
+            for (old, new), names in by_bundle.items():
+                print(f"注意：{old} 的 {len(names)} 個資料集與 {new} 重複，改用較新的 {new}（{', '.join(names[:6])}{' …' if len(names) > 6 else ''}）",
+                      file=sys.stderr)
         ctx = build_context(rnd)
         results = run_rules(ctx, args.only)
         accepted, warnings = [], []
