@@ -15,11 +15,12 @@
 | 一台網域成員的 Windows 主機 | 執行 AD / GPO / ADCS / Entra 模組 | Windows 10/11 或 Server 2016 以上，Windows PowerShell 5.1 或 PowerShell 7 |
 | RSAT：Active Directory module | AD、ADACL、ADCS、DCLogs | `Add-WindowsCapability -Online -Name Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0` |
 | RSAT：Group Policy Management | GPO | `Add-WindowsCapability -Online -Name Rsat.GroupPolicy.Management.Tools~~~~0.0.1.0` |
-| `Microsoft.Graph.Authentication` 2.x | Entra、EntraLogs | `Install-Module Microsoft.Graph.Authentication -Scope CurrentUser`（只需要這一個模組） |
+| `Microsoft.Graph.Authentication` 2.x | Entra、EntraLogs、SecurityAlerts | `Install-Module Microsoft.Graph.Authentication -Scope CurrentUser`（只需要這一個模組） |
 | 一般網域使用者帳號 | AD 讀取 | 不需要 Domain Admins；FGPP 例外（見限制） |
 | 具 **Global Reader** 角色的 Entra 帳號 | Graph delegated 唯讀登入 | 首次使用需管理員同意（見下方） |
 | Entra Connect 伺服器的本機系統管理員 | EntraConnect 模組 | 必須在 Entra Connect 主機上執行 |
 | 各 DC 的 **Event Log Readers** 成員資格 | DCLogs（選配） | 並開放遠端事件記錄管理（RPC） |
+| Entra 帳號具 **Security Reader**（或以上） | SecurityAlerts（選配） | 讀取 Defender for Identity / Endpoint 告警 |
 
 ### Graph 權限與管理員同意
 
@@ -29,6 +30,7 @@
 Directory.Read.All, Policy.Read.All, RoleManagement.Read.Directory, AuditLog.Read.All,
 Application.Read.All, UserAuthenticationMethod.Read.All, IdentityRiskyUser.Read.All
 (+ IdentityRiskEvent.Read.All，啟用 EntraLogs 時)
+(+ SecurityAlert.Read.All，啟用 SecurityAlerts 時)
 ```
 
 這些 scope 需要租用戶管理員同意。Global Reader 本身無法同意，所以第一次需要 Global Administrator 或 Privileged Role Administrator 對「Microsoft Graph Command Line Tools」同意一次；或由子公司建立一個只有上述 delegated 權限的 App registration，用 `-GraphClientId` 指定。
@@ -57,8 +59,8 @@ Application.Read.All, UserAuthenticationMethod.Read.All, IdentityRiskyUser.Read.
 #     把 (1) 產生的 ADHD-pseudonym.key 複製過來並指定
 .\Collect-ADHD.ps1 -Label SubA-AADC -Include EntraConnect -PseudonymKeyFile .\ADHD-pseudonym.key
 
-# (3) 選配：Entra 紀錄 + DC 安全事件（偵測工程用）
-.\Collect-ADHD.ps1 -Label SubA-Logs -Include EntraLogs,DCLogs -LogDays 7 -PseudonymKeyFile .\ADHD-pseudonym.key
+# (3) 選配：Entra 紀錄 + DC 安全事件 + Defender 告警（偵測工程用，見 docs/detection.md）
+.\Collect-ADHD.ps1 -Label SubA-Logs -Include EntraLogs,DCLogs,SecurityAlerts -LogDays 7 -PseudonymKeyFile .\ADHD-pseudonym.key
 ```
 
 其他常用參數：
@@ -140,6 +142,7 @@ Application.Read.All, UserAuthenticationMethod.Read.All, IdentityRiskyUser.Read.
 | | `entra_risky_users` | Identity Protection 風險使用者 |
 | EntraLogs | `entra_signins`、`entra_directory_audits`、`entra_risk_detections` | 近 `-LogDays` 天，上限 `-MaxLogRecords` 筆 |
 | DCLogs | `dc_security_events` | 指定事件 ID，每台 DC 每個 ID 上限 `-MaxEventsPerId` 筆，EventData 解析為欄位 |
+| SecurityAlerts | `security_alerts` | Graph `security/alerts_v2` 近 `-LogDays` 天：嚴重度、來源（MDI / MDE）、ATT&CK、證據中的帳號（假名、SID 保留）與主機；不收 description 等自由文字，標題中的帳號與顯示名稱換成假名 |
 
 ### 絕對不收集
 

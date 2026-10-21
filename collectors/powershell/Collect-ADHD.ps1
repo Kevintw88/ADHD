@@ -15,6 +15,7 @@
       EntraConnect  Entra Connect 組態（需在 Entra Connect 伺服器上、以系統管理員執行）
       Entra         Entra ID 物件、角色/PIM、條件式存取、驗證方法、App/SP 與權限
       EntraLogs     Entra 登入 / 稽核 / 風險偵測紀錄（需 Entra ID P1/P2）
+      SecurityAlerts Defender for Identity / Endpoint 告警（Graph security/alerts_v2，SecurityAlert.Read.All）
       DCLogs        DC Security 事件取樣（需 Event Log Readers 與遠端事件記錄存取）
 
     絕對不收集：密碼雜湊、NTDS.dit、LAPS 密碼值、BitLocker 復原金鑰、gMSA 密碼、
@@ -55,7 +56,7 @@
     收集所有 Entra 群組的成員；預設只收可指派角色、具角色指派或被條件式存取引用的群組。
 
 .PARAMETER LogDays
-    EntraLogs / DCLogs 往回收集的天數（1-30）。
+    EntraLogs / DCLogs / SecurityAlerts 往回收集的天數（1-30）。
 
 .PARAMETER MaxLogRecords
     每個 Entra 紀錄資料集的筆數上限。
@@ -103,7 +104,7 @@
 #>
 [CmdletBinding()]
 param(
-    [ValidateSet('AD', 'ADACL', 'GPO', 'ADCS', 'EntraConnect', 'Entra', 'EntraLogs', 'DCLogs')]
+    [ValidateSet('AD', 'ADACL', 'GPO', 'ADCS', 'EntraConnect', 'Entra', 'EntraLogs', 'DCLogs', 'SecurityAlerts')]
     [string[]] $Include = @('AD', 'ADACL', 'GPO', 'ADCS', 'Entra'),
 
     [string] $OutputRoot = '.',
@@ -158,7 +159,7 @@ param(
 # ---------------------------------------------------------------------------
 # 常數
 # ---------------------------------------------------------------------------
-$script:CollectorVersion = '0.1.2'
+$script:CollectorVersion = '0.1.3'
 $script:SchemaVersion    = 'adhd.collect/1'
 $script:Utf8NoBom        = New-Object System.Text.UTF8Encoding -ArgumentList $false
 
@@ -867,6 +868,23 @@ function Register-ADHDAdUserPii {
         Write-ADHDLog ("已登錄 {0} 筆 AD 使用者假名" -f $script:Ctx.PiiMap.Count)
     }
     catch { Write-ADHDLog ("AD 使用者假名登錄失敗：" + $_.Exception.Message) 'WARN' }
+}
+
+function Register-ADHDEntraUserPii {
+    # 未執行 Entra 模組、但要收集 EntraLogs / SecurityAlerts 時：先登錄 Entra 使用者的顯示名稱與帳號，
+    # 讓登入紀錄的 userDisplayName、告警標題中的名稱也被假名化（UPN / email 另有規則處理）
+    if (-not $script:Ctx.Pseudo -or $script:Ctx.EntraPiiDone) { return }
+    $script:Ctx.EntraPiiDone = $true
+    try {
+        $n = 0
+        Invoke-ADHDGraphCollection -Uri 'v1.0/users?$top=999&$select=userPrincipalName,displayName,mail,givenName,surname,onPremisesSamAccountName' |
+            ForEach-Object {
+                Register-ADHDPii @($_.userPrincipalName, $_.displayName, $_.mail, $_.givenName, $_.surname, $_.onPremisesSamAccountName)
+                $n++
+            }
+        Write-ADHDLog ("已登錄 {0} 個 Entra 使用者的假名" -f $n)
+    }
+    catch { Write-ADHDLog ("Entra 使用者假名登錄失敗，紀錄中的顯示名稱可能未假名化：" + $_.Exception.Message) 'WARN' }
 }
 
 # ===========================================================================
@@ -1865,6 +1883,89 @@ function Invoke-ADHDModuleEntraLogs {
 }
 
 # ===========================================================================
+# 模組：SecurityAlerts（Defender for Identity / Endpoint 告警，Graph security/alerts_v2，唯讀）
+# ===========================================================================
+function Protect-ADHDFreeText {
+    # 自由文字（例如告警標題「Suspected DCSync attack by jdoe」）：把已登錄的帳號 / 顯示名稱（1-4 個字）換成假名
+    param([string] $Text)
+    if ([string]::IsNullOrEmpty($Text) -or -not $script:Ctx.Pseudo) { return $Text }
+    $t = Protect-ADHDText $Text
+    $tokens = @([regex]::Matches($t, '[\p{L}\p{N}_.$\-]+'))
+    $hits = New-Object 'System.Collections.Generic.HashSet[string]' -ArgumentList ([System.StringComparer]::OrdinalIgnoreCase)
+    for ($i = 0; $i -lt $tokens.Count; $i++) {
+        for ($n = 4; $n -ge 1; $n--) {
+            if ($i + $n -gt $tokens.Count) { continue }
+            $start = $tokens[$i].Index
+            $end = $tokens[$i + $n - 1].Index + $tokens[$i + $n - 1].Length
+            $cand = $t.Substring($start, $end - $start)
+            if ($script:Ctx.PiiMap.ContainsKey($cand)) { [void]$hits.Add($cand); break }
+        }
+    }
+    foreach ($h in ($hits | Sort-Object Length -Descending)) {
+        $t = [regex]::Replace($t, '(?<![\p{L}\p{N}_])' + [regex]::Escape($h) + '(?![\p{L}\p{N}_])', $script:Ctx.PiiMap[$h], 'IgnoreCase')
+    }
+    return $t
+}
+
+function ConvertTo-ADHDAlertRecord {
+    # 只保留偵測與關聯需要的欄位：不帶 description / recommendedActions / 顯示名稱等自由文字與個資
+    param($Alert)
+    $evidence = foreach ($ev in (Get-ADHDProp $Alert 'evidence')) {   # Get-ADHDProp keeps the collection whole: no @()
+        if ($null -eq $ev) { continue }
+        $ua = Get-ADHDProp $ev 'userAccount'
+        $acct = $null
+        if ($ua) {
+            $name = [string](Get-ADHDProp $ua 'accountName')
+            $sid = [string](Get-ADHDProp $ua 'userSid')
+            Register-ADHDAccountName -Name $name -Sid $sid
+            $acct = [ordered]@{
+                accountName       = $name
+                domainName        = [string](Get-ADHDProp $ua 'domainName')
+                userSid           = $sid
+                azureAdUserId     = [string](Get-ADHDProp $ua 'azureAdUserId')
+                userPrincipalName = [string](Get-ADHDProp $ua 'userPrincipalName')
+            }
+        }
+        [ordered]@{
+            type              = [string](Get-ADHDProp $ev '@odata.type')
+            roles             = (ConvertTo-ADHDStringArray (Get-ADHDProp $ev 'roles'))
+            verdict           = [string](Get-ADHDProp $ev 'verdict')
+            remediationStatus = [string](Get-ADHDProp $ev 'remediationStatus')
+            userAccount       = $acct
+            deviceDnsName     = [string](Get-ADHDProp $ev 'deviceDnsName')
+            mdeDeviceId       = [string](Get-ADHDProp $ev 'mdeDeviceId')
+            ipAddress         = [string](Get-ADHDProp $ev 'ipAddress')
+        }
+    }
+    [ordered]@{
+        id                    = [string](Get-ADHDProp $Alert 'id')
+        incidentId            = [string](Get-ADHDProp $Alert 'incidentId')
+        title                 = (Protect-ADHDFreeText ([string](Get-ADHDProp $Alert 'title')))
+        severity              = [string](Get-ADHDProp $Alert 'severity')
+        status                = [string](Get-ADHDProp $Alert 'status')
+        classification        = [string](Get-ADHDProp $Alert 'classification')
+        determination         = [string](Get-ADHDProp $Alert 'determination')
+        serviceSource         = [string](Get-ADHDProp $Alert 'serviceSource')
+        detectionSource       = [string](Get-ADHDProp $Alert 'detectionSource')
+        category              = [string](Get-ADHDProp $Alert 'category')
+        mitreTechniques       = (ConvertTo-ADHDStringArray (Get-ADHDProp $Alert 'mitreTechniques'))
+        createdDateTime       = (Get-ADHDProp $Alert 'createdDateTime')
+        firstActivityDateTime = (Get-ADHDProp $Alert 'firstActivityDateTime')
+        lastActivityDateTime  = (Get-ADHDProp $Alert 'lastActivityDateTime')
+        evidence              = @($evidence)
+    }
+}
+
+function Invoke-ADHDModuleSecurityAlerts {
+    $since = [DateTime]::UtcNow.AddDays(-$script:Opt.LogDays).ToString('yyyy-MM-ddTHH:mm:ssZ')
+    $uri = 'v1.0/security/alerts_v2?$top=500&$filter=' + [uri]::EscapeDataString("createdDateTime ge $since")
+    $max = $script:Opt.MaxLogRecords
+    Export-ADHDDataset -Name 'security_alerts' -Module 'SecurityAlerts' -PreserveKeys @('category', 'serviceSource', 'detectionSource') -Collector {
+        Invoke-ADHDGraphCollection -Uri $uri -Max $max | ForEach-Object { ConvertTo-ADHDAlertRecord $_ }
+    }
+}
+
+# ===========================================================================
 # 模組：DCLogs
 # ===========================================================================
 function ConvertTo-ADHDEventRecord {
@@ -2079,14 +2180,14 @@ function Invoke-ADHDMain {
         Write-ADHDLog ("ADHD Collector {0}：模組 {1}" -f $script:CollectorVersion, ($script:Opt.Include -join ', '))
 
         $inc = $script:Opt.Include
-        $adModules = @('AD', 'ADACL', 'GPO', 'ADCS', 'DCLogs') | Where-Object { $inc -contains $_ }
+        $adModules = @('AD', 'ADACL', 'GPO', 'ADCS', 'DCLogs', 'SecurityAlerts') | Where-Object { $inc -contains $_ }
         $adOk = $false
         if ($adModules) {
             $adOk = Initialize-ADHDAdContext
             if ($adOk -and $inc -notcontains 'AD') { Register-ADHDAdUserPii }
         }
 
-        foreach ($m in @('AD', 'ADACL', 'GPO', 'ADCS', 'EntraConnect', 'Entra', 'EntraLogs', 'DCLogs')) {
+        foreach ($m in @('AD', 'ADACL', 'GPO', 'ADCS', 'EntraConnect', 'Entra', 'EntraLogs', 'SecurityAlerts', 'DCLogs')) {
             if ($inc -notcontains $m) { continue }
             Write-ADHDLog "==== 模組 $m ===="
             try {
@@ -2100,11 +2201,16 @@ function Invoke-ADHDMain {
                         $scopes = @('Directory.Read.All', 'Policy.Read.All', 'RoleManagement.Read.Directory', 'AuditLog.Read.All',
                             'Application.Read.All', 'UserAuthenticationMethod.Read.All', 'IdentityRiskyUser.Read.All')
                         if ($inc -contains 'EntraLogs') { $scopes += 'IdentityRiskEvent.Read.All' }
+                        if ($inc -contains 'SecurityAlerts') { $scopes += 'SecurityAlert.Read.All' }   # 一次登入取得所有需要的權限
                         if (Connect-ADHDGraph -Scopes $scopes) { Invoke-ADHDModuleEntra } else { Add-ADHDSkipped 'Entra' 'Entra' 'Graph 連線失敗' }
                     }
                     'EntraLogs' {
                         $scopes = @('AuditLog.Read.All', 'Directory.Read.All', 'IdentityRiskEvent.Read.All')
-                        if (Connect-ADHDGraph -Scopes $scopes) { Invoke-ADHDModuleEntraLogs } else { Add-ADHDSkipped 'EntraLogs' 'EntraLogs' 'Graph 連線失敗' }
+                        if ($inc -contains 'SecurityAlerts') { $scopes += 'SecurityAlert.Read.All' }
+                        if (Connect-ADHDGraph -Scopes $scopes) { if ($inc -notcontains 'Entra') { Register-ADHDEntraUserPii }; Invoke-ADHDModuleEntraLogs } else { Add-ADHDSkipped 'EntraLogs' 'EntraLogs' 'Graph 連線失敗' }
+                    }
+                    'SecurityAlerts' {
+                        if (Connect-ADHDGraph -Scopes @('SecurityAlert.Read.All', 'Directory.Read.All')) { if ($inc -notcontains 'Entra') { Register-ADHDEntraUserPii }; Invoke-ADHDModuleSecurityAlerts } else { Add-ADHDSkipped 'SecurityAlerts' 'SecurityAlerts' 'Graph 連線失敗' }
                     }
                     'DCLogs'       { if ($adOk -or $script:Opt.DomainControllers.Count -gt 0) { Invoke-ADHDModuleDCLogs } else { Add-ADHDSkipped 'DCLogs' 'DCLogs' ('AD 環境初始化失敗且未指定 -DomainControllers：' + $script:Ctx.ADInitError) } }
                 }

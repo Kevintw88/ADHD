@@ -16,7 +16,7 @@ $collector = Join-Path $repoRoot 'collectors/powershell/Collect-ADHD.ps1'
 New-Item -ItemType Directory -Path $OutputRoot -Force | Out-Null
 
 # 載入收集器函式（dot-source 不會執行主流程）
-. $collector -Include AD, ADACL, GPO, ADCS, EntraConnect, Entra, EntraLogs, DCLogs -OutputRoot $OutputRoot -Label 'SmokeSub' -TenantId 'tid-123'
+. $collector -Include AD, ADACL, GPO, ADCS, EntraConnect, Entra, EntraLogs, DCLogs, SecurityAlerts -OutputRoot $OutputRoot -Label 'SmokeSub' -TenantId 'tid-123'
 
 $script:ADHDTestHooks = @{
     AvailableModules = @('ActiveDirectory', 'GroupPolicy', 'ADSync', 'Microsoft.Graph.Authentication')
@@ -342,6 +342,7 @@ $GraphResponses = [ordered]@{
     'v1.0/auditLogs/signIns*'                        = '{"value":[{"id":"s1","createdDateTime":"2026-10-12T00:00:00Z","userPrincipalName":"jdoe@sub.com","userDisplayName":"John Doe","appDisplayName":"Office 365","ipAddress":"203.0.113.5","status":{"errorCode":0}}]}'
     'v1.0/auditLogs/directoryAudits*'                = '{"value":[{"id":"da1","activityDisplayName":"Add member to role","initiatedBy":{"user":{"userPrincipalName":"admin@sub.com"}},"targetResources":[{"type":"User","userPrincipalName":"jdoe@sub.com","displayName":"John Doe"}]}]}'
     'v1.0/identityProtection/riskDetections*'        = '{"value":[]}'
+    'v1.0/security/alerts_v2*'                       = '{"value":[{"id":"al1","incidentId":"7","title":"Suspected DCSync attack (replication of directory services) by jdoe on John Doe''s request","description":"John Doe (jdoe) replicated directory","recommendedActions":"call john.doe@sub.com","severity":"high","status":"new","serviceSource":"microsoftDefenderForIdentity","detectionSource":"microsoftDefenderForIdentity","category":"CredentialAccess","mitreTechniques":["T1003.006"],"createdDateTime":"2026-10-12T01:00:00Z","evidence":[{"@odata.type":"#microsoft.graph.security.userEvidence","roles":["attacker"],"verdict":"suspicious","userAccount":{"accountName":"jdoe","domainName":"SUB","userSid":"S-1-5-21-1-2-3-1105","azureAdUserId":"u1","userPrincipalName":"jdoe@sub.com","displayName":"John Doe"}},{"@odata.type":"#microsoft.graph.security.deviceEvidence","deviceDnsName":"dc01.sub.local","mdeDeviceId":"d1","loggedOnUsers":[{"accountName":"jdoe"}]}]}]}'
 }
 $script:GraphCalls = New-Object System.Collections.Generic.List[string]
 function Invoke-MgGraphRequest {
@@ -486,6 +487,14 @@ $sign = Read-Dataset 'entra_signins'
 Assert-True ($sign[0].userPrincipalName -match '^u-[0-9a-f]{12}@sub\.com$' -and $sign[0].userDisplayName -match '^u-') '登入紀錄假名化'
 Assert-True ($sign[0].appDisplayName -eq 'Office 365') '登入紀錄 App 名稱保留'
 
+$al = Read-Dataset 'security_alerts'
+Assert-True ($al.Count -eq 1 -and $al[0].serviceSource -eq 'microsoftDefenderForIdentity' -and $al[0].severity -eq 'high') '告警收集'
+Assert-True ($al[0].evidence[0].userAccount.accountName -match '^u-[0-9a-f]{12}$' -and $al[0].evidence[0].userAccount.userSid -eq 'S-1-5-21-1-2-3-1105') '告警帳號假名化、SID 保留'
+Assert-True ($al[0].evidence[0].userAccount.userPrincipalName -match '^u-[0-9a-f]{12}@sub\.com$') '告警 UPN 假名化'
+Assert-True ($al[0].title -match 'Suspected DCSync attack' -and $al[0].title -notmatch 'jdoe|John Doe') '告警標題保留描述、名稱假名化'
+Assert-True ($null -eq $al[0].PSObject.Properties['description'] -and $null -eq $al[0].PSObject.Properties['recommendedActions']) '告警不帶自由文字描述'
+Assert-True ($al[0].evidence[1].deviceDnsName -eq 'dc01.sub.local' -and $null -eq $al[0].evidence[1].PSObject.Properties['loggedOnUsers']) '告警主機保留、其他證據欄位不帶'
+
 $ev = Read-Dataset 'dc_security_events'
 Assert-True ($ev.Count -eq 1 -and $ev[0].outcome -eq 'success') 'DC 事件解析'
 Assert-True ($ev[0].data.SubjectUserName -match '^u-' -and $ev[0].data.TargetUserName -match '^u-[0-9a-f]{12}@sub\.local$') 'DC 事件帳號假名化'
@@ -552,6 +561,24 @@ $all2 = (Get-ChildItem -LiteralPath $bundle2 -Recurse -File | Where-Object { $_.
 Assert-True ($all2.IndexOf('jdoe', [System.StringComparison]::OrdinalIgnoreCase) -lt 0) 'AADC 單獨執行：bundle 不含 jdoe 明文'
 $dsMap = @{}; foreach ($d in $m2.datasets) { $dsMap[$d.name] = $d }
 Assert-True ($dsMap['entraconnect_config'].files[0].sha256 -eq (Get-FileHash -LiteralPath (Join-Path $bundle2 'entraconnect_config/Connectors/Connector_sub.local.xml') -Algorithm SHA256).Hash.ToLowerInvariant()) 'AADC 單獨執行：假名化後的 config 雜湊與 manifest 一致'
+
+# ---------------------------------------------------------------------------
+# 第三次執行：只跑 EntraLogs + SecurityAlerts（沒有 AD / Entra 模組），沿用同一把金鑰：
+# 登入紀錄的顯示名稱、告警標題中的名稱都必須假名化，且與第一次的假名一致
+# ---------------------------------------------------------------------------
+$Include = @('EntraLogs', 'SecurityAlerts')
+$Label = 'SmokeSub-Logs'
+$script:ADHDTestHooks.AvailableModules = @('Microsoft.Graph.Authentication')   # cloud-only host: no AD names to borrow
+$result3 = Invoke-ADHDMain
+$bundle3 = $result3.BundlePath
+$all3 = (Get-ChildItem -LiteralPath $bundle3 -Recurse -File | Where-Object { $_.Name -ne 'collection.log' } | ForEach-Object { Get-Content -LiteralPath $_.FullName -Raw }) -join "`n"
+foreach ($bad in 'jdoe', 'John Doe', 'john.doe@sub.com') {
+    Assert-True ($all3.IndexOf($bad, [System.StringComparison]::OrdinalIgnoreCase) -lt 0) "只收紀錄：bundle 不含明文 $bad"
+}
+$sign3 = @(Get-Content -LiteralPath (Join-Path $bundle3 'entra_signins.jsonl') -Encoding UTF8 | ConvertFrom-Json)
+Assert-True ($sign3[0].userDisplayName -match '^u-[0-9a-f]{12}$') '只收紀錄：登入紀錄顯示名稱假名化'
+$al3 = @(Get-Content -LiteralPath (Join-Path $bundle3 'security_alerts.jsonl') -Encoding UTF8 | ConvertFrom-Json)
+Assert-True ($al3[0].evidence[0].userAccount.accountName -eq $firstJdoe) '只收紀錄：告警帳號假名與 AD bundle 一致'
 
 Write-Host ''
 if ($failures.Count -gt 0) {
