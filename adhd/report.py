@@ -81,6 +81,13 @@ def _attack_paths(ctx) -> dict[str, Any] | None:
         return None
     out = {k: v for k, v in res.items() if k != "entries"}
     out.update(entries=res["entries"][:PATHS_LIMIT], entriesTotal=len(res["entries"]))
+    # kind / Tier0 status of every object on the listed routes, so viewers can draw them without the graph
+    ag = getattr(ctx, "_attack_graph", (None,))[0]
+    ids = {s[k] for e in out["entries"] for s in e["steps"] for k in ("from", "to")}
+    ids |= {c[k] for c in out.get("chokepoints") or [] for k in ("from", "to")}
+    out["nodes"] = {n: {"label": ctx.label(n), "kind": ctx.graph.kind(n),
+                        "tier0": n in ctx.tier0 or bool(ag and n in ag.targets),
+                        "tier0Reason": ag.targets.get(n) if ag else None} for n in sorted(ids)}
     return out
 
 

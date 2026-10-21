@@ -310,6 +310,11 @@ class CoverageAndCli(unittest.TestCase):
         self.assertTrue(doc["findings"][0]["severity"] == "critical")
         md = (out / "findings.md").read_text(encoding="utf-8")
         self.assertIn("## 規則執行狀態", md)
+        html = (out / "report.html").read_text(encoding="utf-8")
+        data = html.split('<script type="application/json" id="adhd-data">', 1)[1].split("</script>", 1)[0]
+        self.assertEqual(json.loads(data)["findings"][0]["findingId"], "F001")
+        self.assertNotRegex(html, r"(?i)<(script|link|img|iframe)[^>]+(src|href)=")   # nothing loaded from anywhere
+        self.assertIn("default-src 'none'", html)
         self.assertIn("## 攻擊路徑", md)
         self.assertGreater(doc["attackPaths"]["entriesTotal"], 3)
         self.assertTrue(doc["attackPaths"]["entries"][0]["steps"])
@@ -364,6 +369,19 @@ class Exceptions(unittest.TestCase):
 
 
 class Helpers(unittest.TestCase):
+    def test_html_report_escapes_embedded_data(self):
+        from adhd.html_report import write_html
+        evil = '</script><img src=x onerror=alert(1)>&\u2028'
+        doc = {"scope": {"adDomain": evil}, "findings": [{"findingId": "F001", "title": evil, "affected": []}], "rules": []}
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "r.html"
+            write_html(doc, p)
+            html = p.read_text(encoding="utf-8")
+        data = html.split('id="adhd-data">', 1)[1].rsplit("</script>", 2)[0]
+        self.assertNotIn("<", data.split("</script>")[0])
+        self.assertEqual(json.loads(data.split("</script>")[0])["findings"][0]["title"], evil)
+        self.assertNotIn("<img", html.split("<title>", 1)[1].split("</title>", 1)[0])
+
     def test_overlapping_bundles_use_newest(self):
         def stamp(path, finished, scope):
             m = json.loads((path / "manifest.json").read_text(encoding="utf-8"))

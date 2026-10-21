@@ -38,6 +38,7 @@ python3 tools/analyze.py ... --only AD-020 ADCS    # 只跑指定規則 / 類別
 |---|---|---|
 | `findings.md` | 人 | 摘要、依嚴重度排序的發現（對象、細節、修補建議、ATT&CK）、每條規則的執行狀態 |
 | `findings.json` | 地端模型 / 自動化 | schema `adhd.findings/1`：`summary`、`rules[]`（狀態與略過原因）、`findings[]`（含 `affected[]` 與 `evidence`） |
+| `report.html` | 人（瀏覽器） | 離線 dashboard：總覽與統計卡、類別 × 嚴重度矩陣、通往 Tier0 的暴露、攻擊路徑圖與優先切斷、重點對象、可篩選搜尋的發現清單、規則與未評估範圍；單一檔案、不連網路、不載入外部資源（`--no-html` 可略過） |
 | `graph.sqlite` | 查詢 / MCP 伺服器 | `nodes`、`edges`、`findings`、`affected`、`rules`、`meta`，以及攻擊路徑的 `attack_paths`、`attack_steps`、`attack_targets` |
 
 帳號名稱沿用收集時的假名（`u-xxxxxxxxxxxx`），報告可以安全地在 lab 內流通；需要還原時由子公司以對照表查詢。輸出含環境資料，`.gitignore` 已排除，不要提交到 repo。

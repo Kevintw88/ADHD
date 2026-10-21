@@ -13,6 +13,7 @@ from pathlib import Path
 from .bundle import BundleError, open_round
 from .exceptions import ExceptionFileError, apply_exceptions, load_exceptions
 from .load import build_context
+from .html_report import write_html
 from .report import SEV_LABEL, STATUS_LABEL, build_document, write_json, write_markdown, write_sqlite
 from .rules import SEVERITIES, all_rules, run_rules
 
@@ -44,6 +45,7 @@ def main(argv: list[str] | None = None) -> int:
                     help="analyse bundles pseudonymised with different keys (pseudonyms will not line up)")
     ap.add_argument("--exceptions", type=Path, help="JSON file of reviewed / accepted exceptions (see adhd/exceptions.py)")
     ap.add_argument("--no-sqlite", action="store_true", help="skip graph.sqlite")
+    ap.add_argument("--no-html", action="store_true", help="skip report.html (offline dashboard)")
     ap.add_argument("--list-rules", action="store_true", help="print the rule catalogue and exit")
     ap.add_argument("--markdown", action="store_true", help="with --list-rules: print as a Markdown table")
     args = ap.parse_args(argv)
@@ -87,6 +89,8 @@ def main(argv: list[str] | None = None) -> int:
     write_markdown(doc, args.out / "findings.md")
     if not args.no_sqlite:
         write_sqlite(ctx, doc, args.out / "graph.sqlite")
+    if not args.no_html:
+        write_html(doc, args.out / "report.html")
 
     s = doc["summary"]
     print(f"範圍：{doc['scope'].get('adDomain')} / tenant {doc['scope'].get('entraTenantId')}　資料時間 {doc['asOfUtc']}")
@@ -102,7 +106,8 @@ def main(argv: list[str] | None = None) -> int:
     for r in doc["rules"]:
         if r["status"] == "error":
             print(f"  ERROR {r['ruleId']}: {(r['reason'] or '').splitlines()[0]}", file=sys.stderr)
-    print(f"輸出：{args.out}/findings.md、findings.json" + ("" if args.no_sqlite else "、graph.sqlite"))
+    print(f"輸出：{args.out}/findings.md、findings.json" + ("" if args.no_sqlite else "、graph.sqlite")
+          + ("" if args.no_html else "、report.html（離線 dashboard，用瀏覽器開啟）"))
     return 1 if s["rules"]["error"] else 0
 
 
