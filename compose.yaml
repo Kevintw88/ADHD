@@ -1,0 +1,31 @@
+# docker compose run --rm adhd analyze /data/intake/ADHD-Collect-SubA*20261020*.zip --out /data/reports/SubA-20261020
+# docker compose run --rm agent agent --report-dir /data/reports/SubA-20261020 --model <name> --task report
+x-hardening: &hardening
+  image: adhd:${ADHD_VERSION:-0.3.0}
+  build: .
+  user: "${ADHD_UID:-10001}:${ADHD_GID:-10001}"
+  read_only: true
+  tmpfs: [/tmp]
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  working_dir: /data
+
+services:
+  # verification, analysis, path queries, MCP server: no network at all
+  adhd:
+    <<: *hardening
+    network_mode: none
+    volumes:
+      - ${ADHD_INTAKE:-/srv/adhd/intake}:/data/intake:ro
+      - ${ADHD_REPORTS:-/srv/adhd/reports}:/data/reports
+
+  # the agent needs to reach the lab's model endpoint (vLLM); reports only, never the raw bundles
+  agent:
+    <<: *hardening
+    environment:
+      ADHD_LLM_BASE_URL: ${ADHD_LLM_BASE_URL:-http://host.docker.internal:8000/v1}
+      ADHD_LLM_MODEL: ${ADHD_LLM_MODEL:-}
+      ADHD_LLM_API_KEY: ${ADHD_LLM_API_KEY:-}
+    extra_hosts: ["host.docker.internal:host-gateway"]
+    volumes:
+      - ${ADHD_REPORTS:-/srv/adhd/reports}:/data/reports

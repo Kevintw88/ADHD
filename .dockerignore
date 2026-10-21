@@ -1,0 +1,15 @@
+# never send collected data, keys or outputs into the build context
+**/*.zip
+**/*.jsonl
+**/*.key
+**/ADHD-pseudonym*
+**/ADHD-Collect-*
+**/reports/
+**/graph.sqlite
+**/findings.json
+**/agent-*/
+**/eval-*/
+.git
+collectors/
+tests/powershell/
+**/__pycache__/

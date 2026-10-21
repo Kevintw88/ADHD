@@ -2,7 +2,7 @@
 
 以 AI（地端模型）協助 AD 與 Entra ID 混合環境的預防評估、攻擊路徑分析、威脅偵測與架構硬化。
 
-目前階段：**MVP（Phase 0 + 1，唯讀）**。先在各公司環境盤點，再依實際環境啟用分析模組（偵測後運行）。
+目前階段：**MVP（Phase 0 + 1，唯讀）**：收集、離線分析與攻擊路徑、唯讀 MCP 伺服器、地端模型調查 Agent、Docker 部署。先在各公司環境盤點，再依實際環境啟用分析模組（偵測後運行）。
 
 ## 架構概念
 
@@ -28,6 +28,7 @@
 | `tools/paths.py` | 攻擊路徑查詢：起點與優先切斷的步驟、單一主體到 Tier0 的路徑、誰能取得某個物件 |
 | `tools/mcp_server.py` | 唯讀 MCP 伺服器（stdio），讓地端模型查詢發現、關聯圖與攻擊路徑（[docs/mcp.md](docs/mcp.md)） |
 | `tools/agent.py`、`tools/eval_agent.py` | 調查 Agent：地端模型（vLLM 等 OpenAI 相容 API）透過 MCP 產出中文報告，並以確定性檢查器驗證引用；比較多個模型（[docs/agent.md](docs/agent.md)） |
+| `Dockerfile`、`compose.yaml` | lab 部署：單一映像、無網路的分析服務與只能看分析輸出的 Agent 服務（[docs/docker.md](docs/docker.md)） |
 | `tests/powershell/` | 收集器的 mock 端對端測試 |
 | `tests/python/` | 分析的合成環境測試（脆弱 / 乾淨兩套） |
 
