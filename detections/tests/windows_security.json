@@ -1,0 +1,1517 @@
+{
+ "logsource": "windows/security",
+ "env": {
+  "dcsync_expected": [
+   "S-1-5-21-10-20-30-1106"
+  ],
+  "keycred_writers": [
+   "S-1-5-21-10-20-30-1106"
+  ],
+  "tier0_groups": [
+   "S-1-5-21-10-20-30-1600"
+  ],
+  "tier0_accounts": [
+   "S-1-5-21-10-20-30-500",
+   "S-1-5-21-10-20-30-1101"
+  ]
+ },
+ "cases": [
+  {
+   "name": "Kerberoasting: one requester, six SPNs in 6 minutes",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc0",
+      "ServiceSid": "S-1-5-21-10-20-30-2096",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc1",
+      "ServiceSid": "S-1-5-21-10-20-30-2311",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc2",
+      "ServiceSid": "S-1-5-21-10-20-30-2466",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc3",
+      "ServiceSid": "S-1-5-21-10-20-30-2129",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc4",
+      "ServiceSid": "S-1-5-21-10-20-30-2349",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc5",
+      "ServiceSid": "S-1-5-21-10-20-30-2493",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    }
+   ],
+   "expect": {
+    "bb4f5491-8ab7-532a-97e7-722f6ee34418": 1
+   }
+  },
+  {
+   "name": "RC4 tickets for 4 SPNs only: below threshold, base rule suppressed",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc0",
+      "ServiceSid": "S-1-5-21-10-20-30-2096",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc1",
+      "ServiceSid": "S-1-5-21-10-20-30-2311",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc2",
+      "ServiceSid": "S-1-5-21-10-20-30-2466",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc3",
+      "ServiceSid": "S-1-5-21-10-20-30-2129",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "AES tickets and machine services do not count",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc0",
+      "ServiceSid": "S-1-5-21-10-20-30-2096",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc1",
+      "ServiceSid": "S-1-5-21-10-20-30-2311",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc2",
+      "ServiceSid": "S-1-5-21-10-20-30-2466",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc3",
+      "ServiceSid": "S-1-5-21-10-20-30-2129",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc4",
+      "ServiceSid": "S-1-5-21-10-20-30-2349",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc5",
+      "ServiceSid": "S-1-5-21-10-20-30-2493",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:06:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc6",
+      "ServiceSid": "S-1-5-21-10-20-30-2249",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:07:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "svc7",
+      "ServiceSid": "S-1-5-21-10-20-30-2411",
+      "TicketEncryptionType": "0x12",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "host0$",
+      "ServiceSid": "S-1-5-21-10-20-30-2276",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "host1$",
+      "ServiceSid": "S-1-5-21-10-20-30-2485",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "host2$",
+      "ServiceSid": "S-1-5-21-10-20-30-2372",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "host3$",
+      "ServiceSid": "S-1-5-21-10-20-30-2171",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "host4$",
+      "ServiceSid": "S-1-5-21-10-20-30-2196",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "host5$",
+      "ServiceSid": "S-1-5-21-10-20-30-2343",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "krbtgt",
+      "ServiceSid": "S-1-5-21-10-20-30-2100",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "Same SPNs spread over hours: no burst",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T10:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-a@CORP",
+      "ServiceName": "svc10",
+      "ServiceSid": "S-1-5-21-10-20-30-310",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.9"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T11:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-a@CORP",
+      "ServiceName": "svc11",
+      "ServiceSid": "S-1-5-21-10-20-30-311",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.9"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T12:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-a@CORP",
+      "ServiceName": "svc12",
+      "ServiceSid": "S-1-5-21-10-20-30-312",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.9"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T13:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-a@CORP",
+      "ServiceName": "svc13",
+      "ServiceSid": "S-1-5-21-10-20-30-313",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.9"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T14:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-a@CORP",
+      "ServiceName": "svc14",
+      "ServiceSid": "S-1-5-21-10-20-30-314",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.9"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T15:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-a@CORP",
+      "ServiceName": "svc15",
+      "ServiceSid": "S-1-5-21-10-20-30-315",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.9"
+     }
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "RC4 ticket for a Tier0 account's SPN",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "MSSQLSvc/sql01",
+      "ServiceSid": "S-1-5-21-10-20-30-1101",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    }
+   ],
+   "expect": {
+    "a9cb4811-0404-5e1c-ac94-9708e9c414b1": 1
+   }
+  },
+  {
+   "name": "AS-REP without pre-auth",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4768,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-svc",
+      "PreAuthType": "0",
+      "Status": "0x0",
+      "IpAddress": "10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4768,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-ok",
+      "PreAuthType": "2",
+      "Status": "0x0"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4768,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "WS01$",
+      "PreAuthType": "0",
+      "Status": "0x0"
+     }
+    }
+   ],
+   "expect": {
+    "a06c6239-939a-5a8f-bdf0-03ef2117704b": 1
+   }
+  },
+  {
+   "name": "DCSync by a user account",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4662,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-evil",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1107",
+      "AccessMask": "0x100",
+      "Properties": "%%7688 {1131f6ad-9c07-11d1-f79f-00c04fc2dcd2} {19195a5b-6da0-11d0-afd3-00c04fd930c9}"
+     }
+    }
+   ],
+   "expect": {
+    "414fdf36-f2c5-501b-8ccf-ed878f5554e1": 1
+   }
+  },
+  {
+   "name": "Replication by a DC and by the Entra Connect connector is expected",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4662,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "DC02$",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1001",
+      "AccessMask": "0x100",
+      "Properties": "{1131f6ad-9c07-11d1-f79f-00c04fc2dcd2}"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4662,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-connector",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1106",
+      "AccessMask": "0x100",
+      "Properties": "{1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4662,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-reader",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1110",
+      "AccessMask": "0x10",
+      "Properties": "{bf967aba-0de6-11d0-a285-00aa003049e2}"
+     }
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "Password spray: one IP, 12 accounts (Kerberos + NTLM)",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4625,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user0",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user1",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4625,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user2",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user3",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4625,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user4",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user5",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4625,
+     "timeCreated": "2026-10-20T01:06:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user6",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:07:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user7",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4625,
+     "timeCreated": "2026-10-20T01:08:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user8",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:09:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user9",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4625,
+     "timeCreated": "2026-10-20T01:10:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user10",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:11:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user11",
+      "IpAddress": "10.9.9.9",
+      "Status": "0x18",
+      "SubStatus": "0xc000006a"
+     }
+    }
+   ],
+   "expect": {
+    "4a269c2a-7c2e-5491-9131-610a38983066": 1
+   }
+  },
+  {
+   "name": "Brute force: 25 failures on one account",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.0",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.1",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.2",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.3",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.4",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.5",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:06:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.6",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:07:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:08:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.8",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.9",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.10",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.11",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.12",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.13",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.14",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:06:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.15",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:07:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.16",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:08:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.17",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.18",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.19",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.20",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.21",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.22",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.23",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:06:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-victim",
+      "IpAddress": "10.0.0.24",
+      "Status": "0x18"
+     }
+    }
+   ],
+   "expect": {
+    "9d1d4619-5341-5739-bece-e6732eb4cb01": 1
+   }
+  },
+  {
+   "name": "A few typos are not an attack",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user0",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user1",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:02:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user2",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:03:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user0",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:04:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user1",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4771,
+     "timeCreated": "2026-10-20T01:05:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "user2",
+      "IpAddress": "10.0.0.7",
+      "Status": "0x18"
+     }
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "Member added to Domain Admins and to an environment Tier0 group",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4728,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-admin",
+      "TargetSid": "S-1-5-21-10-20-30-512",
+      "MemberSid": "S-1-5-21-10-20-30-1107"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4728,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-admin",
+      "TargetSid": "S-1-5-21-10-20-30-1600",
+      "MemberSid": "S-1-5-21-10-20-30-1107"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4732,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-admin",
+      "TargetSid": "S-1-5-32-544",
+      "MemberSid": "S-1-5-21-10-20-30-1107"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4728,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-admin",
+      "TargetSid": "S-1-5-21-10-20-30-1700",
+      "MemberSid": "S-1-5-21-10-20-30-1107"
+     }
+    }
+   ],
+   "expect": {
+    "34789217-4a77-59ce-b3ce-71a4889afce4": 3
+   }
+  },
+  {
+   "name": "Tier0 password reset by a non-Tier0 account (and by Tier0: ignored)",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4724,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserSid": "S-1-5-21-10-20-30-1103",
+      "TargetSid": "S-1-5-21-10-20-30-1101"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4724,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserSid": "S-1-5-21-10-20-30-500",
+      "TargetSid": "S-1-5-21-10-20-30-1101"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4724,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserSid": "S-1-5-21-10-20-30-1103",
+      "TargetSid": "S-1-5-21-10-20-30-1200"
+     }
+    }
+   ],
+   "expect": {
+    "adc00d88-ce77-562b-b5fb-0d733f6300f5": 1
+   }
+  },
+  {
+   "name": "Directory changes: AdminSDHolder, shadow credentials, RBCD, SPN, GPO",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=AdminSDHolder,CN=System,DC=corp,DC=local",
+      "AttributeLDAPDisplayName": "nTSecurityDescriptor",
+      "OperationType": "%%14674",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1104"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=u-da1,CN=Users,DC=corp,DC=local",
+      "ObjectClass": "user",
+      "AttributeLDAPDisplayName": "msDS-KeyCredentialLink",
+      "OperationType": "%%14674",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1103"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=u-x,CN=Users,DC=corp,DC=local",
+      "ObjectClass": "user",
+      "AttributeLDAPDisplayName": "msDS-KeyCredentialLink",
+      "OperationType": "%%14674",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1106"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=DC01,OU=Domain Controllers,DC=corp,DC=local",
+      "ObjectClass": "computer",
+      "AttributeLDAPDisplayName": "msDS-AllowedToActOnBehalfOfOtherIdentity",
+      "OperationType": "%%14674",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1301"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=u-da1,CN=Users,DC=corp,DC=local",
+      "ObjectClass": "user",
+      "AttributeLDAPDisplayName": "servicePrincipalName",
+      "OperationType": "%%14674",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1103"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=u-da1,CN=Users,DC=corp,DC=local",
+      "ObjectClass": "user",
+      "AttributeLDAPDisplayName": "servicePrincipalName",
+      "OperationType": "%%14675",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1103"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN={6AC1786C-016F-11D2-945F-00C04FB984F9},CN=Policies,CN=System,DC=corp,DC=local",
+      "ObjectClass": "groupPolicyContainer",
+      "AttributeLDAPDisplayName": "versionNumber",
+      "OperationType": "%%14674"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "OU=Domain Controllers,DC=corp,DC=local",
+      "ObjectClass": "organizationalUnit",
+      "AttributeLDAPDisplayName": "gPLink",
+      "OperationType": "%%14674"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 5136,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "ObjectDN": "CN=u-y,CN=Users,DC=corp,DC=local",
+      "ObjectClass": "user",
+      "AttributeLDAPDisplayName": "description",
+      "OperationType": "%%14674"
+     }
+    }
+   ],
+   "expect": {
+    "8bb21765-52e2-585e-85d9-a0560ec8846f": 1,
+    "60f032c0-b8d7-5994-9a2e-55d3d539ec20": 1,
+    "e409c6f9-a675-540e-8291-4cb52982e1e5": 1,
+    "ddeeeab0-d7a8-5f9e-b3d9-970cb6216698": 1,
+    "f1efc93b-dcca-595d-b5e1-89638b2385ea": 2
+   }
+  },
+  {
+   "name": "Audit tampering",
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 1102,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-x"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4719,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "DC01$"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4794,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-admin"
+     }
+    }
+   ],
+   "expect": {
+    "ccd7d8a7-abb9-593b-90f5-3c82f35c1399": 1,
+    "89c785a7-e0c5-524c-a5a2-de055f665685": 1,
+    "8ed4f93e-364e-571c-81fa-c0d671bd8d36": 1
+   }
+  },
+  {
+   "name": "Placeholders not filled: environment-only rules stay silent, filters do not apply",
+   "env": {
+    "tier0_accounts": [],
+    "dcsync_expected": []
+   },
+   "events": [
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4769,
+     "timeCreated": "2026-10-20T01:01:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "TargetUserName": "u-attacker@CORP.LOCAL",
+      "ServiceName": "MSSQLSvc/sql01",
+      "ServiceSid": "S-1-5-21-10-20-30-1101",
+      "TicketEncryptionType": "0x17",
+      "Status": "0x0",
+      "IpAddress": "::ffff:10.0.0.5"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4724,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserSid": "S-1-5-21-10-20-30-1103",
+      "TargetSid": "S-1-5-21-10-20-30-1101"
+     }
+    },
+    {
+     "dc": "dc01.corp.local",
+     "eventId": 4662,
+     "timeCreated": "2026-10-20T01:00:00Z",
+     "machineName": "dc01.corp.local",
+     "outcome": "success",
+     "data": {
+      "SubjectUserName": "u-connector",
+      "SubjectUserSid": "S-1-5-21-10-20-30-1106",
+      "AccessMask": "0x100",
+      "Properties": "{1131f6aa-9c07-11d1-f79f-00c04fc2dcd2}"
+     }
+    }
+   ],
+   "expect": {
+    "414fdf36-f2c5-501b-8ccf-ed878f5554e1": 1
+   }
+  }
+ ]
+}

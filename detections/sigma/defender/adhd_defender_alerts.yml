@@ -1,0 +1,67 @@
+title: Defender For Identity Alert On A Tier0 Account
+id: e0d4c161-cf5d-5942-bae3-be0b6be6368e
+status: experimental
+description: |
+    A Microsoft Defender for Identity alert involves a Tier0 account (%tier0_accounts%, from the ADHD analysis).
+    Field names follow the Microsoft Graph security alert (alerts_v2) resource.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+logsource:
+    product: m365defender
+    service: alerts
+detection:
+    selection:
+        serviceSource: microsoftDefenderForIdentity
+        evidence.userAccount.userSid|expand: '%tier0_accounts%'
+    condition: selection
+level: high
+adhd:
+    title_zh: Defender for Identity 告警涉及 Tier0 帳號
+    response_zh: 依告警處理；Tier0 帳號的告警一律以網域入侵等級調查。
+    requires_env: [tier0_accounts]
+---
+title: Defender Alert On A Tier0 Host
+id: 9b1c6015-99de-5c19-9350-670ea5cc7416
+status: experimental
+description: A Defender (Endpoint or Identity) alert involves a domain controller, an Entra Connect server or an enterprise CA host (%tier0_hosts%).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.execution
+logsource:
+    product: m365defender
+    service: alerts
+detection:
+    selection:
+        evidence.deviceDnsName|expand: '%tier0_hosts%'
+    filter_informational:
+        severity: informational
+    condition: selection and not filter_informational
+level: high
+adhd:
+    title_zh: Defender 告警涉及 Tier0 主機（DC、Entra Connect、CA）
+    response_zh: 以網域入侵等級調查；Entra Connect 主機的告警需一併檢查 connector 帳號的使用紀錄。
+    requires_env: [tier0_hosts]
+---
+title: High-Severity Defender For Identity Alert
+id: d15705a7-9b52-551a-9ab9-31c94ae1cb63
+status: experimental
+description: A high-severity Defender for Identity alert (passed through so it is correlated with the attack-path context).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+logsource:
+    product: m365defender
+    service: alerts
+detection:
+    selection:
+        serviceSource: microsoftDefenderForIdentity
+        severity: high
+    condition: selection
+level: medium
+adhd:
+    title_zh: Defender for Identity 高嚴重度告警
+    response_zh: 依告警處理，並參考 ADHD 對涉及對象的攻擊路徑分析。

@@ -1,0 +1,188 @@
+{
+ "logsource": "azure/auditlogs",
+ "cases": [
+  {
+   "name": "Tier0 role assigned vs ordinary role",
+   "events": [
+    {
+     "id": "a1Add member to role",
+     "activityDateTime": "2026-10-20T01:01:00Z",
+     "activityDisplayName": "Add member to role",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": [
+        {
+         "displayName": "Role.DisplayName",
+         "oldValue": null,
+         "newValue": "\"Global Administrator\""
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "id": "a2Add member to role",
+     "activityDateTime": "2026-10-20T01:02:00Z",
+     "activityDisplayName": "Add member to role",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": [
+        {
+         "displayName": "Role.DisplayName",
+         "oldValue": null,
+         "newValue": "\"Reports Reader\""
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "61d5bc8a-3cd2-535e-a9cf-1c4c1c8f1b3e": 1
+   }
+  },
+  {
+   "name": "Consent, app credentials, CA change, federation change",
+   "events": [
+    {
+     "id": "a1Consent to application",
+     "activityDateTime": "2026-10-20T01:01:00Z",
+     "activityDisplayName": "Consent to application",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": []
+      }
+     ]
+    },
+    {
+     "id": "a2Add service principal credentials",
+     "activityDateTime": "2026-10-20T01:02:00Z",
+     "activityDisplayName": "Add service principal credentials",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": []
+      }
+     ]
+    },
+    {
+     "id": "a3Update application – Certificates and secrets management ",
+     "activityDateTime": "2026-10-20T01:03:00Z",
+     "activityDisplayName": "Update application – Certificates and secrets management ",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": []
+      }
+     ]
+    },
+    {
+     "id": "a4Delete conditional access policy",
+     "activityDateTime": "2026-10-20T01:04:00Z",
+     "activityDisplayName": "Delete conditional access policy",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": []
+      }
+     ]
+    },
+    {
+     "id": "a5Set federation settings on domain",
+     "activityDateTime": "2026-10-20T01:05:00Z",
+     "activityDisplayName": "Set federation settings on domain",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": []
+      }
+     ]
+    },
+    {
+     "id": "a6Update user",
+     "activityDateTime": "2026-10-20T01:06:00Z",
+     "activityDisplayName": "Update user",
+     "category": "RoleManagement",
+     "result": "success",
+     "initiatedBy": {
+      "user": {
+       "userPrincipalName": "u-admin@corp.com",
+       "id": "admin-1"
+      }
+     },
+     "targetResources": [
+      {
+       "displayName": "x",
+       "modifiedProperties": []
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "a391529c-5011-528e-bd8f-91ae72f7c24b": 1,
+    "c470bc0f-dd47-57cd-9d49-7bfdf4774de7": 2,
+    "ba8713d1-b05d-585a-b0b4-8d7343c74243": 1,
+    "fd69607a-3e74-55e7-a26b-67fcb85d5e25": 1
+   }
+  }
+ ]
+}

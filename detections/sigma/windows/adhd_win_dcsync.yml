@@ -1,0 +1,35 @@
+title: Directory Replication Requested By A Non-Domain-Controller Account
+id: 414fdf36-f2c5-501b-8ccf-ed878f5554e1
+status: experimental
+description: |
+    The directory replication rights (DS-Replication-Get-Changes / -All / -In-Filtered-Set) were used by
+    an account that is not a domain controller and not an expected sync account. This is how DCSync
+    (Mimikatz lsadump::dcsync, secretsdump) extracts every password hash. Requires auditing of
+    Directory Service Access with a SACL on the domain object.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1003.006
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4662
+        AccessMask: '0x100'
+        Properties|contains:
+            - '1131f6aa-9c07-11d1-f79f-00c04fc2dcd2'
+            - '1131f6ad-9c07-11d1-f79f-00c04fc2dcd2'
+            - '89e95b76-444d-4c62-991a-0facbeda640c'
+    filter_dc:
+        SubjectUserName|endswith: '$'
+    filter_expected:
+        SubjectUserSid|expand: '%dcsync_expected%'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Entra Connect / Azure AD Connect connector accounts and other sync products (add them to dcsync_expected)
+level: high
+adhd:
+    title_zh: 非網域控制站帳號執行目錄複寫（DCSync）
+    response_zh: 視為網域入侵：隔離來源主機、確認帳號；若屬實需重設 krbtgt（兩次）與所有特權帳號密碼。

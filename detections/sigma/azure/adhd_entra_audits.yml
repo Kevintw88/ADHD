@@ -1,0 +1,130 @@
+title: Entra Tier0 Role Assigned
+id: 61d5bc8a-3cd2-535e-a9cf-1c4c1c8f1b3e
+status: experimental
+description: A user, group or service principal was given a Tier0 directory role (active or eligible).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.privilege-escalation
+    - attack.t1098.003
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection_activity:
+        activityDisplayName:
+            - Add member to role
+            - Add eligible member to role
+            - Add member to role in PIM requested (permanent)
+            - Add eligible member to role in PIM requested (permanent)
+    selection_role:
+        targetResources.modifiedProperties.newValue|contains:
+            - Global Administrator
+            - Privileged Role Administrator
+            - Privileged Authentication Administrator
+            - Security Administrator
+            - Hybrid Identity Administrator
+            - Application Administrator
+            - Cloud Application Administrator
+            - Partner Tier2 Support
+    condition: selection_activity and selection_role
+level: high
+adhd:
+    title_zh: 指派了 Entra Tier0 角色
+    response_zh: 對照變更單；非預期則移除指派、撤銷該主體的工作階段並調查執行者。
+---
+title: Application Consent Granted
+id: a391529c-5011-528e-bd8f-91ae72f7c24b
+status: experimental
+description: A user or administrator consented to an application (illicit consent grant phishing gives an attacker standing access to data).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.t1528
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        activityDisplayName: Consent to application
+    condition: selection
+falsepositives:
+    - Onboarding of approved applications
+level: medium
+adhd:
+    title_zh: 應用程式取得同意授權
+    response_zh: 檢查授權範圍與發行者；可疑者撤銷授權並封鎖該應用程式。
+---
+title: Credentials Added To An Application Or Service Principal
+id: c470bc0f-dd47-57cd-9d49-7bfdf4774de7
+status: experimental
+description: A secret or certificate was added to an application or service principal (persistence through app credentials).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.t1098.001
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        - activityDisplayName: Add service principal credentials
+        - activityDisplayName|contains: Certificates and secrets management
+    condition: selection
+falsepositives:
+    - Planned secret rotation
+level: medium
+adhd:
+    title_zh: 應用程式或服務主體被新增憑證
+    response_zh: 確認執行者與用途；特別是持有高權限應用程式權限的服務主體（見 EN-013）。
+---
+title: Conditional Access Policy Changed Or Deleted
+id: ba8713d1-b05d-585a-b0b4-8d7343c74243
+status: experimental
+description: A Conditional Access policy was added, changed or deleted.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.defense-evasion
+    - attack.t1556.009
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        activityDisplayName:
+            - Add conditional access policy
+            - Update conditional access policy
+            - Delete conditional access policy
+    condition: selection
+level: medium
+adhd:
+    title_zh: 條件式存取原則被新增、修改或刪除
+    response_zh: 對照變更單；特別留意排除對象的增加與原則被停用 / 刪除。
+---
+title: Domain Federation Or Authentication Changed
+id: fd69607a-3e74-55e7-a26b-67fcb85d5e25
+status: experimental
+description: A domain's authentication type or federation settings changed (a rogue federation trust lets an attacker sign in as any user).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.t1484.002
+logsource:
+    product: azure
+    service: auditlogs
+detection:
+    selection:
+        activityDisplayName:
+            - Set domain authentication
+            - Set federation settings on domain
+            - Add unverified domain
+    condition: selection
+level: high
+adhd:
+    title_zh: 網域的同盟或驗證設定被變更
+    response_zh: 確認是否有核准的變更；非預期則恢復設定並調查執行者。

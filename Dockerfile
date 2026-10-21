@@ -11,6 +11,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PYTHONUTF8=1
 WORKDIR /opt/adhd
 COPY adhd/ adhd/
 COPY tools/ tools/
+COPY detections/ detections/
 COPY tests/python/ tests/python/
 COPY docker/entrypoint.py docker/entrypoint.py
 COPY docs/ docs/

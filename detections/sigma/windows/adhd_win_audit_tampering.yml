@@ -1,0 +1,64 @@
+title: Security Event Log Cleared
+id: ccd7d8a7-abb9-593b-90f5-3c82f35c1399
+status: experimental
+description: The Security event log was cleared on a domain controller.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.defense-evasion
+    - attack.t1070.001
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 1102
+    condition: selection
+level: high
+adhd:
+    title_zh: DC 的安全性事件記錄被清除
+    response_zh: 視為入侵跡象：確認執行者，從 SIEM / 轉送端取回被清除前的紀錄。
+---
+title: Audit Policy Changed
+id: 89c785a7-e0c5-524c-a5a2-de055f665685
+status: experimental
+description: The system audit policy was changed on a domain controller (attackers disable auditing before acting).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.defense-evasion
+    - attack.t1562.002
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4719
+    condition: selection
+falsepositives:
+    - Group Policy refresh applying planned audit settings
+level: medium
+adhd:
+    title_zh: 稽核原則被變更
+    response_zh: 確認是否為 GPO 套用；若為手動變更，調查執行者並恢復稽核設定。
+---
+title: Directory Services Restore Mode Password Changed
+id: 8ed4f93e-364e-571c-81fa-c0d671bd8d36
+status: experimental
+description: The DSRM administrator password was set on a domain controller. With DsrmAdminLogonBehavior changed, it becomes a persistent local administrator on the DC.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.t1098
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4794
+    condition: selection
+level: high
+adhd:
+    title_zh: DSRM 密碼被變更
+    response_zh: 確認是否為計畫中的變更；檢查 DC 的 DsrmAdminLogonBehavior 登錄值。

@@ -8,17 +8,17 @@ lab 若無法連外，在可連外的機器建置後匯出：
 
 ```bash
 git clone https://github.com/Kevintw88/ADHD.git && cd ADHD
-docker build -t adhd:0.4.0 .
-docker save adhd:0.4.0 | gzip > adhd-0.4.0.tar.gz
-sha256sum adhd-0.4.0.tar.gz > adhd-0.4.0.tar.gz.sha256
+docker build -t adhd:0.5.0 .
+docker save adhd:0.5.0 | gzip > adhd-0.5.0.tar.gz
+sha256sum adhd-0.5.0.tar.gz > adhd-0.5.0.tar.gz.sha256
 ```
 
 在 lab 主機：
 
 ```bash
-sha256sum -c adhd-0.4.0.tar.gz.sha256
-docker load < adhd-0.4.0.tar.gz
-docker run --rm --network none adhd:0.4.0 selftest     # 在映像內跑完整測試
+sha256sum -c adhd-0.5.0.tar.gz.sha256
+docker load < adhd-0.5.0.tar.gz
+docker run --rm --network none adhd:0.5.0 selftest     # 在映像內跑完整測試
 ```
 
 基底映像預設為 `python:3.12-slim`；組織有自己的映像倉庫或核准的基底映像時，用 `--build-arg BASE=<映像>` 指定（需含 Python 3.8 以上）。
@@ -63,7 +63,7 @@ MCP 伺服器走 stdio，用 `docker run -i` 啟動即可，例如在 MCP 用戶
     "adhd": {
       "command": "docker",
       "args": ["run", "-i", "--rm", "--network", "none", "--read-only", "--cap-drop", "ALL",
-               "-v", "/srv/adhd/reports:/data/reports:ro", "adhd:0.4.0", "mcp", "/data/reports/SubA-20261020"]
+               "-v", "/srv/adhd/reports:/data/reports:ro", "adhd:0.5.0", "mcp", "/data/reports/SubA-20261020"]
     }
   }
 }

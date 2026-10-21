@@ -1,0 +1,175 @@
+title: Successful Sign-In With Legacy Authentication
+id: 0f3746b1-3bc5-52ff-8836-9b6fa0944154
+status: experimental
+description: |
+    A sign-in succeeded with a legacy authentication protocol, which cannot satisfy MFA or most
+    Conditional Access controls. Field names follow the Microsoft Graph signIn resource (status.errorCode,
+    clientAppUsed, ...); map them when converting for Log Analytics (ResultType, ClientAppUsed, ...).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.initial-access
+    - attack.t1078.004
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        clientAppUsed:
+            - Exchange ActiveSync
+            - IMAP4
+            - POP3
+            - Authenticated SMTP
+            - Other clients
+            - MAPI Over HTTP
+            - Offline Address Book
+            - Exchange Web Services
+            - AutoDiscover
+            - Exchange Online PowerShell
+        status.errorCode: 0
+    condition: selection
+level: medium
+adhd:
+    title_zh: 以舊式驗證通訊協定成功登入
+    response_zh: 以條件式存取封鎖舊式驗證；確認該帳號與應用程式是否需要改用新式驗證。
+---
+title: Successful High-Risk Sign-In
+id: 27d48a4d-867f-5d47-bcf2-198a7f94469e
+status: experimental
+description: Identity Protection rated the sign-in high risk and it still succeeded.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.initial-access
+    - attack.t1078.004
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        riskLevelDuringSignIn: high
+        status.errorCode: 0
+    condition: selection
+level: high
+adhd:
+    title_zh: 高風險登入仍然成功
+    response_zh: 撤銷工作階段、重設密碼並重新註冊 MFA；檢查條件式存取的登入風險原則與排除對象。
+---
+title: MFA Request Denied Or Not Completed
+id: 5a5b6cca-fae9-5bdc-a7b1-a8319056c6b6
+name: adhd_entra_mfa_denied
+status: experimental
+description: Strong authentication was required and failed (error 500121). Used by the MFA fatigue correlation.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1621
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        status.errorCode: 500121
+    condition: selection
+level: low
+adhd:
+    title_zh: MFA 驗證被拒或未完成
+---
+title: MFA Fatigue - Repeated MFA Prompts For One User
+id: e043ecdb-447e-52f7-b511-7d1fa9650fc6
+status: experimental
+description: Five or more failed MFA prompts for one user within ten minutes (push bombing); the password is probably known to the attacker.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1621
+correlation:
+    type: event_count
+    rules:
+        - adhd_entra_mfa_denied
+    group-by:
+        - userPrincipalName
+    timespan: 10m
+    condition:
+        gte: 5
+level: high
+adhd:
+    title_zh: MFA 疲勞攻擊：同一使用者短時間多次 MFA 失敗
+    response_zh: 立即重設該帳號密碼；改用 number matching / FIDO2；檢查之後是否有成功登入。
+---
+title: Entra Sign-In Failed With Wrong Password
+id: 2265e4b4-24cb-5abf-8a11-0704a500933a
+name: adhd_entra_bad_password
+status: experimental
+description: Sign-in failed because of an invalid user name or password (50126) or a locked account (50053). Used by the spray correlation.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1110
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        status.errorCode:
+            - 50126
+            - 50053
+    condition: selection
+level: low
+adhd:
+    title_zh: Entra 登入密碼錯誤
+---
+title: Entra Password Spray - One Address, Many Users
+id: eb5bc318-d089-51e7-9768-dd16b59e753a
+status: experimental
+description: Wrong-password failures for ten or more users from one IP address within ten minutes.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1110.003
+correlation:
+    type: value_count
+    rules:
+        - adhd_entra_bad_password
+    group-by:
+        - ipAddress
+    timespan: 10m
+    condition:
+        gte: 10
+        field: userPrincipalName
+level: high
+adhd:
+    title_zh: Entra 密碼噴灑：同一 IP 對大量使用者嘗試密碼
+    response_zh: 以具名位置封鎖來源；檢查同一 IP 是否有成功登入；確認智慧鎖定設定。
+---
+title: Tier0 Cloud Administrator Signed In From An Unmanaged Device
+id: ad66efe2-abe4-5bad-9a09-7fbad2dbc691
+status: experimental
+description: |
+    A holder of an Entra Tier0 role (%entra_tier0_users%, from the ADHD analysis) signed in successfully from
+    a device that is not compliant / not managed. Privileged access should come from privileged access workstations.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.initial-access
+    - attack.t1078.004
+logsource:
+    product: azure
+    service: signinlogs
+detection:
+    selection:
+        userId|expand: '%entra_tier0_users%'
+        status.errorCode: 0
+    filter_managed:
+        - deviceDetail.isCompliant: true
+        - deviceDetail.isManaged: true
+    condition: selection and not filter_managed
+level: medium
+adhd:
+    title_zh: Entra Tier0 管理員從未受管理的裝置登入
+    response_zh: 以條件式存取要求特權角色只能從合規裝置登入；確認這次登入是否為本人。
+    requires_env: [entra_tier0_users]

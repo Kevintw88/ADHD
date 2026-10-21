@@ -1,0 +1,61 @@
+title: Kerberos Service Ticket Requested With RC4
+id: 08034dfb-cd73-593c-bc12-190df3a32a58
+name: adhd_kerberos_rc4_service_ticket
+status: experimental
+description: |
+    A Kerberos service ticket (TGS) was issued with RC4-HMAC for a user service account.
+    Kerberoasting tools ask for RC4 because it is the fastest to crack offline. On its own this is
+    common in old environments; the correlation below flags one requester asking for many SPNs.
+references:
+    - https://attack.mitre.org/techniques/T1558/003/
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1558.003
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4769
+        TicketEncryptionType: '0x17'
+        Status: '0x0'
+    filter_machine:
+        ServiceName|endswith: '$'
+    filter_krbtgt:
+        ServiceName: krbtgt
+    filter_machine_requester:
+        TargetUserName|contains: '$@'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Legacy applications or appliances that only support RC4
+level: low
+adhd:
+    title_zh: 以 RC4 加密簽發的 Kerberos 服務票證
+    response_zh: 確認申請者與服務帳號；服務帳號改用 gMSA 或 25 字元以上隨機密碼並只允許 AES。
+---
+title: Kerberoasting - Many RC4 Service Tickets From One Requester
+id: bb4f5491-8ab7-532a-97e7-722f6ee34418
+status: experimental
+description: One account requested RC4 service tickets for five or more different services within ten minutes.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1558.003
+correlation:
+    type: value_count
+    rules:
+        - adhd_kerberos_rc4_service_ticket
+    group-by:
+        - TargetUserName
+        - IpAddress
+    timespan: 10m
+    condition:
+        gte: 5
+        field: ServiceName
+level: high
+adhd:
+    title_zh: Kerberoasting：同一帳號短時間申請多個 RC4 服務票證
+    response_zh: 視為帳號已被入侵：調查來源主機、重設被申請票證的服務帳號密碼。

@@ -1,0 +1,133 @@
+title: AdminSDHolder Object Modified
+id: 8bb21765-52e2-585e-85d9-a0560ec8846f
+status: experimental
+description: The AdminSDHolder object was changed. Its DACL is copied to every protected (adminCount=1) account and group every hour, so a new ACE here is persistent Tier0 access.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.t1484.001
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5136
+        ObjectDN|startswith: 'CN=AdminSDHolder,CN=System,'
+    condition: selection
+level: high
+adhd:
+    title_zh: AdminSDHolder 被修改
+    response_zh: 比對 AdminSDHolder 的 ACL 與基準，移除非預期的 ACE，並調查執行者。
+---
+title: Key Credential Written To An Account (Shadow Credentials)
+id: 60f032c0-b8d7-5994-9a2e-55d3d539ec20
+status: experimental
+description: |
+    msDS-KeyCredentialLink was added to an object. Attackers with write access add their own key and then
+    authenticate as the account with PKINIT (Whisker, pyWhisker, Certipy shadow). Legitimate writers
+    (Windows Hello for Business key provisioning via Entra Connect) are listed in %keycred_writers%.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.persistence
+    - attack.credential-access
+    - attack.t1556
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5136
+        AttributeLDAPDisplayName: 'msDS-KeyCredentialLink'
+        OperationType: '%%14674'
+    filter_expected:
+        SubjectUserSid|expand: '%keycred_writers%'
+    condition: selection and not filter_expected
+falsepositives:
+    - Windows Hello for Business enrolment written by an account not listed in keycred_writers
+level: high
+adhd:
+    title_zh: 帳號被寫入 Key Credential（Shadow Credentials）
+    response_zh: 確認是否為 Windows Hello 註冊；若否，移除該值、重設帳號密碼並調查寫入者。
+---
+title: Resource-Based Constrained Delegation Configured
+id: e409c6f9-a675-540e-8291-4cb52982e1e5
+status: experimental
+description: msDS-AllowedToActOnBehalfOfOtherIdentity was set on an object, allowing the listed principals to impersonate any user to it (RBCD abuse).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.privilege-escalation
+    - attack.t1134
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5136
+        AttributeLDAPDisplayName: 'msDS-AllowedToActOnBehalfOfOtherIdentity'
+        OperationType: '%%14674'
+    condition: selection
+level: high
+adhd:
+    title_zh: 設定了資源型限制委派（RBCD）
+    response_zh: 確認是否有核准的委派需求；否則清除該屬性並調查寫入者。
+---
+title: Service Principal Name Added To A User Account
+id: ddeeeab0-d7a8-5f9e-b3d9-970cb6216698
+status: experimental
+description: An SPN was added to a user object. Attackers with write access add an SPN to make an account Kerberoastable (targeted Kerberoasting).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1558.003
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5136
+        AttributeLDAPDisplayName: servicePrincipalName
+        ObjectClass: user
+        OperationType: '%%14674'
+    condition: selection
+falsepositives:
+    - Service account onboarding
+level: medium
+adhd:
+    title_zh: 使用者帳號被新增 SPN（定向 Kerberoasting）
+    response_zh: 確認是否為服務帳號建置；否則移除 SPN、重設該帳號密碼並調查寫入者。
+---
+title: Group Policy Object Or GPO Link Changed
+id: f1efc93b-dcca-595d-b5e1-89638b2385ea
+status: experimental
+description: A GPO's settings or a gPLink on an OU / the domain changed. Control of a GPO applied to Tier0 hosts is control of those hosts.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.privilege-escalation
+    - attack.t1484.001
+logsource:
+    product: windows
+    service: security
+detection:
+    selection_gpo:
+        EventID: 5136
+        ObjectClass: groupPolicyContainer
+        AttributeLDAPDisplayName:
+            - gPCMachineExtensionNames
+            - gPCUserExtensionNames
+            - versionNumber
+            - gPCFileSysPath
+    selection_link:
+        EventID: 5136
+        AttributeLDAPDisplayName: gPLink
+    condition: 1 of selection_*
+falsepositives:
+    - Planned Group Policy changes
+level: medium
+adhd:
+    title_zh: GPO 設定或 GPO 連結變更
+    response_zh: 對照變更單；特別留意套用到 Domain Controllers、Tier0 伺服器的 GPO。

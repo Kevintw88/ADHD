@@ -1,0 +1,28 @@
+title: RC4 Service Ticket For A Tier0 Account's SPN
+id: a9cb4811-0404-5e1c-ac94-9708e9c414b1
+status: experimental
+description: |
+    An RC4 service ticket was issued for a service principal name registered on a Tier0 account
+    (environment-specific: the %tier0_accounts% placeholder is filled from the ADHD analysis).
+    A Tier0 account with an SPN can be Kerberoasted; one cracked password is domain compromise.
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1558.003
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4769
+        TicketEncryptionType: '0x17'
+        ServiceSid|expand: '%tier0_accounts%'
+    condition: selection
+falsepositives:
+    - Legacy clients that only support RC4 accessing a Tier0 service account (should not exist)
+level: high
+adhd:
+    title_zh: 有人以 RC4 申請 Tier0 帳號 SPN 的服務票證
+    response_zh: 立即調查申請者；移除 Tier0 帳號上的 SPN 或改用 gMSA，並重設該帳號密碼。
+    requires_env: [tier0_accounts]

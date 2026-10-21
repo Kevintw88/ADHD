@@ -1,0 +1,26 @@
+title: Kerberos TGT Requested Without Pre-Authentication
+id: a06c6239-939a-5a8f-bdf0-03ef2117704b
+status: experimental
+description: A TGT was issued without Kerberos pre-authentication (AS-REP roasting exposes the account's password to offline cracking).
+author: ADHD
+date: 2026-10-21
+tags:
+    - attack.credential-access
+    - attack.t1558.004
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4768
+        PreAuthType: '0'
+        Status: '0x0'
+    filter_machine:
+        TargetUserName|endswith: '$'
+    condition: selection and not filter_machine
+falsepositives:
+    - Accounts that legitimately have DONT_REQ_PREAUTH (should be removed; see AD-004)
+level: medium
+adhd:
+    title_zh: 未經預先驗證就簽發的 TGT（AS-REP Roasting）
+    response_zh: 關閉該帳號的「不需要 Kerberos 預先驗證」，重設密碼並調查來源 IP。

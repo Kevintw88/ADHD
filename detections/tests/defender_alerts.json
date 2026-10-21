@@ -1,0 +1,111 @@
+{
+ "logsource": "m365defender/alerts",
+ "env": {
+  "tier0_accounts": [
+   "S-1-5-21-10-20-30-1101"
+  ],
+  "tier0_hosts": [
+   "ca-aadc.corp.local",
+   "dc01.corp.local"
+  ]
+ },
+ "cases": [
+  {
+   "name": "MDI alert on a Tier0 account (medium severity)",
+   "events": [
+    {
+     "id": "al1",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "title": "alert 1",
+     "serviceSource": "microsoftDefenderForIdentity",
+     "severity": "medium",
+     "status": "new",
+     "evidence": [
+      {
+       "@odata.type": "#microsoft.graph.security.userEvidence",
+       "userAccount": {
+        "accountName": "u-da1",
+        "userSid": "S-1-5-21-10-20-30-1101"
+       }
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "e0d4c161-cf5d-5942-bae3-be0b6be6368e": 1
+   }
+  },
+  {
+   "name": "MDE alert on the Entra Connect server; informational alert ignored",
+   "events": [
+    {
+     "id": "al2",
+     "createdDateTime": "2026-10-20T01:02:00Z",
+     "title": "alert 2",
+     "serviceSource": "microsoftDefenderForEndpoint",
+     "severity": "medium",
+     "status": "new",
+     "evidence": [
+      {
+       "@odata.type": "#microsoft.graph.security.deviceEvidence",
+       "deviceDnsName": "ca-aadc.corp.local"
+      }
+     ]
+    },
+    {
+     "id": "al3",
+     "createdDateTime": "2026-10-20T01:03:00Z",
+     "title": "alert 3",
+     "serviceSource": "microsoftDefenderForEndpoint",
+     "severity": "informational",
+     "status": "new",
+     "evidence": [
+      {
+       "deviceDnsName": "dc01.corp.local"
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "9b1c6015-99de-5c19-9350-670ea5cc7416": 1
+   }
+  },
+  {
+   "name": "High MDI alert on an ordinary user",
+   "events": [
+    {
+     "id": "al4",
+     "createdDateTime": "2026-10-20T01:04:00Z",
+     "title": "alert 4",
+     "serviceSource": "microsoftDefenderForIdentity",
+     "severity": "high",
+     "status": "new",
+     "evidence": [
+      {
+       "userAccount": {
+        "accountName": "u-x",
+        "userSid": "S-1-5-21-10-20-30-1300"
+       }
+      }
+     ]
+    },
+    {
+     "id": "al5",
+     "createdDateTime": "2026-10-20T01:05:00Z",
+     "title": "alert 5",
+     "serviceSource": "microsoftDefenderForEndpoint",
+     "severity": "high",
+     "status": "new",
+     "evidence": [
+      {
+       "deviceDnsName": "ws22.corp.local"
+      }
+     ]
+    }
+   ],
+   "expect": {
+    "d15705a7-9b52-551a-9ab9-31c94ae1cb63": 1
+   }
+  }
+ ]
+}

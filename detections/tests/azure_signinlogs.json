@@ -1,0 +1,504 @@
+{
+ "logsource": "azure/signinlogs",
+ "env": {
+  "entra_tier0_users": [
+   "ga-1"
+  ]
+ },
+ "cases": [
+  {
+   "name": "Legacy auth success vs failure vs modern",
+   "events": [
+    {
+     "id": "s1u-a@corp.com",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "userPrincipalName": "u-a@corp.com",
+     "userId": "uid-u-a@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "IMAP4",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s2u-a@corp.com",
+     "createdDateTime": "2026-10-20T01:02:00Z",
+     "userPrincipalName": "u-a@corp.com",
+     "userId": "uid-u-a@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "IMAP4",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s3u-a@corp.com",
+     "createdDateTime": "2026-10-20T01:03:00Z",
+     "userPrincipalName": "u-a@corp.com",
+     "userId": "uid-u-a@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    }
+   ],
+   "expect": {
+    "0f3746b1-3bc5-52ff-8836-9b6fa0944154": 1
+   }
+  },
+  {
+   "name": "High-risk sign-in that succeeded",
+   "events": [
+    {
+     "id": "s1u-a@corp.com",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "userPrincipalName": "u-a@corp.com",
+     "userId": "uid-u-a@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "high",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s2u-a@corp.com",
+     "createdDateTime": "2026-10-20T01:02:00Z",
+     "userPrincipalName": "u-a@corp.com",
+     "userId": "uid-u-a@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 53003
+     },
+     "riskLevelDuringSignIn": "high",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s3u-a@corp.com",
+     "createdDateTime": "2026-10-20T01:03:00Z",
+     "userPrincipalName": "u-a@corp.com",
+     "userId": "uid-u-a@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "medium",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    }
+   ],
+   "expect": {
+    "27d48a4d-867f-5d47-bcf2-198a7f94469e": 1
+   }
+  },
+  {
+   "name": "MFA fatigue: 6 denied prompts in 6 minutes",
+   "events": [
+    {
+     "id": "s0u-victim@corp.com",
+     "createdDateTime": "2026-10-20T01:00:00Z",
+     "userPrincipalName": "u-victim@corp.com",
+     "userId": "uid-u-victim@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s1u-victim@corp.com",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "userPrincipalName": "u-victim@corp.com",
+     "userId": "uid-u-victim@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s2u-victim@corp.com",
+     "createdDateTime": "2026-10-20T01:02:00Z",
+     "userPrincipalName": "u-victim@corp.com",
+     "userId": "uid-u-victim@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s3u-victim@corp.com",
+     "createdDateTime": "2026-10-20T01:03:00Z",
+     "userPrincipalName": "u-victim@corp.com",
+     "userId": "uid-u-victim@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s4u-victim@corp.com",
+     "createdDateTime": "2026-10-20T01:04:00Z",
+     "userPrincipalName": "u-victim@corp.com",
+     "userId": "uid-u-victim@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s5u-victim@corp.com",
+     "createdDateTime": "2026-10-20T01:05:00Z",
+     "userPrincipalName": "u-victim@corp.com",
+     "userId": "uid-u-victim@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    }
+   ],
+   "expect": {
+    "e043ecdb-447e-52f7-b511-7d1fa9650fc6": 1
+   }
+  },
+  {
+   "name": "Two denied prompts: normal",
+   "events": [
+    {
+     "id": "s0u-v@corp.com",
+     "createdDateTime": "2026-10-20T01:00:00Z",
+     "userPrincipalName": "u-v@corp.com",
+     "userId": "uid-u-v@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s1u-v@corp.com",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "userPrincipalName": "u-v@corp.com",
+     "userId": "uid-u-v@corp.com",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 500121
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    }
+   ],
+   "expect": {}
+  },
+  {
+   "name": "Entra spray: 11 users from one IP",
+   "events": [
+    {
+     "id": "s0user0@corp.com",
+     "createdDateTime": "2026-10-20T01:00:00Z",
+     "userPrincipalName": "user0@corp.com",
+     "userId": "uid-user0@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s1user1@corp.com",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "userPrincipalName": "user1@corp.com",
+     "userId": "uid-user1@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s2user2@corp.com",
+     "createdDateTime": "2026-10-20T01:02:00Z",
+     "userPrincipalName": "user2@corp.com",
+     "userId": "uid-user2@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s3user3@corp.com",
+     "createdDateTime": "2026-10-20T01:03:00Z",
+     "userPrincipalName": "user3@corp.com",
+     "userId": "uid-user3@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s4user4@corp.com",
+     "createdDateTime": "2026-10-20T01:04:00Z",
+     "userPrincipalName": "user4@corp.com",
+     "userId": "uid-user4@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s5user5@corp.com",
+     "createdDateTime": "2026-10-20T01:05:00Z",
+     "userPrincipalName": "user5@corp.com",
+     "userId": "uid-user5@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s6user6@corp.com",
+     "createdDateTime": "2026-10-20T01:06:00Z",
+     "userPrincipalName": "user6@corp.com",
+     "userId": "uid-user6@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s7user7@corp.com",
+     "createdDateTime": "2026-10-20T01:07:00Z",
+     "userPrincipalName": "user7@corp.com",
+     "userId": "uid-user7@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s8user8@corp.com",
+     "createdDateTime": "2026-10-20T01:08:00Z",
+     "userPrincipalName": "user8@corp.com",
+     "userId": "uid-user8@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s9user9@corp.com",
+     "createdDateTime": "2026-10-20T01:09:00Z",
+     "userPrincipalName": "user9@corp.com",
+     "userId": "uid-user9@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s10user10@corp.com",
+     "createdDateTime": "2026-10-20T01:10:00Z",
+     "userPrincipalName": "user10@corp.com",
+     "userId": "uid-user10@corp.com",
+     "ipAddress": "198.51.100.4",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 50126
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    }
+   ],
+   "expect": {
+    "eb5bc318-d089-51e7-9768-dd16b59e753a": 1
+   }
+  },
+  {
+   "name": "Tier0 admin from unmanaged vs managed device",
+   "events": [
+    {
+     "id": "s1ga@corp.com",
+     "createdDateTime": "2026-10-20T01:01:00Z",
+     "userPrincipalName": "ga@corp.com",
+     "userId": "ga-1",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    },
+    {
+     "id": "s2ga@corp.com",
+     "createdDateTime": "2026-10-20T01:02:00Z",
+     "userPrincipalName": "ga@corp.com",
+     "userId": "ga-1",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": true,
+      "isManaged": true
+     }
+    },
+    {
+     "id": "s3u@corp.com",
+     "createdDateTime": "2026-10-20T01:03:00Z",
+     "userPrincipalName": "u@corp.com",
+     "userId": "other",
+     "ipAddress": "203.0.113.7",
+     "clientAppUsed": "Browser",
+     "status": {
+      "errorCode": 0
+     },
+     "riskLevelDuringSignIn": "none",
+     "deviceDetail": {
+      "isCompliant": false,
+      "isManaged": false
+     }
+    }
+   ],
+   "expect": {
+    "ad66efe2-abe4-5bad-9a09-7fbad2dbc691": 1
+   }
+  }
+ ]
+}

@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 COMMANDS = {
     "verify-bundle": "tools/verify_bundle.py", "sanity": "tools/bundle_sanity.py", "analyze": "tools/analyze.py",
     "paths": "tools/paths.py", "mcp": "tools/mcp_server.py", "agent": "tools/agent.py", "eval": "tools/eval_agent.py",
-    "compare-users": "tools/compare_users.py", "diag-enabled": "tools/diag_enabled.py",
+    "compare-users": "tools/compare_users.py", "detect": "tools/detect.py", "diag-enabled": "tools/diag_enabled.py",
 }
 HELP = """ADHD lab container
 
@@ -24,6 +24,7 @@ HELP = """ADHD lab container
   adhd mcp <report-dir>                    read-only MCP server on stdio (docker run -i)
   adhd agent --report-dir <dir> --model <name> [--base-url URL] [--task report|"question"]
   adhd eval --report-dir <dir> --model A --model B [--runs N]
+  adhd detect selftest | lint | run <bundles...> --out <dir> | tune <bundles...> --out <dir>
   adhd compare-users --old ... --new ... | adhd diag-enabled <bundles...>
   adhd selftest                            run the test suite inside the image
 """
