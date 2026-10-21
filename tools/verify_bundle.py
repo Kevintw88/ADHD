@@ -57,6 +57,20 @@ EMAIL_RE = re.compile(r"(?<![\w.%+\-#/])([\w.%+\-#]+)@([A-Za-z0-9\-]+(?:\.[A-Za-
 PSEUDO_LOCAL_RE = re.compile(r"^u-[0-9a-f]{12}$")
 KEY_MATERIAL_NAME_RE = re.compile(r"ADHD-pseudonym(?:-map-.*\.csv|\.key)$", re.IGNORECASE)
 
+# Person-name fields that must hold a pseudonym (u-xxxxxxxxxxxx) when pseudonymization is on.
+# "targetResources[User]" = displayName of targetResources entries whose type is User.
+DISPLAY_NAME_FIELDS = {
+    "entra_users": ("displayName", "givenName", "surname"),
+    "entra_signins": ("userDisplayName",),
+    "entra_risk_detections": ("userDisplayName",),
+    "entra_risky_users": ("userDisplayName",),
+    "entra_user_registration": ("userDisplayName",),
+    "entra_directory_audits": ("initiatedBy.user.displayName", "targetResources[User].displayName"),
+}
+# directory-sync / service identities whose display names are product names, not people
+INFRA_NAME_RE = re.compile(r"^(On-Premises Directory Synchronization Service Account|Sync_|MSOL_|AAD_|ADToAADSync|"
+                           r"Microsoft |Azure |Office 365 |Windows )", re.IGNORECASE)
+
 
 @dataclass
 class Report:
@@ -65,12 +79,16 @@ class Report:
     errors: list[str] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
     datasets: list[dict[str, Any]] = field(default_factory=list)
+    checks: list[str] = field(default_factory=list)
 
     def error(self, msg: str) -> None:
         self.errors.append(msg)
 
     def warn(self, msg: str) -> None:
         self.warnings.append(msg)
+
+    def check(self, msg: str) -> None:
+        self.checks.append(msg)
 
 
 def sha256_file(path: Path) -> str:
@@ -132,7 +150,28 @@ def mask_email(local: str, domain: str) -> str:
     return f"{local[:1]}***@{domain}"
 
 
+def _name_values(row: dict[str, Any], spec: str) -> list[Any]:
+    if spec.startswith("targetResources[User]."):
+        key = spec.split(".", 1)[1]
+        return [t.get(key) for t in (row.get("targetResources") or []) if isinstance(t, dict)
+                and str(t.get("type") or "").lower() == "user"]
+    cur: Any = row
+    for part in spec.split("."):
+        if not isinstance(cur, dict):
+            return []
+        cur = cur.get(part)
+    return [cur]
+
+
+def mask_name(value: str) -> str:
+    v = str(value)
+    return (v[0] + "*" * (len(v) - 1) if len(v) > 1 else "*") + f"（{len(v)} 字）"
+
+
 def check_jsonl(path: Path, name: str, expected_records: int, pseudo: bool, report: Report) -> int:
+    name_fields = DISPLAY_NAME_FIELDS.get(name, ()) if pseudo else ()
+    names_checked = 0
+    names_plain: list[str] = []
     count = 0
     leaked: list[str] = []
     forbidden_hits: set[str] = set()
@@ -149,6 +188,13 @@ def check_jsonl(path: Path, name: str, expected_records: int, pseudo: bool, repo
             for key, where in walk_keys(row):
                 if key.lower() in FORBIDDEN_KEYS:
                     forbidden_hits.add(where.split("[")[0] if "[" in where else where)
+            for spec in name_fields:
+                for v in _name_values(row, spec):
+                    if v in (None, ""):
+                        continue
+                    names_checked += 1
+                    if not PSEUDO_LOCAL_RE.match(str(v)) and not INFRA_NAME_RE.match(str(v)):
+                        names_plain.append(str(v))
             if pseudo:
                 for s in walk_strings(row):
                     if "@" not in s:
@@ -160,6 +206,13 @@ def check_jsonl(path: Path, name: str, expected_records: int, pseudo: bool, repo
         report.error(f"{name}: manifest says {expected_records} records, file has {count}")
     for where in sorted(forbidden_hits):
         report.error(f"{name}: forbidden field present at {where}")
+    if name_fields:
+        if names_plain:
+            distinct = sorted(set(names_plain))
+            report.error(f"{name}: {len(names_plain)}/{names_checked} 個人名欄位沒有假名化（{len(distinct)} 個不同的值，例："
+                         f"{'、'.join(mask_name(x) for x in distinct[:3])}）：這份 bundle 含真實姓名，請刪除並以收集器 0.1.3 以上重收")
+        else:
+            report.check(f"{name}: {names_checked} 個人名欄位皆已假名化（{', '.join(name_fields)}）")
     if leaked:
         sample = ", ".join(sorted(set(leaked))[:5])
         report.warn(f"{name}: {len(leaked)} e-mail address(es) not pseudonymized (e.g. {sample})")
@@ -242,6 +295,8 @@ def print_report(report: Report, strict: bool) -> bool:
     width = max((len(d["name"] or "") for d in report.datasets), default=10)
     for d in report.datasets:
         print(f"  {d['name']:<{width}}  {d['status']:<8} {d['records']:>8}")
+    for c in report.checks:
+        print(f"CHECK  {c}")
     for w in report.warnings:
         print(f"WARN   {w}")
     for e in report.errors:
@@ -273,7 +328,7 @@ def main(argv: list[str] | None = None) -> int:
         report = verify(bundle)
         failed = print_report(report, args.strict)
         any_failed = any_failed or failed
-        results.append({"bundle": report.bundle, "schema": report.schema, "passed": not failed,
+        results.append({"bundle": report.bundle, "schema": report.schema, "passed": not failed, "checks": report.checks,
                         "errors": report.errors, "warnings": report.warnings, "datasets": report.datasets})
 
     if len(results) > 1:
